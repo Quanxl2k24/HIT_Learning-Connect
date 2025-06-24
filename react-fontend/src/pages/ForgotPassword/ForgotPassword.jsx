@@ -50,14 +50,15 @@ const ChangePassword = () => {
           >
             <Form>
               <label>Nhập email</label>
-              <div className="inputNewPassword">
+
+              <div className="inputEmail">
                 <Field type="text" name="email" placeholder="Email" />
               </div>
 
               <ErrorMessage
                 name="email"
                 component="div"
-                className={"errorNewPassword"}
+                className={"errorEmail"}
               />
 
               <button type="submit" className="ButtonFotgotPassword">

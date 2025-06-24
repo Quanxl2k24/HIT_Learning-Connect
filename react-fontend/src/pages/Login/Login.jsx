@@ -40,44 +40,44 @@ const Login = () => {
             onSubmit={handleSubmit}
           >
             <Form className="login_formsInput--input">
-              <>
-                <label>Tên đăng nhập</label>
-                <br />
-                <div className="boxUserName">
-                  <Field name="username" type="text" placeholder="Username" />
-                </div>
+              <label>Tên đăng nhập</label>
 
-                <ErrorMessage
-                  name="username"
-                  component="div"
-                  className="validate"
-                />
+              <div className="boxUserName">
+                <Field name="username" type="text" placeholder="Username" />
+              </div>
+
+              <ErrorMessage
+                name="username"
+                component="div"
+                className="validate"
+              />
+              <div className="labelBoxPassword">
                 <label>Mật khẩu</label>
-                <br />
-                <div className="boxPassword">
-                  <Field
-                    name="password"
-                    type={typePassword ? "text" : "password"}
-                    placeholder="Mật khẩu"
-                  />
+              </div>
 
-                  <button onClick={handleTypePassword}>
-                    <img
-                      src={typePassword ? HiddenPassword : ShowPassword}
-                      alt=""
-                    />
-                  </button>
-                </div>
-                <ErrorMessage
+              <div className="boxPassword">
+                <Field
                   name="password"
-                  component="div"
-                  className="validate"
+                  type={typePassword ? "text" : "password"}
+                  placeholder="Mật khẩu"
                 />
 
-                <button className="buttonLogin" type="submit">
-                  Đăng Nhập
+                <button onClick={handleTypePassword}>
+                  <img
+                    src={typePassword ? HiddenPassword : ShowPassword}
+                    alt=""
+                  />
                 </button>
-              </>
+              </div>
+              <ErrorMessage
+                name="password"
+                component="div"
+                className="validate"
+              />
+
+              <button className="buttonLogin" type="submit">
+                Đăng Nhập
+              </button>
             </Form>
           </Formik>
 

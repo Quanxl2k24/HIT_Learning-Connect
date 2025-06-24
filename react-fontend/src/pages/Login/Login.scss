@@ -40,7 +40,6 @@
           background-color: #f5f7f9;
           border-radius: 8px;
           margin-top: 8px;
-          margin-bottom: 16px;
           input {
             width: 100%;
             height: 40px;
@@ -56,6 +55,10 @@
           }
         }
 
+        .labelBoxPassword {
+          margin-top: 16px;
+        }
+
         .boxPassword {
           width: 100%;
           height: 44px;
@@ -65,7 +68,6 @@
           @include style.flex(space-between, center);
           padding-right: 12px;
           margin-top: 8px;
-          margin-bottom: 16px;
           input {
             width: 80%;
             height: 40px;
@@ -101,6 +103,10 @@
           border-radius: 8px;
           color: white;
           font-weight: 500;
+
+          &:hover {
+            background-color: #d85e20;
+          }
         }
       }
     }
@@ -118,13 +124,8 @@
   }
 }
 
-.validate {
-  color: #494848;
-}
-
 .forgotPassword {
   position: absolute;
-  // margin-top: 10rem;
   bottom: 3rem;
   p {
     color: #4e4e4e;
@@ -248,4 +249,11 @@
       }
     }
   }
+}
+
+// css ErrorMesage
+
+.validate {
+  color: #f06c24;
+  font-size: 12px;
 }
