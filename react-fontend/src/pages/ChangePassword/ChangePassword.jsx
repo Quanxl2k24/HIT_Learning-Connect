@@ -1,4 +1,3 @@
-
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useState } from "react";
 
@@ -49,7 +48,10 @@ const ChangePassword = () => {
             onSubmit={handleSubmit}
           >
             <Form>
-              <label>Nhập mật khẩu mới</label>
+              <div>
+                <label>Mật khẩu</label>
+              </div>
+
               <div className="inputNewPassword">
                 <Field
                   type={typePassword ? "text" : "password"}
@@ -69,7 +71,9 @@ const ChangePassword = () => {
                 component="div"
                 className={"errorNewPassword"}
               />
-              <label>Nhập mật lại khẩu mới</label>
+              <div className="labelInputConfirmPassword">
+                <label>Nhập mật lại khẩu mới</label>  
+              </div>
               <div className="inputConfirmPassword">
                 <Field
                   type={typeConfirmPassword ? "text" : "password"}
