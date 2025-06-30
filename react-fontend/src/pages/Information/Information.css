@@ -1,0 +1,259 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9fafb;
+}
+
+.infor {
+    display: flex;
+    min-height: 100vh;
+}
+
+.infor-colum1 {
+    width: 20%;
+    background-color: #ffffff;
+    box-shadow: 1px 0 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+    margin-right: 4px;
+}
+
+.solid-on-logo {
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(to right, #F06C24, #F97316, #EAB308);
+}
+
+.infor-logo img {
+    width: 90px;
+    padding: 20px 0;
+}
+
+.solid-logo {
+    width: 80%;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 24px;
+}
+
+
+.infor-title {
+    padding: 0 12px;
+}
+
+.user-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-radius: 16px;
+    background-color: #fff7f1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ffe1c7;
+    width: 240px;
+    overflow: hidden;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    background-color: #f97316;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.info {
+    margin-left: 12px;
+    z-index: 1;
+}
+
+.name {
+    font-weight: 600;
+    color: #1f2937;
+    font-size: 16px;
+}
+
+.role {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.circle-bg,
+.circle-bgg {
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    border-radius: 50%;
+    opacity: 0.5;
+    z-index: 0;
+}
+
+.circle-bg {
+    width: 80px;
+    height: 80px;
+    background-color: #ffedd5;
+}
+
+.circle-bgg {
+    width: 60px;
+    height: 60px;
+    background-color: #f1dabd;
+}
+
+.logout-btn {
+    margin-top: auto;
+    padding-bottom: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.logout-btn button {
+    padding: 8px 12px;
+    background-color: transparent;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.infor-colum2 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.infor-colum2-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 32px;
+    background-color: white;
+}
+
+.solid-banner-infor-co2 {
+    height: 40px;
+    width: 10px;
+    background: linear-gradient(to bottom, #F06C24, #F97316, #EAB308);
+    border-radius: 12px;
+}
+
+.infor-colum2-body {
+    background-color: #fff8f0;
+    flex: 1;
+    padding: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.profile-card {
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 12px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 700px;
+    height: 520px;
+}
+
+.card-header {
+    height: 140px;
+    background-size: 100px 100px;
+    background: linear-gradient(to right, #F46F1E, #FB923C);
+    background-position: center;
+}
+
+.card-body {
+    padding: 24px;
+    position: relative;
+    top: -66px;
+    margin-bottom: -36px;
+}
+
+.card-avatar {
+    width: 96px;
+    height: 96px;
+    background-color: #FFF8F0;
+    border: 4px solid white;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    color: #f97316;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-name {
+
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 12px;
+    color: #111827;
+}
+
+.card-role {
+    padding-top: 8px;
+    color: #f97316;
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 0 16px;
+    font-size: 14px;
+    color: #374151;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+}
+
+.info-item span {
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+.card-buttons {
+    display: flex;
+    gap: 12px;
+    padding-top: 32px;
+}
+
+.btn-outline {
+    padding: 8px 16px;
+    border: 1px solid #9ca3af;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-solid {
+    width: 140px;
+    padding: 8px 16px;
+    background: #f97316;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
