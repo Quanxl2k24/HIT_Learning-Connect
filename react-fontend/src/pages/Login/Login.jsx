@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Field, Formik, ErrorMessage, Form } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./Login.scss";
 import Logo from "../../assets/imgs/LogoHit.png";
@@ -8,8 +8,11 @@ import ShowPassword from "../../assets/imgs/ShowPassword.png";
 import HiddenPassword from "../../assets/imgs/HiddenPassword.png";
 import ImgLogin from "../../assets/imgs/ImgLogin.png";
 import loginValidate from "../../utlis/loignValidate";
+import useLoginHandler from "../../hooks/useLoginHandler";
 
 const Login = () => {
+  const { handleLogin } = useLoginHandler();
+  const navigate = useNavigate();
   const [typePassword, setTypePassword] = useState(false);
 
   //handle chuyển type password
@@ -18,8 +21,10 @@ const Login = () => {
     setTypePassword(!typePassword);
   };
 
-  const handleSubmit = (values) => {
-    console.log(values);
+  // call api
+  const handleSubmit = async (values, { setSubmitting }) => {
+    await handleLogin(values.username, values.password, navigate);
+    setSubmitting(false);
   };
 
   return (

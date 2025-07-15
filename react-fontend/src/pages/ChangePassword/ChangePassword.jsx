@@ -1,13 +1,19 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import ChangePasswordShema from "../../utlis/changePasswordSchema";
 import ShowPassword from "../../assets/imgs/ShowPassword.png";
 import HiddenPassword from "../../assets/imgs/HiddenPassword.png";
 import "./ChangePassword.scss";
 import Logo from "../../assets/imgs/Logo-2.png";
+// goi hook
+import useChangePassword from "../../hooks/useChangePassword";
 
 const ChangePassword = () => {
+  const token = localStorage.getItem("token");
+  const { ChangePassword } = useChangePassword();
+  const navigate = useNavigate();
   const [typePassword, setTypePassword] = useState(false);
   const [typeConfirmPassword, setTypeConfirmPassword] = useState(false);
 
@@ -24,8 +30,9 @@ const ChangePassword = () => {
   };
 
   //handle submit
-  const handleSubmit = (values) => {
-    console.log(">>", values.newpassword);
+  const handleSubmit = (values, { setSubmitting }) => {
+    ChangePassword(values.newpassword, values.confirmpassword, token, navigate);
+    setSubmitting(false);
   };
 
   return (
@@ -72,7 +79,7 @@ const ChangePassword = () => {
                 className={"errorNewPassword"}
               />
               <div className="labelInputConfirmPassword">
-                <label>Nhập mật lại khẩu mới</label>  
+                <label>Nhập mật lại khẩu mới</label>
               </div>
               <div className="inputConfirmPassword">
                 <Field
