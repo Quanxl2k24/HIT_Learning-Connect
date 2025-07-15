@@ -1,0 +1,184 @@
+@use "../../styles/index" as style;
+/* Sidebar */
+.Home_left {
+  width: 20%;
+  height: 100vh;
+}
+.SideBar {
+  width: 100%;
+}
+// Right
+body {
+  background: style.$background-color;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.logo img {
+  width: 80px;
+  margin-bottom: 20px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.avatar {
+  background-color: #f97316;
+  color: white;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name {
+  font-weight: bold;
+}
+
+.role {
+  font-size: 0.9em;
+  color: gray;
+}
+
+.menu a {
+  display: block;
+  padding: 10px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.menu a.active,
+.menu a:hover {
+  background: #f97316;
+  color: white;
+}
+
+.logout {
+  margin-top: auto;
+}
+
+.logout a {
+  display: block;
+  padding: 10px;
+  background: #f3f4f6;
+  border-radius: 6px;
+  text-align: center;
+  color: #333;
+  text-decoration: none;
+}
+
+/* Main Content */
+.main-content {
+  width: 80%;
+}
+
+.banner {
+  display: flex;
+  justify-content: none;
+  align-items: center;
+  padding: 16px 32px;
+  gap: 16px;
+  background-color: white;
+}
+.logo-banner {
+  height: 40px;
+  width: 10px;
+  background: linear-gradient(to bottom, #f06c24, #f97316, #eab308);
+  border-radius: 12px;
+}
+
+.box-conatiner {
+  padding: 0 6rem;
+}
+.section-title {
+  background: linear-gradient(to right, #f46f1e, #fb923c);
+  padding: 20px;
+  color: white;
+  font-weight: 600;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-top: 4rem;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.form-group small {
+  font-size: 0.8em;
+  color: gray;
+  margin-top: 5px;
+}
+
+.form-actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.cancel {
+  background: #f3f4f6;
+  color: #333;
+}
+
+.submit {
+  background: #f97316;
+  color: white;
+}
+
+//css validate
+.validate {
+  color: #f06c24;
+  font-size: 12px;
+}
+
+.p {
+  margin-top: 4px;
+  margin-left: 4px;
+}

@@ -1,0 +1,190 @@
+@use "../../styles/index" as style;
+
+.SideBar {
+  width: 20%;
+  height: 100vh;
+  background-color: #ffffff;
+  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 4px;
+
+  &_logo {
+    width: 100%;
+    &--top-bar {
+      height: 4px;
+      background: linear-gradient(to bottom, #f06c24, #f97316, #eab308);
+      width: 100%;
+    }
+
+    &--logo {
+      width: 100%;
+      img {
+        padding: 20px 0px;
+        display: block;
+        width: 90px;
+        margin: 0 auto;
+      }
+    }
+
+    .divider {
+      width: 100%;
+      border: none;
+      height: 1px;
+      background-color: #e2e8f0;
+      margin-bottom: 24px;
+    }
+
+    .infor-title {
+      padding: 0 12px;
+    }
+    .user-card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      border-radius: 16px;
+      background-color: #fff7f1;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      border: 1px solid #ffe1c7;
+      width: 240px;
+      overflow: hidden;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      background-color: #f97316;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .info {
+      margin-left: 12px;
+      z-index: 1;
+    }
+
+    .name {
+      font-weight: 600;
+      color: #1f2937;
+      font-size: 16px;
+    }
+
+    .role {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .circle-bg,
+    .circle-bgg {
+      position: absolute;
+      right: -20px;
+      bottom: -20px;
+      border-radius: 50%;
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    .circle-bg {
+      width: 80px;
+      height: 80px;
+      background-color: #ffedd5;
+    }
+
+    .circle-bgg {
+      width: 60px;
+      height: 60px;
+      background-color: #f1dabd;
+    }
+  }
+
+  &_listButton {
+    margin-top: 30px;
+
+    ul {
+      li {
+        list-style: none;
+        padding: 10px;
+
+        a {
+          text-decoration: none;
+          color: black;
+        }
+      }
+    }
+  }
+
+  .logout-btn {
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    &:hover {
+      background-color: #e1dede;
+    }
+    border-radius: 16px;
+  }
+
+  .logout-btn button {
+    // padding: 8px 12px;
+    background-color: transparent;
+    border: none;
+    color: #6b7280;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .active {
+    background-color: rgb(195, 193, 193);
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .SideBar {
+    width: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .SideBar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 240px;
+    height: 100%;
+    z-index: 100;
+    background-color: #ffffff;
+    transition: left 0.3s ease;
+    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+
+    &.open {
+      left: 0;
+    }
+
+    .logout-btn {
+      justify-content: center;
+    }
+  }
+
+  .SideBar_toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 200;
+    background-color: #f97316;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+}

@@ -1,230 +1,239 @@
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f9fafb;
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f9fafb;
+}
+
+/* Sidebar */
+.Home_left {
+  width: 20%;
+  height: 100vh;
+}
+.SideBar {
+  width: 100%;
 }
 
 .infor {
-    display: flex;
-    min-height: 100vh;
+  display: flex;
+  min-height: 100vh;
 }
 
 .infor-colum1 {
-    width: 20%;
-    background-color: #ffffff;
-    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 4px;
+  width: 20%;
+  background-color: #ffffff;
+  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 4px;
 }
 
 .solid-on-logo {
-    height: 4px;
-    width: 100%;
-    background: linear-gradient(to right, #F06C24, #F97316, #EAB308);
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(to right, #f06c24, #f97316, #eab308);
 }
 
 .infor-logo img {
-    width: 90px;
-    padding: 20px 0;
+  width: 90px;
+  padding: 20px 0;
 }
 
 .solid-logo {
-    width: 80%;
-    border-bottom: 1px solid #e5e7eb;
-    margin-bottom: 24px;
+  width: 80%;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 24px;
 }
 
 .infor-title {
-    padding: 0 12px;
+  padding: 0 12px;
 }
 
 .user-card {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 16px;
-    border-radius: 16px;
-    background-color: #fff7f1;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    border: 1px solid #ffe1c7;
-    width: 240px;
-    overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: #fff7f1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ffe1c7;
+  width: 240px;
+  overflow: hidden;
 }
 
 .avatar {
-    width: 48px;
-    height: 48px;
-    background-color: #f97316;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    z-index: 1;
+  width: 48px;
+  height: 48px;
+  background-color: #f97316;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 1;
 }
 
 .info {
-    margin-left: 12px;
-    z-index: 1;
+  margin-left: 12px;
+  z-index: 1;
 }
 
 .name {
-    font-weight: 600;
-    color: #1f2937;
-    font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 16px;
 }
 
 .role {
-    font-size: 14px;
-    color: #6b7280;
+  font-size: 14px;
+  color: #6b7280;
 }
 
 .circle-bg,
 .circle-bgg {
-    position: absolute;
-    right: -20px;
-    bottom: -20px;
-    border-radius: 50%;
-    opacity: 0.5;
-    z-index: 0;
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  border-radius: 50%;
+  opacity: 0.5;
+  z-index: 0;
 }
 
 .circle-bg {
-    width: 80px;
-    height: 80px;
-    background-color: #ffedd5;
+  width: 80px;
+  height: 80px;
+  background-color: #ffedd5;
 }
 
 .circle-bgg {
-    width: 60px;
-    height: 60px;
-    background-color: #f1dabd;
+  width: 60px;
+  height: 60px;
+  background-color: #f1dabd;
 }
 
 .logout-btn {
-    margin-top: auto;
-    padding-bottom: 24px;
-    display: flex;
-    align-items: center;
+  margin-top: auto;
+  padding-bottom: 24px;
+  display: flex;
+  align-items: center;
 }
 
 .logout-btn button {
-    padding: 8px 12px;
-    background-color: transparent;
-    border: none;
-    color: #6b7280;
-    cursor: pointer;
-    font-size: 14px;
+  padding: 8px 12px;
+  background-color: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 14px;
 }
 
 .infor-colum2 {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .infor-colum2-banner {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 32px;
-    background-color: white;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 32px;
+  background-color: white;
 }
 
 .solid-banner-infor-co2 {
-    height: 40px;
-    width: 10px;
-    background: linear-gradient(to bottom, #F06C24, #F97316, #EAB308);
-    border-radius: 12px;
+  height: 40px;
+  width: 10px;
+  background: linear-gradient(to bottom, #f06c24, #f97316, #eab308);
+  border-radius: 12px;
 }
 
 .infor-colum2-body {
-    background-color: #fff8f0;
-    flex: 1;
-    padding: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: start;
+  background-color: #fff8f0;
+  flex: 1;
+  padding: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: start;
 }
 
 .edit-card {
-    background-color: white;
-    border-radius: 16px;
-    box-shadow: 0 12px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    width: 700px;
-    height: auto;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 12px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 700px;
+  height: auto;
 }
 
 .edit-header {
-    height: 56px;
-    background: linear-gradient(to right, #F46F1E, #FB923C);
-    color: white;
-    font-weight: 600;
-    font-size: 16px;
-    padding: 16px;
+  height: 56px;
+  background: linear-gradient(to right, #f46f1e, #fb923c);
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 16px;
 }
 
 .edit-form {
-    padding: 24px;
+  padding: 24px;
 }
 
 .form-row {
-    display: flex;
-    gap: 24px;
-    margin-bottom: 16px;
+  display: flex;
+  gap: 24px;
+  margin-bottom: 16px;
 }
 
 .form-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
 }
 
 .form-group label {
-    font-weight: 600;
-    margin-bottom: 6px;
+  font-weight: 600;
+  margin-bottom: 6px;
 }
 
 .form-group input {
-    padding: 10px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    outline: none;
-    font-size: 14px;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
 }
 
 .form-group small {
-    font-size: 12px;
-    color: #6b7280;
-    margin-top: 4px;
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
 }
 
 .form-buttons {
-    display: flex;
-    justify-content: end;
-    gap: 12px;
-    margin-top: 16px;
+  display: flex;
+  justify-content: end;
+  gap: 12px;
+  margin-top: 16px;
 }
 
 .btn-outline {
-    padding: 10px 16px;
-    border: 1px solid #d1d5db;
-    background: white;
-    border-radius: 8px;
-    cursor: pointer;
+  padding: 10px 16px;
+  border: 1px solid #d1d5db;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .btn-solid {
-    padding: 10px 16px;
-    background: #f97316;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+  padding: 10px 16px;
+  background: #f97316;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }

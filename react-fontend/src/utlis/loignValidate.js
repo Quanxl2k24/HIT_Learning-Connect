@@ -7,7 +7,7 @@ const loginValidate = () => {
       .min(5, "Username phải có ít nhất 5 kí tự"),
     password: Yup.string()
       .required("Password không được để trống")
-      .min(8, "Password phải đủ 8 kí tự"),
+      .min(4, "Password phải đủ 8 kí tự"), // test phai sua lai thanh 8 ki tu
   });
 };
 

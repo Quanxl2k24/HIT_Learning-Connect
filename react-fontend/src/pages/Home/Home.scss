@@ -1,0 +1,60 @@
+@use "../../styles/index" as style;
+// @import BannerHomePage from "../../assets/imgs/BannerHomePage.png";
+
+.Home {
+  display: flex;
+  &_left {
+    width: 20%;
+    height: 100vh;
+  }
+  .SideBar {
+    width: 100%;
+  }
+
+  &_right {
+    width: 80%;
+    &--banner {
+      margin-top: 24px;
+      background-image: url("../../assets/imgs/BannerHomePage.png");
+      border: 1px solid black;
+      border-radius: 16px;
+      height: 18rem;
+      background: linear-gradient(
+        to right,
+        rgba(255, 102, 0, 0.9) 20%,
+        rgba(255, 102, 0, 0.7) 40%,
+        rgba(255, 102, 0, 0.4) 60%,
+        rgba(255, 102, 0, 0.1) 80%,
+        rgba(255, 102, 0, 0) 100%
+      );
+
+      .content-banner {
+        padding: 40px 40px;
+        &_h1 {
+          width: max-content;
+          margin-bottom: 18px;
+          color: white;
+        }
+
+        &_p {
+          width: 350px;
+          color: white;
+          font-size: 16px;
+          margin-bottom: 26px;
+        }
+
+        .but_class {
+          padding: 10px;
+          border-radius: 6px;
+          border: none;
+          color: style.$primary-color;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+.banner-container {
+  padding: 0 70px;
+}
