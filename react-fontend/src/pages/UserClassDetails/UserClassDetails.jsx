@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./UserClassDetails.scss";
 import SideBar from "../../components/SideBar/SideBar";
 const UserClassDetail = ({ classData, onBack }) => {
@@ -76,10 +77,11 @@ const UserClassDetail = ({ classData, onBack }) => {
                   readOnly
                 />
               </div>
-
-              <button className="back-btn" onClick={onBack}>
-                Quay lại
-              </button>
+              <Link to={"/User/Class"}>
+                <button className="back-btn" onClick={onBack}>
+                  Quay lại
+                </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -8,6 +8,7 @@ import adminCreateUserSchema from "../../utlis/adminCreateUserSchema";
 import { adminUserCreate } from "../../redux/admin/adminActions";
 import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 const AdminCreateUser = () => {
+  const [statusBox, setStatusBox] = useState(false);
   const navigate = useNavigate();
   const [showToast, setShowToast] = useState(null);
   const error = useSelector((state) => state.admin.error);
@@ -23,10 +24,12 @@ const AdminCreateUser = () => {
     },
 
     validationSchema: adminCreateUserSchema,
-    onSubmit: (values) => {
-      dispatch(adminUserCreate(values));
-      if (!error) {
+    onSubmit: async (values) => {
+      const res = await dispatch(adminUserCreate(values));
+      console.log(res.success);
+      if (res.success) {
         setText("Tạo người dùng thành công");
+        setStatusBox(true);
         setShowToast(true);
         setTimeout(() => {
           navigate("/Admin/UserManagement");
@@ -34,6 +37,7 @@ const AdminCreateUser = () => {
       } else {
         setText("Tạo người dùng không thành công");
         setShowToast(true);
+        setStatusBox(false);
       }
     },
   });
@@ -42,7 +46,11 @@ const AdminCreateUser = () => {
     <>
       <div className="container">
         {showToast && (
-          <BoxNotification message={text} onClose={() => setShowToast(false)} />
+          <BoxNotification
+            message={text}
+            status={statusBox}
+            onClose={() => setShowToast(false)}
+          />
         )}
         <div className="Home_left">
           <SideBar />

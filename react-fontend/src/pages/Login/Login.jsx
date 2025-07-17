@@ -10,9 +10,13 @@ import HiddenPassword from "../../assets/imgs/HiddenPassword.png";
 import ImgLogin from "../../assets/imgs/ImgLogin.png";
 import loginValidate from "../../utlis/loignValidate";
 import useLoginHandler from "../../hooks/useLoginHandler";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 import { fetchUser } from "../../redux/user/userActions";
 
 const Login = () => {
+  const [statusBox, setStatusBox] = useState(false);
+  const [showToast, setShowToast] = useState(null);
+  const [text, setText] = useState("");
   const { handleLogin } = useLoginHandler();
   const navigate = useNavigate();
   const [typePassword, setTypePassword] = useState(false);
@@ -24,17 +28,37 @@ const Login = () => {
   };
 
   // call api
+  let status = null;
   const dispatch = useDispatch();
   const handleSubmit = async (values, { setSubmitting }) => {
-    await handleLogin(values.username, values.password, navigate, dispatch);
+    const res = await handleLogin(
+      values.username,
+      values.password,
+      navigate,
+      dispatch
+    );
+    if (res.success) {
+      setShowToast(true);
+      setStatusBox(true);
+      setText("Đăng nhập thành công");
+    } else {
+      setShowToast(true);
+      setStatusBox(false);
+      setText("Mật khẩu hoặc tên người dùng sai");
+    }
     setSubmitting(false);
     dispatch(fetchUser());
   };
 
-  // call api
-
   return (
     <div className="login-container">
+      {showToast && (
+        <BoxNotification
+          message={text}
+          status={statusBox}
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <div className="login">
         <div className="login_formsInput">
           <div className="login_formsInput--logo">

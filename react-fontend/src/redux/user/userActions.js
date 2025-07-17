@@ -45,7 +45,7 @@ export const fetchUser = () => {
     }
   };
 };
-
+// them return
 export const updateUser = (dataUpdate) => {
   return async (dispatch) => {
     const token = localStorage.getItem("token");
@@ -53,10 +53,11 @@ export const updateUser = (dataUpdate) => {
     dispatch(setLoading(true));
     try {
       const res = await UpdateUserByUserApi(dataUpdate, token);
-
       dispatch(setUser(res.data.data));
+      return { success: true };
     } catch (error) {
       dispatch(setError(error.message));
+      return { success: false };
     } finally {
       dispatch(setLoading(false));
     }

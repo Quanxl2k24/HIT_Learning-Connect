@@ -90,7 +90,7 @@ function Information() {
                   </button>
                 </Link>
 
-                <Link to="/Change_Information" className="Link">
+                <Link to="/Information/Change_Information" className="Link">
                   <button className="btn-solid">
                     <img src={Pen} alt="pen" /> Chỉnh sửa
                   </button>

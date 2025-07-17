@@ -1,6 +1,4 @@
 import { LoginApi } from "../api/UserCallApi";
-import { useDispatch } from "react-redux";
-import { fetchUser } from "../redux/user/userActions";
 const useLoginHandler = () => {
   const handleLogin = async (
     username,
@@ -11,21 +9,12 @@ const useLoginHandler = () => {
     try {
       const response = await LoginApi({ username, password });
 
-      // In ra toàn bộ để debug
-      // console.log("Full response: ", response);
-
-      //  Lấy đúng dữ liệu từ tầng response.data.data
-      const {
-        tokenType,
-        accessToken,
-        refreshToken,
-        id,
-        authorities,
-        firstLogin,
-      } = response.data.data;
+      //  Lấy dữ liệu từ tầng response.data.data
+      const { accessToken, refreshToken, id, authorities, firstLogin } =
+        response.data.data;
+      console.log("api tra ve: ", response.data.data);
 
       //  Lưu token
-      localStorage.setItem("accessToken", `${tokenType} ${accessToken}`);
       localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("token", accessToken);
 
@@ -33,18 +22,22 @@ const useLoginHandler = () => {
       console.log("Đăng nhập thành công", { id, authorities });
       console.log("Co phai lan dau", firstLogin);
 
-      //  Điều hướng nếu cần
-
       // can sua lai day bro(do lai if else la dc)
-      if (!firstLogin) {
-        if (navigator) {
-          navigator("/");
+
+      setTimeout(() => {
+        if (!firstLogin) {
+          if (navigator) {
+            navigator("/Home");
+          }
+        } else {
+          navigator("/ChangePassword");
         }
-      } else {
-        navigator("/ChangePassword");
-      }
+      }, 1500);
+
+      return { success: true };
     } catch (error) {
       console.log("Đăng nhập thất bại: ", error.message);
+      return { success: false };
     }
   };
 

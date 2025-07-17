@@ -32,11 +32,11 @@ function Change_Infor() {
       username: Profile?.username || "",
     },
 
-    onSubmit: (values) => {
-      dispatch(updateUser(values));
-      console.log("Loi day", errorChange);
-      
-      if (!errorChange) {
+    onSubmit: async (values) => {
+      const res = await dispatch(updateUser(values));
+      console.log("Loi day", res.success);
+
+      if (res.success) {
         setStatusBox(true);
         setText("Cập nhật thông tin thành công");
         setShowToast(true);

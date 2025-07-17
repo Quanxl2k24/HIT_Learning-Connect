@@ -1,5 +1,6 @@
 import "./UserClass.scss";
 import SideBar from "../../components/SideBar/SideBar";
+import { Link } from "react-router-dom";
 const UserClass = () => {
   return (
     <div>
@@ -21,7 +22,9 @@ const UserClass = () => {
                 <div className="title-class-list">
                   <h3>Danh sách lớp học của Câu lạc bộ tin học - HIT</h3>
                 </div>
-                <button className="btn-register">+ Đăng ký lớp học</button>
+                <Link to="/User/Class/Details" className="Link">
+                  <button className="btn-register">+ Đăng ký lớp học</button>
+                </Link>
               </div>
 
               <table className="class-table">
