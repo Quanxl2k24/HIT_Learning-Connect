@@ -1,7 +1,8 @@
+
+
 body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
-  background-color: #f9fafb;
 }
 
 /* Sidebar */
@@ -236,4 +237,8 @@ body {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.Link {
+  text-decoration: none;
 }

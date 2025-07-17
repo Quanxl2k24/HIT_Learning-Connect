@@ -1,4 +1,3 @@
-
 import { SET_USER, CLEAR_USER, SET_LOADING, SET_ERROR } from "./userType";
 import { ProfileUser, UpdateUserByUserApi } from "../../api/UserCallApi";
 //Tao actions
@@ -56,7 +55,6 @@ export const updateUser = (dataUpdate) => {
       const res = await UpdateUserByUserApi(dataUpdate, token);
 
       dispatch(setUser(res.data.data));
-      console.log(res.data.data);
     } catch (error) {
       dispatch(setError(error.message));
     } finally {

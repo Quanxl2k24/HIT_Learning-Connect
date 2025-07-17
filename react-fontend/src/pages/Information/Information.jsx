@@ -28,7 +28,6 @@ function Information() {
   useEffect(() => {}, [Profile]);
   //phan quyen
   const userRole = Profile?.roleName === "ROLE_USER";
-  console.log(Profile);
   return (
     <div className="infor">
       {/*  SideBar */}

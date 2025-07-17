@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 const AdminUserManagement = () => {
   const dispatch = useDispatch();
-  const param = { page: 0, size: 10, sort: "username" };
+  const param = { page: 0, size: 20, sort: "id" };
   useEffect(() => {
     dispatch(fetchAllUser(param));
   }, []);

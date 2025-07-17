@@ -1,14 +1,17 @@
+import { useState } from "react";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./AdminCreateUser.scss";
 import SideBar from "../../components/SideBar/SideBar";
 import adminCreateUserSchema from "../../utlis/adminCreateUserSchema";
 import { adminUserCreate } from "../../redux/admin/adminActions";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 const AdminCreateUser = () => {
+  const navigate = useNavigate();
+  const [showToast, setShowToast] = useState(null);
   const error = useSelector((state) => state.admin.error);
-  console.log("Loi", error);
-
+  const [text, setText] = useState("");
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -22,12 +25,25 @@ const AdminCreateUser = () => {
     validationSchema: adminCreateUserSchema,
     onSubmit: (values) => {
       dispatch(adminUserCreate(values));
+      if (!error) {
+        setText("Tạo người dùng thành công");
+        setShowToast(true);
+        setTimeout(() => {
+          navigate("/Admin/UserManagement");
+        }, 1500);
+      } else {
+        setText("Tạo người dùng không thành công");
+        setShowToast(true);
+      }
     },
   });
 
   return (
     <>
       <div className="container">
+        {showToast && (
+          <BoxNotification message={text} onClose={() => setShowToast(false)} />
+        )}
         <div className="Home_left">
           <SideBar />
         </div>

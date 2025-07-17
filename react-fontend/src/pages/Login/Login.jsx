@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Field, Formik, ErrorMessage, Form } from "formik";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import "./Login.scss";
 import Logo from "../../assets/imgs/LogoHit.png";
@@ -9,6 +10,7 @@ import HiddenPassword from "../../assets/imgs/HiddenPassword.png";
 import ImgLogin from "../../assets/imgs/ImgLogin.png";
 import loginValidate from "../../utlis/loignValidate";
 import useLoginHandler from "../../hooks/useLoginHandler";
+import { fetchUser } from "../../redux/user/userActions";
 
 const Login = () => {
   const { handleLogin } = useLoginHandler();
@@ -22,10 +24,14 @@ const Login = () => {
   };
 
   // call api
+  const dispatch = useDispatch();
   const handleSubmit = async (values, { setSubmitting }) => {
-    await handleLogin(values.username, values.password, navigate);
+    await handleLogin(values.username, values.password, navigate, dispatch);
     setSubmitting(false);
+    dispatch(fetchUser());
   };
+
+  // call api
 
   return (
     <div className="login-container">
