@@ -1,23 +1,32 @@
-import TickConfirm from "../../assets/imgs/TickConfirm.png";
+import React, { useEffect } from "react";
+import { FaCheck } from "react-icons/fa";
+import { VscChromeClose } from "react-icons/vsc";
+import "./BoxNotification.scss";
 
-const BoxNotification = ({ notification }) => {
+const SuccessToast = ({
+  message = "Đăng nhập thành công",
+  status,
+  onClose,
+  duration = 3000,
+}) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (onClose) onClose();
+    }, duration);
+    return () => clearTimeout(timer);
+  }, [duration, onClose]);
+
   return (
-    <div className="BoxNotification-container">
-      <div className="boxnotification">
-        <div className="boxnotification_box">
-          <div className="boxnotification_box--TickConfirm">
-            <img src={TickConfirm} alt="" />
-          </div>
+    <div className={status ? "success-toast-true" : "success-toast-false "}>
+      {status ? (
+        <FaCheck className="icon" />
+      ) : (
+        <VscChromeClose className="icon" />
+      )}
 
-          <div className="boxnotification_box--description">
-            <h1>{notification}</h1>
-          </div>
-
-          <div className="boxnotification_box--button"></div>
-        </div>
-      </div>
+      <span>{message}</span>
     </div>
   );
 };
 
-export default BoxNotification;
+export default SuccessToast;

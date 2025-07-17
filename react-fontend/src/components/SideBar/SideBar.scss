@@ -1,10 +1,10 @@
 @use "../../styles/index" as style;
 
 .SideBar {
-  width: 20%;
+  width: 100%;
   height: 100vh;
   background-color: #ffffff;
-  box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+  // box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,7 +111,7 @@
     ul {
       li {
         list-style: none;
-        padding: 10px;
+        padding: 14px 50px;
 
         a {
           text-decoration: none;
@@ -143,48 +143,51 @@
   }
 
   .active {
-    background-color: rgb(195, 193, 193);
-    border-radius: 6px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .SideBar {
-    width: 240px;
-  }
-}
-
-@media (max-width: 768px) {
-  .SideBar {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 240px;
-    height: 100%;
-    z-index: 100;
-    background-color: #ffffff;
-    transition: left 0.3s ease;
-    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
-
-    &.open {
-      left: 0;
-    }
-
-    .logout-btn {
-      justify-content: center;
+    background: linear-gradient(to right, #f46f1e, #fb923c);
+    border-radius: 12px;
+    a {
+      color: white;
     }
   }
-
-  .SideBar_toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 200;
-    background-color: #f97316;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
 }
+
+// @media (max-width: 1024px) {
+//   .SideBar {
+//     width: 240px;
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .SideBar {
+//     position: fixed;
+//     top: 0;
+//     left: -100%;
+//     width: 240px;
+//     height: 100%;
+//     z-index: 100;
+//     background-color: #ffffff;
+//     transition: left 0.3s ease;
+//     box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
+
+//     &.open {
+//       left: 0;
+//     }
+
+//     .logout-btn {
+//       justify-content: center;
+//     }
+//   }
+
+//   .SideBar_toggle {
+//     position: fixed;
+//     top: 20px;
+//     left: 20px;
+//     z-index: 200;
+//     background-color: #f97316;
+//     color: white;
+//     border: none;
+//     padding: 8px 12px;
+//     border-radius: 8px;
+//     cursor: pointer;
+//   }
+// }

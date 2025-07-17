@@ -32,10 +32,10 @@ const SideBar = () => {
   };
 
   const listLink = [
-    { id: 1, path: "/", name: "Trang chủ" },
+    { id: 1, path: "/Home", name: "Trang chủ" },
     { id: 2, path: "/Information", name: "Thông tin cá nhân" },
     { id: 3, path: "/Admin/UserManagement", name: "Người dùng" },
-    { id: 4, path: "/f", name: "Lớp Học" },
+    { id: 4, path: "/User/Class", name: "Lớp Học" },
     { id: 5, path: "/g", name: "Tài Liệu" },
     { id: 6, path: "/w", name: "Đăng Kí lớp học" },
     { id: 7, path: "/e", name: "Contest online" },
@@ -75,7 +75,9 @@ const SideBar = () => {
             {listLink.map((item) => (
               <li
                 key={item.id}
-                className={location.pathname === item.path ? "active" : ""}
+                className={
+                  location.pathname.startsWith(item.path) ? "active" : ""
+                }
               >
                 <Link to={item.path}>{item.name}</Link>
               </li>

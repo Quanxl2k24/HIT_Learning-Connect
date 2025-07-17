@@ -1,23 +1,17 @@
 @use "../../styles/index" as style;
 
 .AdminUserManagement {
+  display: flex;
   @include style.flex(none, none);
-  &_left {
+  //sidebar
+  .Home_left {
     width: 20%;
     height: 100vh;
-    background-color: #ffffff;
-    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 4px;
   }
-
   &_right {
     width: 80%;
     background-color: #fff8f0;
     height: 100vh;
-
     &--banner {
       @include style.flex(none, center);
       padding: 16px 32px;
@@ -51,10 +45,6 @@
           height: 48px;
           width: 448px;
           @include style.flex(none, center);
-          // &:focus {
-          //   border: 1px solid style.$primary-color;
-          //   outline: 1px solid style.$primary-color;
-          // }
           input {
             width: 100%;
             height: 48px;
@@ -105,9 +95,6 @@
             color: white;
             border: none;
             border-radius: 12px;
-            // span {
-            //   font-size: 24px;
-            // }
           }
         }
       }
@@ -122,17 +109,29 @@
         margin-top: 4rem;
       }
       .table-box {
+        overflow-x: auto;
+
         table {
+          min-width: 768px;
+          width: 100%;
+          table-layout: fixed;
           font-family: arial, sans-serif;
           border-collapse: collapse;
-          width: 100%;
         }
 
         td {
+          max-width: 180px; // hoặc thay đổi theo từng cột
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           text-align: left;
-          padding: 14px;
+          padding: 0 14px;
         }
         th {
+          max-width: 180px; // hoặc thay đổi theo từng cột
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
           color: #4b5563;
           font-weight: 400;
           background-color: #f9fafb;
@@ -143,12 +142,144 @@
     }
   }
 }
-//sidebar
-.Home_left {
-  width: 20%;
-  height: 100vh;
+
+//btn
+.admin-class-btn {
+  background-color: none;
+
+  display: flex;
+  gap: 10px;
+  button {
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: none;
+  }
+
+  .admin-class-btn-Edit {
+    &:hover {
+      background-color: #d1d1d1;
+    }
+  }
+  .admin-class-btn-Del {
+    &:hover {
+      background-color: #d1d1d1;
+    }
+  }
 }
 
-.SideBar {
-  width: 100%;
+.img-btn {
+  height: 16px;
+}
+
+// Tablet: màn hình <= 1024px
+@media (max-width: 1024px) {
+  .AdminUserManagement {
+    flex-direction: column;
+
+    &_left {
+      width: 100%;
+      height: auto;
+      margin-right: 0;
+      box-shadow: none;
+    }
+
+    &_right {
+      width: 100%;
+      height: auto;
+
+      &--banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 16px;
+
+        .title-banner h3 {
+          font-size: 20px;
+        }
+      }
+
+      &--box {
+        .box-container {
+          padding: 0 2rem;
+        }
+
+        .SearchAndAdd-box {
+          flex-direction: column;
+          gap: 12px;
+
+          .search {
+            width: 100%;
+          }
+
+          .but-box {
+            width: 100%;
+            justify-content: space-between;
+
+            .but-search,
+            .but-add {
+              width: 48%;
+            }
+          }
+        }
+
+        .title-box {
+          font-size: 16px;
+          padding: 16px;
+        }
+
+        .table-box {
+          overflow-x: auto;
+
+          table {
+            min-width: 768px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Mobile: màn hình <= 768px
+@media (max-width: 768px) {
+  .AdminUserManagement {
+    &_right {
+      &--box {
+        .box-container {
+          padding: 0 1rem;
+        }
+
+        .SearchAndAdd-box {
+          .but-box {
+            flex-direction: column;
+            gap: 10px;
+
+            .but-search,
+            .but-add {
+              width: 100%;
+            }
+          }
+        }
+
+        .title-box {
+          font-size: 14px;
+          padding: 12px;
+        }
+
+        .table-box {
+          td,
+          th {
+            font-size: 12px;
+            padding: 8px;
+          }
+        }
+      }
+    }
+  }
+
+  .admin-class-btn {
+    flex-direction: column;
+    align-items: flex-start;
+    button {
+      width: 100%;
+    }
+  }
 }

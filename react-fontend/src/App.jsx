@@ -11,6 +11,9 @@ import Information from "./pages/Information/Information";
 import Change_Infor from "./pages/Change-Infor/Change-Infor";
 import AdminUserManagement from "./pages/AdminUserManagement/AdminUserManagement";
 import AdminCreateUser from "./pages/AdminCreateUser/AdminCreateUser";
+import UserClass from "./pages/UserClass/UserClass";
+import UserClassDetails from "./pages/UserClassDetails/UserClassDetails";
+import UserEvaluate from "./pages/UserEvaluate/UserEvaluate";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,17 +23,23 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/Home" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/ChangePassword" element={<ChangePassword />} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/Information" element={<Information />} />
-        <Route path="/Change_Information" element={<Change_Infor />} />
+        <Route
+          path="/Information/Change_Information"
+          element={<Change_Infor />}
+        />
         <Route path="/Admin/UserManagement" element={<AdminUserManagement />} />
         <Route
           path="/Admin/UserManagement/CreateUser"
           element={<AdminCreateUser />}
         />
+        <Route path="/User/Class" element={<UserClass />} />
+        <Route path="/User/Class/Details" element={<UserClassDetails />} />
+        <Route path="/User/Class/Evaluate" element={<UserEvaluate />} />
       </Routes>
     </>
   );
