@@ -12,7 +12,7 @@ const UserClassDetail = ({ classData, onBack }) => {
         <div className="banner">
           <div className="logo-banner"></div>
           <div className="title-banner">
-            <h3>Người dùng</h3>
+            <h3>Lớp học</h3>
           </div>
         </div>
         <div className="box-container">
