@@ -1,8 +1,15 @@
 @use "../../styles/index" as style;
-
+.AdminUserManagement-container {
+  position: relative;
+}
+.BoxConfirm-container {
+  position: absolute;
+  z-index: 1000;
+}
 .AdminUserManagement {
   display: flex;
   @include style.flex(none, none);
+  opacity: 0.6;
   //sidebar
   .Home_left {
     width: 20%;
