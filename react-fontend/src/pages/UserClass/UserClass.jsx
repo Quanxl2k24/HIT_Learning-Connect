@@ -1,7 +1,19 @@
 import "./UserClass.scss";
 import SideBar from "../../components/SideBar/SideBar";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchAllClass } from "../../redux/userClass/userClassActions";
+
 const UserClass = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllClass());
+  }, []);
+  const data = useSelector((state) => state.userClass.listClass);
+  console.log("data class", data);
+
   return (
     <div>
       <div className="class-page">
@@ -12,7 +24,7 @@ const UserClass = () => {
           <div className="banner">
             <div className="logo-banner"></div>
             <div className="title-banner">
-              <h3>Người dùng</h3>
+              <h3>Lớp học</h3>
             </div>
           </div>
 

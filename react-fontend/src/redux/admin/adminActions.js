@@ -1,4 +1,9 @@
-import { CreateUserByAdminApi } from "../../api/UserCallApi";
+import {
+  CreateUserByAdminApi,
+  DeleteUserByAdminApi,
+  UpdateUserByAdminApi,
+} from "../../api/UserCallApi";
+
 import { GetAllUserApi } from "../../api/UserCallApi";
 import {
   ADMIN_USER_LIST_REQUEST,
@@ -39,6 +44,39 @@ export const adminUserCreate = (dataCreate) => {
       return { success: true };
     } catch (error) {
       dispatch({ type: ADMIN_USER_CREATE_FAIL, payload: error.message });
+      return { success: false };
+    }
+  };
+};
+
+export const adminUserUpdate = (dataUpdate) => {
+  return async (dispatch) => {
+    dispatch({ type: ADMIN_USER_UPDATE_REQUEST });
+    try {
+      const token = localStorage.getItem("token");
+      const res = await UpdateUserByAdminApi(dataUpdate.id, dataUpdate, token);
+      dispatch({ type: ADMIN_USER_UPDATE_SUCCESS, payload: res.data.data });
+      return { success: true };
+    } catch (error) {
+      dispatch({ type: ADMIN_USER_UPDATE_FAIL, payload: error.message });
+      return { success: false };
+    }
+  };
+};
+
+export const adminUserDelete = (UserId) => {
+  return async (dispatch) => {
+    dispatch({ type: ADMIN_USER_DELETE_REQUEST });
+    try {
+      const token = localStorage.getItem("token");
+      const res = await DeleteUserByAdminApi(UserId, token);
+      console.log("co vao day");
+
+      console.log("ressss", res);
+      dispatch({ type: ADMIN_USER_DELETE_SUCCESS, payload: res.data.data });
+      return { success: true };
+    } catch (error) {
+      dispatch({ type: ADMIN_USER_DELETE_FAIL, payload: error.message });
       return { success: false };
     }
   };

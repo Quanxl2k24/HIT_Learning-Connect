@@ -41,17 +41,23 @@
       .SearchAndAdd-box {
         @include style.flex(space-between, center);
         padding: 20px 12px;
+
         .search {
           height: 48px;
           width: 448px;
           @include style.flex(none, center);
+          border: 1px solid style.$primary-color;
+          border-radius: 12px;
+
           input {
             width: 100%;
-            height: 48px;
+            height: 47px;
             border: none;
             padding: 12px;
             font-size: 16px;
-
+            border-radius: 12px;
+            border-bottom-right-radius: 1px solid style.$primary-color;
+            border-top-right-radius: 1px solid style.$primary-color;
             &:focus {
               border: none;
               outline: none;
@@ -61,7 +67,7 @@
           .imgSearch {
             position: relative;
             width: 56px;
-            height: 48px;
+            height: 47px;
             background-color: #edf5fd;
             border-top-left-radius: 12px;
             border-bottom-left-radius: 12px;
@@ -169,6 +175,34 @@
 
 .img-btn {
   height: 16px;
+}
+
+//phan trang
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 20px;
+
+  .page-number,
+  .nav-button {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: white;
+    cursor: pointer;
+
+    &.active {
+      background-color: #f97316;
+      color: white;
+      font-weight: bold;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
 }
 
 // Tablet: màn hình <= 1024px

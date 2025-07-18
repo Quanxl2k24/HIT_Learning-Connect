@@ -14,6 +14,7 @@ import AdminCreateUser from "./pages/AdminCreateUser/AdminCreateUser";
 import UserClass from "./pages/UserClass/UserClass";
 import UserClassDetails from "./pages/UserClassDetails/UserClassDetails";
 import UserEvaluate from "./pages/UserEvaluate/UserEvaluate";
+import AdminUpdateUser from "./pages/AdminUpdateUser/AdminUpdateUser";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,10 @@ function App() {
         <Route path="/User/Class" element={<UserClass />} />
         <Route path="/User/Class/Details" element={<UserClassDetails />} />
         <Route path="/User/Class/Evaluate" element={<UserEvaluate />} />
+        <Route
+          path="/Admin/UserManagement/Update"
+          element={<AdminUpdateUser />}
+        />
       </Routes>
     </>
   );
