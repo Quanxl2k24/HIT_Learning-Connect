@@ -14,8 +14,7 @@ const AdminUserManagement = () => {
 
   const size = 5; // số lượng user mỗi trang
   const [currentPage, setCurrentPage] = useState(1);
-
-  // Gọi API với page hiện tại
+  // Gọi API
   const fetchData = (page) => {
     const param = { page: page - 1, size: size, sort: "id" };
     dispatch(fetchAllUser(param));
@@ -25,22 +24,37 @@ const AdminUserManagement = () => {
     fetchData(currentPage);
   }, [currentPage]);
 
+  // Lấy dữ liệu từ redux
   const data = useSelector((state) => state.admin.listUser) || [];
-
   const Users = data.data;
 
   const handleEdit = (user) => {
     navigate("/Admin/UserManagement/Update", { state: { user } });
   };
+  const [idDel, setIdDel] = useState(null);
+  const handleDelete = (id) => {
+    setShowConfirm(true);
+    setIdDel(id);
+  };
 
-  const handleDelete = async (id) => {
-    await dispatch(adminUserDelete(id));
-    fetchData(currentPage); // refresh lại sau khi xóa
+  const handleDeleteBoxConfirm = async () => {
+    await dispatch(adminUserDelete(idDel));
+    await fetchData(currentPage);
+    setIdDel(null);
+    setShowConfirm(false);
+  };
+
+  const handleCancel = () => {
+    setShowConfirm(false);
   };
 
   // Total page  (ở đây dang fix cứng)
-  const totalPages = data.amountOfAllUsers / size + 1;
-  console.log("pages", totalPages);
+  let totalPages = 0;
+  if (data.amountOfAllUsers % size == 0) {
+    totalPages = data.amountOfAllUsers / size;
+  } else {
+    totalPages = data.amountOfAllUsers / size + 1;
+  }
 
   const getPages = () => {
     const pages = [];
@@ -55,10 +69,17 @@ const AdminUserManagement = () => {
     setCurrentPage(page);
   };
 
+  // Xử lý box confirm
+  const [ShowConfirm, setShowConfirm] = useState(false);
+
   return (
     <div className="AdminUserManagement-container">
       <div className="BoxConfirm-container">
-        <BoxConfirmDelete />
+        <BoxConfirmDelete
+          display={ShowConfirm}
+          handleCancel={handleCancel}
+          handleDeleteBoxConfirm={handleDeleteBoxConfirm}
+        />
       </div>
       <div className="AdminUserManagement">
         <div className="Home_left">

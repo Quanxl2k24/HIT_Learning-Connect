@@ -1,15 +1,16 @@
 @use "../../styles/index" as style;
 .AdminUserManagement-container {
   position: relative;
+  background-color: rgba(0, 0, 0, 0.1); /* Lớp mờ màu đen 40% */
 }
 .BoxConfirm-container {
   position: absolute;
-  z-index: 1000;
+  z-index: 100;
 }
 .AdminUserManagement {
   display: flex;
   @include style.flex(none, none);
-  opacity: 0.6;
+  // opacity: 0.6;
   //sidebar
   .Home_left {
     width: 20%;
@@ -38,6 +39,7 @@
         padding: 0 6rem;
 
         .box {
+          background-color: white;
           box-shadow: 0 12px 12px rgba(0, 0, 0, 0.1);
           padding-bottom: 30px;
           border-bottom-left-radius: 16px;
@@ -138,7 +140,7 @@
           overflow: hidden;
           text-overflow: ellipsis;
           text-align: left;
-          padding: 0 14px;
+          padding: 6px 14px;
         }
         th {
           max-width: 180px; // hoặc thay đổi theo từng cột

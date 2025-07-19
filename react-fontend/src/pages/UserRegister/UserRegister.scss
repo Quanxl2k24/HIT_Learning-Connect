@@ -1,0 +1,27 @@
+@use "../../styles/index" as style;
+
+// sidebar
+.Home_left {
+  width: 20%;
+  height: 100vh;
+}
+
+.UserRegister {
+  display: flex;
+  &_right {
+    width: 80%;
+    &--banner {
+      @include style.flex(none, center);
+      padding: 16px 32px;
+      gap: 16px;
+      background-color: white;
+
+      .logo-banner {
+        height: 40px;
+        width: 10px;
+        background: linear-gradient(to bottom, #f06c24, #f97316, #eab308);
+        border-radius: 12px;
+      }
+    }
+  }
+}

@@ -15,8 +15,7 @@ import UserClass from "./pages/UserClass/UserClass";
 import UserClassDetails from "./pages/UserClassDetails/UserClassDetails";
 import UserEvaluate from "./pages/UserEvaluate/UserEvaluate";
 import AdminUpdateUser from "./pages/AdminUpdateUser/AdminUpdateUser";
-//tesst components
-import BoxConfirmDelete from "./components/BoxConfrimDelete/BoxConfirmDelete";
+import UserRegister from "./pages/UserRegister/UserRegister";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -46,7 +45,7 @@ function App() {
           path="/Admin/UserManagement/Update"
           element={<AdminUpdateUser />}
         />
-        <Route path="/test" element={<BoxConfirmDelete   />} />
+        <Route path="User/Register" element={<UserRegister />} />
       </Routes>
     </>
   );
