@@ -10,14 +10,15 @@
 .AdminUserManagement {
   display: flex;
   @include style.flex(none, none);
-  // opacity: 0.6;
   //sidebar
   .Home_left {
+    position: fixed;
     width: 20%;
     height: 100vh;
   }
   &_right {
-    width: 80%;
+    width: 100%;
+    padding-left: 20%;
     background-color: #fff8f0;
     height: 100vh;
     &--banner {

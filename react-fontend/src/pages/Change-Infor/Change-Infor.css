@@ -5,6 +5,7 @@ body {
 
 /* Sidebar */
 .Home_left {
+  position: fixed;
   width: 20%;
   height: 100vh;
 }

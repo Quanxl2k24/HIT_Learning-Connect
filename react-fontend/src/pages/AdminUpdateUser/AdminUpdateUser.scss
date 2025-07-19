@@ -1,12 +1,10 @@
 @use "../../styles/index" as style;
 /* Sidebar */
 .Home_left {
+  position: fixed;
   width: 20%;
   height: 100vh;
 }
-// .SideBar {
-//   width: 100%;
-// }
 // Right
 body {
   background: style.$background-color;
@@ -18,71 +16,10 @@ body {
   height: 100vh;
 }
 
-.logo img {
-  width: 80px;
-  margin-bottom: 20px;
-}
-
-.profile {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 30px;
-}
-
-.avatar {
-  background-color: #f97316;
-  color: white;
-  font-weight: bold;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.name {
-  font-weight: bold;
-}
-
-.role {
-  font-size: 0.9em;
-  color: gray;
-}
-
-.menu a {
-  display: block;
-  padding: 10px;
-  border-radius: 6px;
-  text-decoration: none;
-  color: #333;
-  margin-bottom: 5px;
-}
-
-.menu a.active,
-.menu a:hover {
-  background: #f97316;
-  color: white;
-}
-
-.logout {
-  margin-top: auto;
-}
-
-.logout a {
-  display: block;
-  padding: 10px;
-  background: #f3f4f6;
-  border-radius: 6px;
-  text-align: center;
-  color: #333;
-  text-decoration: none;
-}
-
 /* Main Content */
 .main-content {
-  width: 80%;
+  width: 100%;
+  padding-left: 20%;
 }
 
 .banner {
