@@ -4,6 +4,8 @@
   position: relative;
   height: 100vh;
   width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.15s ease-in-out;
 }
 
 .BoxConfirmDelete {
@@ -63,5 +65,15 @@
         color: white;
       }
     }
+  }
+}
+
+/* Hiệu ứng */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

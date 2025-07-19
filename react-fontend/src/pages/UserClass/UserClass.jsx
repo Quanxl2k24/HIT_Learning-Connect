@@ -12,7 +12,7 @@ const UserClass = () => {
     dispatch(fetchAllClass());
   }, []);
   const data = useSelector((state) => state.userClass.listClass);
-  console.log("data class", data);
+  console.log("data class", data.data);
 
   return (
     <div>

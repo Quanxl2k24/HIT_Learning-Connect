@@ -73,7 +73,7 @@ const DeleteUserByAdminApi = async (userId, token) => {
 const GetAllClassByUserAndAdmin = async (token) => {
   return await Api.get("/api/v1/classes", {
     headers: {
-      Authorization: `Beater ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 };

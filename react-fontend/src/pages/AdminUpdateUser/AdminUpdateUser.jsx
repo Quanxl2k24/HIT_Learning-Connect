@@ -24,7 +24,6 @@ const AdminUpdateUser = () => {
       fullname: User.user.fullName || "",
       birthday: User.user.birthday || "",
       gender: User.user.gender || "",
-      password: "",
       email: User.user.email || "",
       role: User.user.roleName || "",
     },
@@ -136,7 +135,7 @@ const AdminUpdateUser = () => {
                 />
                 <p className="validate p">{formik.errors.username}</p>
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label>Mật khẩu</label>
                 <input
                   type="password"
@@ -145,7 +144,7 @@ const AdminUpdateUser = () => {
                   placeholder="Password"
                 />
                 <p className="validate p">{formik.errors.password}</p>
-              </div>
+              </div> */}
 
               <div className="form-actions">
                 <Link to={"/Admin/UserManagement/"}>

@@ -26,7 +26,6 @@ const AdminCreateUser = () => {
     validationSchema: adminCreateUserSchema,
     onSubmit: async (values) => {
       const res = await dispatch(adminUserCreate(values));
-      console.log(res.success);
       if (res.success) {
         setText("Tạo người dùng thành công");
         setStatusBox(true);
