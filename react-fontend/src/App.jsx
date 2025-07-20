@@ -11,7 +11,8 @@ import Information from "./pages/Information/Information";
 import Change_Infor from "./pages/Change-Infor/Change-Infor";
 import AdminUserManagement from "./pages/AdminUserManagement/AdminUserManagement";
 import AdminCreateUser from "./pages/AdminCreateUser/AdminCreateUser";
-
+import AdminClass from "./pages/AdminClass/AdminClass";
+import AdminDocument from "./pages/AdminDocument/AdminDocument";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -26,7 +27,10 @@ function App() {
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/Information" element={<Information />} />
         <Route path="/Change_Information" element={<Change_Infor />} />
-        <Route path="/Admin/UserManagement" element={<AdminUserManagement />} />
+        <Route path="/Admin/UserManagement" element={<AdminUserManagement/>} />
+        <Route path="/Admin/AdminClass" element={<AdminClass/>} />
+        <Route path="/Admin/AdminDocument" element={<AdminDocument/>} />
+
         <Route
           path="/Admin/UserManagement/CreateUser"
           element={<AdminCreateUser />}

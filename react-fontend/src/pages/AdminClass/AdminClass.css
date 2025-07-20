@@ -1,0 +1,166 @@
+.AdminClass {
+  display: flex;
+}
+
+
+.SideBar {
+  width: 100%;
+}
+
+.Home_left {
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+}
+
+.Home_Right {
+  flex: 1;
+  padding: 24px;
+}
+
+.AdminClass_Banner {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  color: black;
+  padding: 16px;
+  gap: 16px;
+  margin-bottom: 24px;
+  margin-top: -24px;
+  margin-left: -24px;
+}
+
+.logo-banner{
+  margin-left: 120px;
+}
+
+.PageTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.ClassBox {
+  background: #fdf4e3;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 24px;
+}
+
+.ClassBoxHeader {
+  background-color: #f97316;
+  color: white;
+  padding: 12px 16px;
+  font-weight: 600;
+  border-radius: 10px 10px 0 0;
+  margin: -24px -24px 16px;
+}
+
+.ClassBoxControls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.SearchInput {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.SearchBtn,
+.AddBtn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.SearchBtn {
+  background-color: #e5e5e5;
+}
+
+.AddBtn {
+  background-color: #f97316;
+  color: white;
+}
+
+.ClassTableWrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+}
+
+.ClassTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.ClassTable th, .ClassTable td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.SoLuong{
+  display: flex;
+  justify-content: center;
+}
+
+.ClassName {
+  color: #f97316;
+  font-weight: 500;
+}
+
+.Status {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.Status.Open {
+  background-color: #d1fae5;
+  color: #059669;
+}
+
+.ActionBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 6px;
+}
+
+.ActionBtn.Edit {
+  color: #3b82f6;
+  margin-left: 14px;
+  margin-right: 20px;
+}
+
+.ActionBtn.Delete {
+  color: #ef4444;
+}
+
+.Pagination {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.Pagination button {
+  border: none;
+  background-color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.Pagination .active {
+  background-color: #f97316;
+  color: white;
+}
