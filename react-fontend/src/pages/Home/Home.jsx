@@ -6,6 +6,7 @@ const Home = () => {
   const handleNavigateLogin = () => {
     navigate("/login");
   };
+
   return (
     <div className="Home">
       {/* component sidebar */}

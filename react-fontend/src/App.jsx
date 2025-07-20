@@ -16,6 +16,7 @@ import UserClassRegisterDetails from "./pages/UserClassRegisterDetails/UserClass
 import UserEvaluate from "./pages/UserEvaluate/UserEvaluate";
 import AdminUpdateUser from "./pages/AdminUpdateUser/AdminUpdateUser";
 import UserRegister from "./pages/UserRegister/UserRegister";
+import AdminClass from "./pages/AdminClass/AdminClass";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,9 +30,6 @@ function App() {
         <Route path="/ChangePassword" element={<ChangePassword />} />
         <Route path="/ForgotPassword" element={<ForgotPassword />} />
         <Route path="/Information" element={<Information />} />
-
-
-
 
         <Route
           path="/Information/Change_Information"
@@ -54,6 +52,7 @@ function App() {
           element={<AdminUpdateUser />}
         />
         <Route path="User/Register" element={<UserRegister />} />
+        <Route path="Admin/Class" element={<AdminClass />} />
       </Routes>
     </>
   );

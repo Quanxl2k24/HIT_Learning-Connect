@@ -65,7 +65,7 @@ const UserClass = () => {
                       <span className="status approved">Đã duyệt</span>
                     </td>
                     <td>
-                      <a href="#">Đánh giá</a>
+                      <Link to="/User/Class/Evaluate">Đánh giá</Link>
                     </td>
                   </tr>
                   <tr>
