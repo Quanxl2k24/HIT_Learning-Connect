@@ -12,7 +12,7 @@ import Change_Infor from "./pages/Change-Infor/Change-Infor";
 import AdminUserManagement from "./pages/AdminUserManagement/AdminUserManagement";
 import AdminCreateUser from "./pages/AdminCreateUser/AdminCreateUser";
 import UserClass from "./pages/UserClass/UserClass";
-import UserClassDetails from "./pages/UserClassDetails/UserClassDetails";
+import UserClassRegisterDetails from "./pages/UserClassRegisterDetails/UserClassRegisterDetails";
 import UserEvaluate from "./pages/UserEvaluate/UserEvaluate";
 import AdminUpdateUser from "./pages/AdminUpdateUser/AdminUpdateUser";
 import UserRegister from "./pages/UserRegister/UserRegister";
@@ -39,7 +39,10 @@ function App() {
           element={<AdminCreateUser />}
         />
         <Route path="/User/Class" element={<UserClass />} />
-        <Route path="/User/Class/Details" element={<UserClassDetails />} />
+        <Route
+          path="/User/Register/Class/Details"
+          element={<UserClassRegisterDetails />}
+        />
         <Route path="/User/Class/Evaluate" element={<UserEvaluate />} />
         <Route
           path="/Admin/UserManagement/Update"

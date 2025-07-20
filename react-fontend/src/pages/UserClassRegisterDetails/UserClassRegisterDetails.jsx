@@ -1,8 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./UserClassDetails.scss";
+import { Link, useLocation } from "react-router-dom";
+import "./UserClassRegisterDetails.scss";
 import SideBar from "../../components/SideBar/SideBar";
-const UserClassDetail = ({ classData, onBack }) => {
+const UserClassRegisterDetail = ({ classData, onBack }) => {
+  const location = useLocation();
+  const data = location.state;
+  console.log("data class: ", data);
+
   return (
     <div className="class-detail-page">
       <div className="Home_left">
@@ -23,18 +26,14 @@ const UserClassDetail = ({ classData, onBack }) => {
             <div className="from">
               <div className="form-group">
                 <label>Tên lớp học</label>
-                <input
-                  type="text"
-                  value={classData?.name || "HỌC HỌC"}
-                  readOnly
-                />
+                <input type="text" value={data.title || "HỌC HỌC"} readOnly />
               </div>
 
               <div className="form-group">
                 <label>Thời gian</label>
                 <input
                   type="text"
-                  value={classData?.time || "19:00 - 21:00, Thứ 2 & Thứ 4"}
+                  value={`${data.startDate} - ${data.endDate}`}
                   readOnly
                 />
               </div>
@@ -43,16 +42,7 @@ const UserClassDetail = ({ classData, onBack }) => {
                 <label>Leader</label>
                 <input
                   type="text"
-                  value={classData?.leader || "Leader"}
-                  readOnly
-                />
-              </div>
-
-              <div className="form-group">
-                <label>Số lượng</label>
-                <input
-                  type="text"
-                  value={classData?.quantity || "18"}
+                  value={data.teacherFullName || "Leader"}
                   readOnly
                 />
               </div>
@@ -61,27 +51,23 @@ const UserClassDetail = ({ classData, onBack }) => {
                 <label>Trạng thái</label>
                 <input
                   type="text"
-                  value={classData?.status || "Đã duyệt/chưa duyệt"}
+                  value={classData?.status || "Thieu api"}
                   readOnly
                 />
               </div>
 
               <div className="form-group">
                 <label>Nội dung</label>
-                <textarea
-                  rows="4"
-                  value={
-                    classData?.description ||
-                    "Khóa học lập trình web frontend với React, HTML, CSS và JavaScript. Học viên sẽ được thực hành xây dựng các dự án thực tế."
-                  }
-                  readOnly
-                />
+                <textarea rows="4" value={data.description} readOnly />
               </div>
-              <Link to={"/User/Class"}>
-                <button className="back-btn" onClick={onBack}>
-                  Quay lại
-                </button>
-              </Link>
+              <div className="btn">
+                <button className="register-btn">Đăng ký lớp học</button>
+                <Link to={"/User/Register"}>
+                  <button className="back-btn" onClick={onBack}>
+                    Quay lại
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -90,4 +76,4 @@ const UserClassDetail = ({ classData, onBack }) => {
   );
 };
 
-export default UserClassDetail;
+export default UserClassRegisterDetail;

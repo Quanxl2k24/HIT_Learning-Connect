@@ -42,6 +42,10 @@
         display: grid;
         grid-template-columns: repeat(4, 16rem);
         gap: 6rem 3rem;
+        button {
+          border: none;
+          background-color: none;
+        }
         .box-class {
           width: 16rem;
           height: 9rem;
@@ -80,4 +84,9 @@
       }
     }
   }
+}
+
+//Link
+.Link {
+  text-decoration: none;
 }

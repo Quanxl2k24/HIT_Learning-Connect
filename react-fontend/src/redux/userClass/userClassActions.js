@@ -12,7 +12,8 @@ export const fetchAllClass = () => {
       dispatch({ type: USER_GET_LIST_CLASS_REQUEST });
       const token = localStorage.getItem("token");
       const res = await GetAllClassByUserAndAdmin(token);
-      dispatch({ type: USER_GET_LIST_CLASS_SUCCESS, payload: res.data });
+      dispatch({ type: USER_GET_LIST_CLASS_SUCCESS, payload: res.data.data });
+
       return { success: true };
     } catch (error) {
       dispatch({ type: USER_GET_LIST_CLASS_FAIL, payload: error.message });
