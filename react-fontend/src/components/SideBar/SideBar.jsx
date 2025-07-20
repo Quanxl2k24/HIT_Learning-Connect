@@ -31,16 +31,33 @@ const SideBar = () => {
     window.location.reload();
   };
 
-  const listLink = [
-    { id: 1, path: "/", name: "Trang chủ" },
-    { id: 2, path: "/Information", name: "Thông tin cá nhân" },
-    { id: 3, path: "/Admin/UserManagement", name: "Người dùng" },
-    { id: 4, path: "/Admin/AdminClass", name: "Lớp Học" },
-    { id: 5, path: "/Admin/AdminDocument", name: "Tài Liệu" },
-    { id: 6, path: "/w", name: "Đăng Kí lớp học" },
-    { id: 7, path: "/e", name: "Contest online" },
-    { id: 8, path: "/e", name: "Bài Viết" },
-  ];
+  let listLink = [];
+
+  if (userRole) {
+    // list phia nguoi dung
+    listLink = [
+      { id: 1, path: "/Home", name: "Trang chủ" },
+      { id: 2, path: "/Information", name: "Thông tin cá nhân" },
+      // { id: 3, path: "/Admin/UserManagement", name: "Người dùng" },
+      { id: 3, path: "/User/Class", name: "Lớp Học" },
+      { id: 4, path: "/g", name: "Tài Liệu" },
+      { id: 5, path: "/User/Register", name: "Đăng Ký lớp học" },
+      { id: 6, path: "/e", name: "Contest online" },
+      { id: 7, path: "/e", name: "Bài Viết" },
+    ];
+  } else {
+    // list phia admin
+    listLink = [
+      { id: 1, path: "/Home", name: "Trang chủ" },
+      { id: 2, path: "/Information", name: "Thông tin cá nhân" },
+      { id: 3, path: "/Admin/UserManagement", name: "Người dùng" },
+      { id: 4, path: "/User/Class", name: "Lớp Học" },
+      { id: 5, path: "/g", name: "Tài Liệu" },
+      { id: 6, path: "/w", name: "Đăng Kí lớp học" },
+      { id: 7, path: "/e", name: "Contest online" },
+      { id: 8, path: "/e", name: "Bài Viết" },
+    ];
+  }
 
   return (
     <div>
@@ -75,7 +92,9 @@ const SideBar = () => {
             {listLink.map((item) => (
               <li
                 key={item.id}
-                className={location.pathname === item.path ? "active" : ""}
+                className={
+                  location.pathname.startsWith(item.path) ? "active" : ""
+                }
               >
                 <Link to={item.path}>{item.name}</Link>
               </li>

@@ -1,40 +1,47 @@
 import { useState } from "react";
 import { useFormik } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import "./AdminCreateUser.scss";
-import SideBar from "../../components/Sidebar/Sidebar";
-import adminCreateUserSchema from "../../utlis/adminCreateUserSchema";
-import { adminUserCreate } from "../../redux/admin/adminActions";
+import "./AdminUpdateUser.scss";
+import SideBar from "../../components/SideBar/SideBar";
+import adminUpdateUserSchema from "../../utlis/adminUpdateUserSchema";
+import { adminUserUpdate } from "../../redux/admin/adminActions";
 import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
-const AdminCreateUser = () => {
+const AdminUpdateUser = () => {
   const [statusBox, setStatusBox] = useState(false);
   const navigate = useNavigate();
   const [showToast, setShowToast] = useState(null);
-  const error = useSelector((state) => state.admin.error);
   const [text, setText] = useState("");
   const dispatch = useDispatch();
+  // lay du lieu de sua
+  const location = useLocation();
+  const User = location.state;
+
+  // formik
   const formik = useFormik({
     initialValues: {
-      username: "",
-      password: "",
-      fullName: "",
-      email: "",
-      role: "",
+      username: User.user.username || "",
+      fullname: User.user.fullName || "",
+      birthday: User.user.birthday || "",
+      gender: User.user.gender || "",
+      email: User.user.email || "",
+      role: User.user.roleName || "",
     },
 
-    validationSchema: adminCreateUserSchema,
+    validationSchema: adminUpdateUserSchema,
     onSubmit: async (values) => {
-      const res = await dispatch(adminUserCreate(values));
+      const data = { id: User.user.id, ...values };
+      const res = await dispatch(adminUserUpdate(data));
+
       if (res.success) {
-        setText("Tạo người dùng thành công");
+        setText("Cập nhật người dùng thành công");
         setStatusBox(true);
         setShowToast(true);
         setTimeout(() => {
           navigate("/Admin/UserManagement");
         }, 1500);
       } else {
-        setText("Tạo người dùng không thành công");
+        setText("Cập nhật người dùng không thành công");
         setShowToast(true);
         setStatusBox(false);
       }
@@ -70,21 +77,13 @@ const AdminCreateUser = () => {
                 <label>Họ và tên *</label>
                 <input
                   type="text"
-                  name="fullName"
+                  name="fullname"
                   onChange={formik.handleChange}
-                  value={formik.values.fullName}
+                  value={formik.values.fullname}
                   placeholder="Nhập họ và tên"
                 />
-                <p className="validate p">{formik.errors.fullName}</p>
+                <p className="validate p">{formik.errors.fullname}</p>
               </div>
-              {/* <div className="form-group">
-                <label>Giới tính *</label>
-                <select required>
-                  <option value="">--Chọn giới tính--</option>
-                  <option value="Nam">Nam</option>
-                  <option value="Nữ">Nữ</option>
-                </select>
-              </div> */}
               <div className="form-group">
                 <label>Role </label>
                 <input
@@ -96,7 +95,24 @@ const AdminCreateUser = () => {
                 />
                 <p className="validate p">{formik.errors.role}</p>
               </div>
-
+              <div className="form-group">
+                <label>Ngày sinh *</label>
+                <input
+                  type="date"
+                  name="birthday"
+                  value={formik.values.birthday}
+                  onChange={formik.handleChange}
+                />
+              </div>
+              <div className="form-group">
+                <label>Giới tính *</label>
+                <input
+                  type="text"
+                  name="gender"
+                  value={formik.values.gender}
+                  onChange={formik.handleChange}
+                />
+              </div>
               <div className="form-group">
                 <label>Email </label>
                 <input
@@ -119,7 +135,7 @@ const AdminCreateUser = () => {
                 />
                 <p className="validate p">{formik.errors.username}</p>
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label>Mật khẩu</label>
                 <input
                   type="password"
@@ -128,15 +144,17 @@ const AdminCreateUser = () => {
                   placeholder="Password"
                 />
                 <p className="validate p">{formik.errors.password}</p>
-              </div>
+              </div> */}
+
               <div className="form-actions">
                 <Link to={"/Admin/UserManagement/"}>
                   <button type="button" className="cancel btn">
                     Hủy
                   </button>
                 </Link>
+
                 <button type="submit" className="submit btn">
-                  Tạo tài khoản
+                  Cập nhật
                 </button>
               </div>
             </form>
@@ -147,4 +165,4 @@ const AdminCreateUser = () => {
   );
 };
 
-export default AdminCreateUser;
+export default AdminUpdateUser;

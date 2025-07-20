@@ -1,21 +1,28 @@
 import React from "react";
 // import Logo from "../../assets/imgs/LogoHit.png";
 // import Logout from "../../assets/imgs/logout-logo.png";
+import { useState } from "react";
 import "./Change-Infor.css";
 import Peoplee from "../../assets/imgs/peoplee.png";
 import Vector from "../../assets/imgs/Vector.png";
 import Book from "../../assets/imgs/book.png";
 import Thu from "../../assets/imgs/thu.png";
-
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import SideBar from "../../components/SideBar/SideBar";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../redux/user/userActions";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 
 function Change_Infor() {
+  const [showToast, setShowToast] = useState(null);
+  const [text, setText] = useState("");
+  const [statusBox, setStatusBox] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const Profile = useSelector((state) => state.user.profile);
+  const errorChange = useSelector((state) => state.user.error);
   const formik = useFormik({
     initialValues: {
       fullName: Profile?.fullName || "",
@@ -25,14 +32,34 @@ function Change_Infor() {
       username: Profile?.username || "",
     },
 
-    onSubmit: (values) => {
-      dispatch(updateUser(values));
-      // console.log(values);
+    onSubmit: async (values) => {
+      const res = await dispatch(updateUser(values));
+      console.log("Loi day", res.success);
+
+      if (res.success) {
+        setStatusBox(true);
+        setText("Cập nhật thông tin thành công");
+        setShowToast(true);
+        setTimeout(() => {
+          navigate("/Information");
+        }, 1500);
+      } else {
+        setStatusBox(false);
+        setText("Cập nhật thông tin không thành công");
+        setShowToast(true);
+      }
     },
   });
 
   return (
     <div className="infor">
+      {showToast && (
+        <BoxNotification
+          message={text}
+          status={statusBox}
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <div className="Home_left">
         <SideBar />
       </div>
@@ -89,7 +116,7 @@ function Change_Infor() {
                   </label>
                   <input
                     type="email"
-                    name="eamil"
+                    name="email"
                     value={formik.values.email}
                     onChange={formik.handleChange}
                   />
@@ -110,9 +137,11 @@ function Change_Infor() {
                 </div>
               </div>
               <div className="form-buttons">
-                <button type="button" className="btn-outline">
-                  Hủy
-                </button>
+                <Link to="/Information" className="Link">
+                  <button type="button" className="btn-outline ">
+                    Hủy
+                  </button>
+                </Link>
                 <button type="submit" className="btn-solid">
                   Xác nhận
                 </button>

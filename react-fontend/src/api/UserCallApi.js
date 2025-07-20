@@ -54,6 +54,30 @@ const GetAllUserApi = async (params, token) => {
   });
 };
 
+const UpdateUserByAdminApi = async (userId, dataUpdate, token) => {
+  return await Api.put(`/api/v1/users/${userId}`, dataUpdate, {
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+};
+
+const DeleteUserByAdminApi = async (userId, token) => {
+  return await Api.delete(`/api/v1/users/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+};
+
+const GetAllClassByUserAndAdmin = async (token) => {
+  return await Api.get("/api/v1/classes", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export {
   LoginApi,
   ProfileUser,
@@ -61,4 +85,7 @@ export {
   UpdateUserByUserApi,
   CreateUserByAdminApi,
   GetAllUserApi,
+  UpdateUserByAdminApi,
+  DeleteUserByAdminApi,
+  GetAllClassByUserAndAdmin,
 };

@@ -1,44 +1,43 @@
 import { LoginApi } from "../api/UserCallApi";
-
 const useLoginHandler = () => {
-  const handleLogin = async (username, password, navigator = null) => {
+  const handleLogin = async (
+    username,
+    password,
+    navigator = null,
+    dispatch
+  ) => {
     try {
       const response = await LoginApi({ username, password });
 
-      // In ra toàn bộ để debug
-      // console.log("Full response: ", response);
+      //  Lấy dữ liệu từ tầng response.data.data
+      const { accessToken, refreshToken, id, authorities, firstLogin } =
+        response.data.data;
+      console.log("api tra ve: ", response.data.data);
 
-      // ✅ Lấy đúng dữ liệu từ tầng response.data.data
-      const {
-        tokenType,
-        accessToken,
-        refreshToken,
-        id,
-        authorities,
-        firstLogin,
-      } = response.data.data;
-
-      // ✅ Lưu token
-      localStorage.setItem("accessToken", `${tokenType} ${accessToken}`);
+      //  Lưu token
       localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("token", accessToken);
 
-      // ✅ Log thông tin user
+      //  Log thông tin user
       console.log("Đăng nhập thành công", { id, authorities });
       console.log("Co phai lan dau", firstLogin);
 
-      // ✅ Điều hướng nếu cần
-
       // can sua lai day bro(do lai if else la dc)
-      if (!firstLogin) {
-        if (navigator) {
-          navigator("/");
+
+      setTimeout(() => {
+        if (!firstLogin) {
+          if (navigator) {
+            navigator("/Home");
+          }
+        } else {
+          navigator("/ChangePassword");
         }
-      } else {
-        navigator("/ChangePassword");
-      }
+      }, 1500);
+
+      return { success: true };
     } catch (error) {
       console.log("Đăng nhập thất bại: ", error.message);
+      return { success: false };
     }
   };
 
