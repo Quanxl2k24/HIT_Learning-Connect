@@ -78,6 +78,14 @@ const GetAllClassByUserAndAdmin = async (token) => {
   });
 };
 
+const DeleteClassByAdmin = async (classId, token) => {
+  return Api.delete(`/api/v1/classes/${classId}`, {
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+};
+
 export {
   LoginApi,
   ProfileUser,
@@ -88,4 +96,5 @@ export {
   UpdateUserByAdminApi,
   DeleteUserByAdminApi,
   GetAllClassByUserAndAdmin,
+  DeleteClassByAdmin,
 };

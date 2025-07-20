@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./AdminCreateUser.scss";
-import SideBar from "../../components/SideBar/SideBar";
+import SideBar from "../../components/Sidebar/Sidebar";
 import adminCreateUserSchema from "../../utlis/adminCreateUserSchema";
 import { adminUserCreate } from "../../redux/admin/adminActions";
 import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";

@@ -18,7 +18,7 @@ const BoxConfirmDelete = ({
           </div>
         </div>
         <div className="BoxConfirmDelete_content">
-          <p>Bạn có chắc chắn xóa lớp học này không?</p>
+          <p>Bạn có chắc chắn xóa không?</p>
           <div className="BoxConfirmDelete_content--btn">
             <button className="btnDelete" onClick={handleDeleteBoxConfirm}>
               Xoá
