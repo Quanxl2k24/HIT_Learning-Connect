@@ -12,7 +12,7 @@ const UserClass = () => {
     dispatch(fetchAllClass());
   }, []);
   const data = useSelector((state) => state.userClass.listClass);
-  console.log("data class", data.data);
+  console.log("data class", data);
 
   return (
     <div>
@@ -34,7 +34,8 @@ const UserClass = () => {
                 <div className="title-class-list">
                   <h3>Danh sách lớp học của Câu lạc bộ tin học - HIT</h3>
                 </div>
-                <Link to="/User/Class/Details" className="Link">
+                {/* Link dang de trong */}
+                <Link to="#" className="Link">
                   <button className="btn-register">+ Đăng ký lớp học</button>
                 </Link>
               </div>
