@@ -125,10 +125,7 @@ const AdminClass = () => {
 
                   <div className="but-box">
                     <button className="but-add">Tìm kiếm</button>
-                    <Link
-                      to="/Admin/UserManagement/CreateUser"
-                      className="Link"
-                    >
+                    <Link to="/Admin/Class/Create" className="Link">
                       <button className="but-add">
                         <span>+ </span> Thêm
                       </button>
