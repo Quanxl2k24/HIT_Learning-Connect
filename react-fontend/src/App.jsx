@@ -57,6 +57,7 @@ function App() {
         <Route path="User/Register" element={<UserRegister />} />
         <Route path="Admin/Class" element={<AdminClass />} />
         <Route path="Admin/Class/Create" element={<AdminCreateClass />} />
+        <Route path="/Admin/Class/Update" element={<AdminUpdateClass />} />
         <Route path="Admin/Regiter" element={<AdminRegister />} />
       </Routes>
     </>
