@@ -35,7 +35,7 @@ const AdminClass = () => {
   const Class = useSelector((state) => state.adminClass.listClass) || [];
 
   const handleEdit = (user) => {
-    navigate("/Admin/UserManagement/Update", { state: { user } });
+    navigate("/Admin/Class/Update", { state: { user } });
   };
 
   // handle xoa
@@ -48,7 +48,6 @@ const AdminClass = () => {
   const handleDeleteBoxConfirm = async () => {
     const res = await dispatch(deleteClassByAdmin(idDel));
     await dispatch(fetchAllClassByAdmin());
-    console.log("Success", res);
     setIdDel(null);
     setShowConfirm(false);
     if (res.success) {
@@ -176,7 +175,7 @@ const AdminClass = () => {
                               <div className="admin-class-btn">
                                 <button
                                   className="admin-class-btn-Edit"
-                                  onClick={() => handleEdit(user)}
+                                  onClick={() => handleEdit(item)}
                                 >
                                   <img
                                     className="img-btn"

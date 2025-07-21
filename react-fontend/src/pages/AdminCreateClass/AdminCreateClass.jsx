@@ -80,7 +80,7 @@ const AdminCreateClass = () => {
                   value={formik.values.title}
                   placeholder="Nhập tên lớp học"
                 />
-                <span className="error">Vui lòng nhập tên lớp học</span>
+                <span className="error">{formik.errors.title}</span>
               </div>
               <div className="form-row">
                 <div className="form-group">
@@ -92,7 +92,7 @@ const AdminCreateClass = () => {
                     value={formik.values.startDate}
                     placeholder="yyyy/mm/dd"
                   />
-                  <span className="error">Vui lòng nhập ngày bắt đầu</span>
+                  <span className="error">{formik.errors.startDate}</span>
                 </div>
 
                 <div className="form-group">
@@ -104,6 +104,7 @@ const AdminCreateClass = () => {
                     value={formik.values.endDate}
                     placeholder="yyyy/mm/dd"
                   />
+                  <span className="error">{formik.errors.endDate}</span>
                 </div>
               </div>
 
@@ -116,7 +117,7 @@ const AdminCreateClass = () => {
                   value={formik.values.teacherId}
                   placeholder="Nhập tên Leader"
                 />
-                <span className="error">Vui lòng nhập tên IDLeader</span>
+                <span className="error">{formik.errors.teacherId}</span>
               </div>
 
               <div className="form-group">
@@ -128,6 +129,7 @@ const AdminCreateClass = () => {
                   value={formik.values.description}
                   rows="3"
                 ></textarea>
+                <span className="error">{formik.errors.description}</span>
               </div>
 
               <div className="form-actions">

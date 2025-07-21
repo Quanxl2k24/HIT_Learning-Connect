@@ -1,0 +1,123 @@
+@use "../../styles/index" as style;
+.AdminCreateClass-container {
+  .Home-left {
+    position: fixed;
+    width: 20%;
+    height: 100vh;
+  }
+  .AdminCreateClass-right {
+    width: 100%;
+    padding-left: 20%;
+
+    .AdminCreateClass_right--banner {
+      @include style.flex(none, center);
+      padding: 16px 32px;
+      gap: 16px;
+      background-color: white;
+
+      .logo-banner {
+        height: 40px;
+        width: 10px;
+        background: linear-gradient(to bottom, #f06c24, #f97316, #eab308);
+        border-radius: 12px;
+      }
+    }
+    .box-create-class {
+      width: 100%;
+      padding: 0 6rem;
+      .add-class-form {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 12px 12px rgba(0, 0, 0, 0.1);
+        margin-top: 64px;
+
+        .add-class-form-title {
+          background: linear-gradient(to right, #f46f1e, #fb923c);
+          padding: 20px;
+          color: white;
+          font-weight: 600;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          padding: 30px;
+
+          .form-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            .form-group {
+              flex: 1;
+              min-width: 200px;
+              input {
+                height: 50px;
+              }
+            }
+          }
+
+          .form-group {
+            display: flex;
+            flex-direction: column;
+
+            label {
+              font-weight: 500;
+              margin-bottom: 6px;
+            }
+
+            input,
+            select,
+            textarea {
+              padding: 10px 12px;
+              border: 1px solid #ddd;
+              border-radius: 6px;
+              font-size: 14px;
+              transition: border 0.3s;
+              height: 50px;
+
+              &:focus {
+                border-color: #f4641f;
+                outline: none;
+              }
+            }
+
+            .error {
+              margin-top: 4px;
+              color: #f06c24;
+              font-size: 12px;
+            }
+          }
+
+          .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+
+            .cancelClass {
+              font-weight: bold;
+              padding: 10px 20px;
+              background: #f1f1f1;
+              color: #333;
+              border: none;
+              border-radius: 6px;
+              cursor: pointer;
+            }
+
+            .submitClass {
+              font-weight: bold;
+              padding: 10px 20px;
+              background: style.$primary-color;
+              color: #fff;
+              border: none;
+              border-radius: 6px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
