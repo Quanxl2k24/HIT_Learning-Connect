@@ -102,6 +102,19 @@ const UpdateClassByAdminApi = async (classId, dataUpdate, token) => {
   });
 };
 
+const GetAllRegisterByAdminApi = async (params, token) => {
+  const queryParams = new URLSearchParams({
+    page: params.page,
+    size: params.size,
+    sort: params.size,
+  });
+  return Api.get(`/api/v1/registration${queryParams.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+};
+
 export {
   LoginApi,
   ProfileUser,
@@ -115,4 +128,5 @@ export {
   DeleteClassByAdmin,
   CreateClassByAdminApi,
   UpdateClassByAdminApi,
+  GetAllRegisterByAdminApi,
 };
