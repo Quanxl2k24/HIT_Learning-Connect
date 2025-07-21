@@ -8,12 +8,16 @@ import {
   ADMIN_CREATE_CLASS_REQUEST,
   ADMIN_CREATE_CLASS_SUCCESS,
   ADMIN_CREATE_CLASS_FAIL,
+  ADMIN_UPDATE_CLASS_REQUEST,
+  ADMIN_UPDATE_CLASS_SUCCESS,
+  ADMIN_UPDATE_CLASS_FAIL,
 } from "./adminClassTypes";
 
 import {
   GetAllClassByUserAndAdmin,
   DeleteClassByAdmin,
   CreateClassByAdminApi,
+  UpdateClassByAdminApi,
 } from "../../api/UserCallApi";
 
 export const fetchAllClassByAdmin = () => {
@@ -55,6 +59,21 @@ export const createClassByAdmin = (dataCreate) => {
       return { success: true };
     } catch (error) {
       dispatch({ type: ADMIN_CREATE_CLASS_FAIL, payload: error.message });
+      return { success: false };
+    }
+  };
+};
+
+export const updateClassByAdmin = (classId, dataUpdate) => {
+  return async (dispatch) => {
+    dispatch({ type: ADMIN_UPDATE_CLASS_REQUEST });
+    try {
+      const token = localStorage.getItem("token");
+      const res = await UpdateClassByAdminApi(classId, dataUpdate, token);
+      dispatch({ type: ADMIN_UPDATE_CLASS_SUCCESS });
+      return { success: true };
+    } catch (error) {
+      dispatch({ type: ADMIN_UPDATE_CLASS_FAIL, payload: error.message });
       return { success: false };
     }
   };

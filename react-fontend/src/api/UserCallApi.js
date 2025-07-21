@@ -94,6 +94,14 @@ const CreateClassByAdminApi = async (dataCreate, token) => {
   });
 };
 
+const UpdateClassByAdminApi = async (classId, dataUpdate, token) => {
+  return Api.put(`/api/v1/classes/${classId}`, dataUpdate, {
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+};
+
 export {
   LoginApi,
   ProfileUser,
@@ -106,4 +114,5 @@ export {
   GetAllClassByUserAndAdmin,
   DeleteClassByAdmin,
   CreateClassByAdminApi,
+  UpdateClassByAdminApi,
 };
