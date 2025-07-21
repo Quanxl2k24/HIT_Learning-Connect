@@ -1,11 +1,58 @@
-// AddClassForm.jsx
-import React from "react";
+import React, { useState } from "react";
+import { useFormik } from "formik";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+
 import "./AdminCreateClass.scss";
 import SideBar from "../../components/SideBar/SideBar";
+import adminCreateClassSchema from "../../utlis/adminCreateClassSchema";
+import { createClassByAdmin } from "../../redux/adminClass/adminClassActions";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 
 const AdminCreateClass = () => {
+  const [statusBox, setStatusBox] = useState(null);
+  const [showToast, setShowToast] = useState(false);
+  const [text, setText] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      description: "",
+      teacherId: "",
+      startDate: "",
+      endDate: "",
+    },
+    validationSchema: adminCreateClassSchema,
+
+    onSubmit: async (values) => {
+      const res = await dispatch(createClassByAdmin(values));
+
+      if (res.success) {
+        setShowToast(true);
+        setText("Tạo class thành công");
+        setStatusBox(true);
+        setTimeout(() => {
+          navigate("/Admin/Class");
+        }, 1500);
+      } else {
+        setShowToast(true);
+        setText("Tạo class không thành công");
+        setStatusBox(false);
+      }
+    },
+  });
+  // notificaton
+
   return (
     <div className="AdminCreateClass-container">
+      {showToast && (
+        <BoxNotification
+          message={text}
+          status={statusBox}
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <div className="Home-left">
         <SideBar />
       </div>
@@ -23,52 +70,73 @@ const AdminCreateClass = () => {
               <p>Thêm lớp học mới</p>
             </div>
 
-            <form>
+            <form onSubmit={formik.handleSubmit}>
               <div className="form-group formNameClass">
                 <label>Tên lớp học</label>
-                <input type="text" placeholder="Nhập tên lớp học" />
+                <input
+                  type="text"
+                  name="title"
+                  onChange={formik.handleChange}
+                  value={formik.values.title}
+                  placeholder="Nhập tên lớp học"
+                />
                 <span className="error">Vui lòng nhập tên lớp học</span>
               </div>
               <div className="form-row">
                 <div className="form-group">
                   <label>Ngày bắt đầu</label>
-                  <input type="date" placeholder="yyyy/mm/dd" />
+                  <input
+                    type="date"
+                    name="startDate"
+                    onChange={formik.handleChange}
+                    value={formik.values.startDate}
+                    placeholder="yyyy/mm/dd"
+                  />
                   <span className="error">Vui lòng nhập ngày bắt đầu</span>
                 </div>
 
                 <div className="form-group">
                   <label>Ngày kết thúc</label>
-                  <input type="date" placeholder="yyyy/mm/dd" />
+                  <input
+                    type="date"
+                    name="endDate"
+                    onChange={formik.handleChange}
+                    value={formik.values.endDate}
+                    placeholder="yyyy/mm/dd"
+                  />
                 </div>
               </div>
 
               <div className="form-group">
-                <label>Leader</label>
-                <input type="text" placeholder="Nhập tên Leader" />
-                <span className="error">Vui lòng nhập tên Leader</span>
-              </div>
-
-              <div className="form-group">
-                <label>Trạng thái</label>
-                <select>
-                  <option>Đang mở</option>
-                  <option>Đã đóng</option>
-                </select>
+                <label>ID Leader</label>
+                <input
+                  type="text"
+                  name="teacherId"
+                  onChange={formik.handleChange}
+                  value={formik.values.teacherId}
+                  placeholder="Nhập tên Leader"
+                />
+                <span className="error">Vui lòng nhập tên IDLeader</span>
               </div>
 
               <div className="form-group">
                 <label>Nội dung</label>
                 <textarea
                   placeholder="Mô tả nội dung lớp học"
+                  name="description"
+                  onChange={formik.handleChange}
+                  value={formik.values.description}
                   rows="3"
                 ></textarea>
               </div>
 
               <div className="form-actions">
-                <button type="button" className="cancel">
-                  Hủy
-                </button>
-                <button type="submit" className="submit">
+                <Link to="/Admin/Class">
+                  <button type="button" className="cancelClass">
+                    Hủy
+                  </button>
+                </Link>
+                <button type="submit" className="submitClass">
                   Thêm
                 </button>
               </div>

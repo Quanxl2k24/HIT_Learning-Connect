@@ -96,19 +96,21 @@
             justify-content: flex-end;
             gap: 12px;
 
-            .cancel {
+            .cancelClass {
+              font-weight: bold;
+              padding: 10px 20px;
               background: #f1f1f1;
               color: #333;
-              padding: 8px 16px;
               border: none;
               border-radius: 6px;
               cursor: pointer;
             }
 
-            .submit {
-              background: #f4641f;
+            .submitClass {
+              font-weight: bold;
+              padding: 10px 20px;
+              background: style.$primary-color;
               color: #fff;
-              padding: 8px 16px;
               border: none;
               border-radius: 6px;
               cursor: pointer;

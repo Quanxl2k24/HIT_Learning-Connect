@@ -86,6 +86,14 @@ const DeleteClassByAdmin = async (classId, token) => {
   });
 };
 
+const CreateClassByAdminApi = async (dataCreate, token) => {
+  return Api.post("/api/v1/classes", dataCreate, {
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+};
+
 export {
   LoginApi,
   ProfileUser,
@@ -97,4 +105,5 @@ export {
   DeleteUserByAdminApi,
   GetAllClassByUserAndAdmin,
   DeleteClassByAdmin,
+  CreateClassByAdminApi,
 };

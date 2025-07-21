@@ -8,8 +8,8 @@ import adminUpdateUserSchema from "../../utlis/adminUpdateUserSchema";
 import { adminUserUpdate } from "../../redux/admin/adminActions";
 import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 const AdminUpdateUser = () => {
-  const [statusBox, setStatusBox] = useState(false);
   const navigate = useNavigate();
+  const [statusBox, setStatusBox] = useState(false);
   const [showToast, setShowToast] = useState(null);
   const [text, setText] = useState("");
   const dispatch = useDispatch();
@@ -70,7 +70,7 @@ const AdminUpdateUser = () => {
             </div>
           </div>
           <div className="box-conatiner">
-            <p className="section-title">Tạo tài khoản</p>
+            <p className="section-title">Cập nhật tài khoản</p>
             {/* FROM */}
             <form className="form" onSubmit={formik.handleSubmit}>
               <div className="form-group">
