@@ -12,15 +12,15 @@ const useLoginHandler = () => {
       //  Lấy dữ liệu từ tầng response.data.data
       const { accessToken, refreshToken, id, authorities, firstLogin } =
         response.data.data;
-      console.log("api tra ve: ", response.data.data);
+      // console.log("api tra ve: ", response.data.data);
 
       //  Lưu token
       localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("token", accessToken);
 
       //  Log thông tin user
-      console.log("Đăng nhập thành công", { id, authorities });
-      console.log("Co phai lan dau", firstLogin);
+      // console.log("Đăng nhập thành công", { id, authorities });
+      // console.log("Co phai lan dau", firstLogin);
 
       // can sua lai day bro(do lai if else la dc)
 

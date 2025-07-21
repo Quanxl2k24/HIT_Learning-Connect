@@ -5,11 +5,15 @@ import {
   ADMIN_DELETE_CLASS_REQUEST,
   ADMIN_DELETE_CLASS_SUCCESS,
   ADMIN_DELETE_CLASS_FAIL,
+  ADMIN_CREATE_CLASS_REQUEST,
+  ADMIN_CREATE_CLASS_SUCCESS,
+  ADMIN_CREATE_CLASS_FAIL,
 } from "./adminClassTypes";
 
 import {
   GetAllClassByUserAndAdmin,
   DeleteClassByAdmin,
+  CreateClassByAdminApi,
 } from "../../api/UserCallApi";
 
 export const fetchAllClassByAdmin = () => {
@@ -31,11 +35,27 @@ export const deleteClassByAdmin = (classId) => {
     try {
       const token = localStorage.getItem("token");
       const res = await DeleteClassByAdmin(classId, token);
-      console.log("da goi vao action");
       dispatch({ type: ADMIN_DELETE_CLASS_SUCCESS });
+      return { success: true };
     } catch (error) {
       dispatch({ type: ADMIN_DELETE_CLASS_FAIL, payload: error.message });
       console.log("loi", error.message);
+      return { success: false };
+    }
+  };
+};
+
+export const createClassByAdmin = (dataCreate) => {
+  return async (dispatch) => {
+    dispatch({ type: ADMIN_CREATE_CLASS_REQUEST });
+    try {
+      const token = localStorage.getItem("token");
+      const res = await CreateClassByAdminApi(dataCreate, token);
+      dispatch({ type: ADMIN_CREATE_CLASS_SUCCESS });
+      return { success: true };
+    } catch (error) {
+      dispatch({ type: ADMIN_CREATE_CLASS_FAIL, payload: error.message });
+      return { success: false };
     }
   };
 };

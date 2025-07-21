@@ -11,13 +11,13 @@ import { useEffect, useState } from "react";
 import DelButton from "../../assets/imgs/img_Del.png";
 import EditButton from "../../assets/imgs/img_Edit.png";
 import BoxConfirmDelete from "../../components/BoxConfrimDelete/BoxConfirmDelete";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 const AdminClass = () => {
-  // const now = new Date();
-  // console.log("thoi gian", now);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [showToast, setShowToast] = useState(false);
+  const [text, setText] = useState("");
+  const [statusBox, setStatusBox] = useState(null);
   const size = 5; // số lượng user mỗi trang
   const [currentPage, setCurrentPage] = useState(1);
   // Gọi API
@@ -27,14 +27,9 @@ const AdminClass = () => {
   // };
 
   // goi api
-
   useEffect(() => {
     dispatch(fetchAllClassByAdmin());
   }, []);
-
-  // useEffect(() => {
-  //   fetchData(currentPage);
-  // }, [currentPage]);
 
   // Lấy dữ liệu từ redux
   const Class = useSelector((state) => state.adminClass.listClass) || [];
@@ -51,10 +46,23 @@ const AdminClass = () => {
   };
 
   const handleDeleteBoxConfirm = async () => {
-    await dispatch(deleteClassByAdmin(idDel));
+    const res = await dispatch(deleteClassByAdmin(idDel));
     await dispatch(fetchAllClassByAdmin());
+    console.log("Success", res);
     setIdDel(null);
     setShowConfirm(false);
+    if (res.success) {
+      setShowToast(true);
+      setText("Xoá lớp thành công");
+      setStatusBox(true);
+      setTimeout(() => {
+        navigate("/Admin/Class");
+      }, 1500);
+    } else {
+      setShowToast(true);
+      setText("Xoá lớp không thành công");
+      setStatusBox(false);
+    }
   };
 
   const handleCancel = () => {
@@ -87,6 +95,13 @@ const AdminClass = () => {
 
   return (
     <div className="AdminUserManagement-container">
+      {showToast && (
+        <BoxNotification
+          message={text}
+          status={statusBox}
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <div className="BoxConfirm-container">
         <BoxConfirmDelete
           display={ShowConfirm}
@@ -102,7 +117,7 @@ const AdminClass = () => {
           <div className="AdminUserManagement_right--banner">
             <div className="logo-banner"></div>
             <div className="title-banner">
-              <h3>Người dùng</h3>
+              <h3>Lớp học</h3>
             </div>
           </div>
           <div className="AdminUserManagement_right--box">
