@@ -42,11 +42,11 @@ const UserRegister = () => {
                 <button
                   onClick={() => handleShowDetailsClass(listClass[index])}
                 >
-                  <div className="box-class" key={index}>
+                  <div className="box-class-register" key={index}>
                     <div className="img-class">
                       <img src={img_class} alt="" />
                     </div>
-                    <div className="text-class">
+                    <div className="text-class-register">
                       <h3>{item.title}</h3>
                       <p>{item.teacherFullName}</p>
                       <p>

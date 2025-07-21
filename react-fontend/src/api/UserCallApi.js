@@ -79,7 +79,7 @@ const GetAllClassByUserAndAdmin = async (token) => {
 };
 
 const DeleteClassByAdmin = async (classId, token) => {
-  return Api.delete(`/api/v1/classes/${classId}`, {
+  return await Api.delete(`/api/v1/classes/${classId}`, {
     headers: {
       Authorization: `Bearer ${token} `,
     },
@@ -87,7 +87,7 @@ const DeleteClassByAdmin = async (classId, token) => {
 };
 
 const CreateClassByAdminApi = async (dataCreate, token) => {
-  return Api.post("/api/v1/classes", dataCreate, {
+  return await Api.post("/api/v1/classes", dataCreate, {
     headers: {
       Authorization: `Bearer ${token} `,
     },
@@ -95,7 +95,7 @@ const CreateClassByAdminApi = async (dataCreate, token) => {
 };
 
 const UpdateClassByAdminApi = async (classId, dataUpdate, token) => {
-  return Api.put(`/api/v1/classes/${classId}`, dataUpdate, {
+  return await Api.put(`/api/v1/classes/${classId}`, dataUpdate, {
     headers: {
       Authorization: `Bearer ${token} `,
     },
@@ -115,6 +115,19 @@ const GetAllRegisterByAdminApi = async (params, token) => {
   });
 };
 
+const UserRegisterClassApi = async (classId, token) => {
+  return await Api.post(
+    "/api/v1/registration",
+    { classId },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
+
 export {
   LoginApi,
   ProfileUser,
@@ -129,4 +142,5 @@ export {
   CreateClassByAdminApi,
   UpdateClassByAdminApi,
   GetAllRegisterByAdminApi,
+  UserRegisterClassApi,
 };

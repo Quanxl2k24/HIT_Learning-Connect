@@ -2,9 +2,6 @@ import { ProfileUser } from "../api/UserCallApi";
 
 const useGetProfile = () => {
   const handleGetProfile = async (token) => {
-    // if (!token) {
-    //   return null;
-    // }
     try {
       const response = await ProfileUser(token.token);
       const data = response.data.data;
