@@ -5,11 +5,7 @@ const LoginApi = async (logindata) => {
 };
 
 const ForgotPassword = async (email) => {
-  return await Api.post("/api/v1/auth/send-code", email, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  return await Api.post("/api/v1/auth/send-code", { email });
 };
 
 const ProfileUser = async (token) => {
@@ -154,6 +150,7 @@ const AdminDeleteRegisterApi = async (registrationId, token) => {
 
 export {
   LoginApi,
+  ForgotPassword,
   ProfileUser,
   ChangePasswordApi,
   UpdateUserByUserApi,
