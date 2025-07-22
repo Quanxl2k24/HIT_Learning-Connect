@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { fectchRegisterbyAdmin } from "../../redux/adminRegister/adminRegisterActions";
+import { useDispatch, useSelector } from "react-redux";
 import "./AdminRegister.scss";
 import SideBar from "../../components/SideBar/SideBar";
 import SearchBoxUser from "../../assets/imgs/SearchBoxUser.png";
-import { fectchRegisterbyAdmin } from "../../redux/adminRegister/adminRegisterActions";
-import { useDispatch } from "react-redux";
-
+import DelButton from "../../assets/imgs/img_Del.png";
+import img_accept from "../../assets/imgs/img_accept.png";
+import img_deny from "../../assets/imgs/img_deny.png";
+import useApproveOrDeny from "../../hooks/useApproveOrDeny";
+import { deleteRegisterbyAdmin } from "../../redux/adminRegister/adminRegisterActions";
+import BoxConfirmDelete from "../../components/BoxConfrimDelete/BoxConfirmDelete";
 const AdminRegister = () => {
   const dispatch = useDispatch();
   const size = 5;
@@ -13,10 +18,10 @@ const AdminRegister = () => {
 
   //ham call api
   const fetchRegisters = (page) => {
-    const params = { page: page - 1, size: size, sort: "id" };
+    const params = { page: page - 1, size: size, sort: "registrationId" };
     dispatch(fectchRegisterbyAdmin(params));
   };
-
+  const listRegister = useSelector((state) => state.adminRegister.listRegister);
   useEffect(() => {
     fetchRegisters(currentPage);
   }, [currentPage]);
@@ -38,9 +43,52 @@ const AdminRegister = () => {
     }
     return pages;
   };
-  const Users = null;
+  //handleAccpet va handleDney
+  const { callApproveOrDeny } = useApproveOrDeny();
+  // accpet
+  const handleAccpet = async (id) => {
+    const data = {
+      registrationId: id,
+      approved: true,
+    };
+    await callApproveOrDeny(data);
+    await fetchRegisters(currentPage);
+  };
+  // deny
+  const handleDeny = async (id) => {
+    const data = {
+      registrationId: id,
+      approved: false,
+    };
+    await callApproveOrDeny(data);
+    await fetchRegisters(currentPage);
+  };
+  //handleDelete
+  const [showConfirm, setShowConfirm] = useState(false);
+  const handleCancel = () => {
+    setShowConfirm(false);
+  };
+
+  const [idDel, setIdDel] = useState(null);
+  const handleDelete = async (id) => {
+    setShowConfirm(true);
+    setIdDel(id);
+  };
+  const handleDeleteBoxConfirm = async () => {
+    await dispatch(deleteRegisterbyAdmin(idDel));
+    await fetchRegisters(currentPage);
+    setShowConfirm(false);
+  };
   return (
     <div className="AdminRegister-container">
+      <div className="BoxConfirm-container">
+        <BoxConfirmDelete
+          display={showConfirm}
+          handleCancel={handleCancel}
+          handleDeleteBoxConfirm={handleDeleteBoxConfirm}
+        />
+      </div>
+
       <div className="AdminRegister">
         <div className="AdminRegister_left">
           <SideBar />
@@ -88,41 +136,75 @@ const AdminRegister = () => {
                     <tr>
                       <th>ID</th>
                       <th>Tên lớp học</th>
-                      <th>Thời gian</th>
-                      <th>Người đăng ký</th>
+                      <th>Thời gian đăng ký</th>
+                      <th>Email người đăng ký</th>
                       <th>Trạng thái</th>
                       <th>Hành động</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {Users &&
-                      Users.map((user, index) => (
-                        <tr key={user.id}>
+                    {listRegister &&
+                      listRegister.map((item, index) => (
+                        <tr key={index}>
                           {/* <td>{(currentPage - 1) * size + index + 1}</td> */}
-                          <td>{user.id}</td>
-                          <td>{user.fullName}</td>
-                          <td>{user.gender}</td>
-                          <td>{user.birthday}</td>
-                          <td>{user.email}</td>
-                          <td></td>
+                          <td>{item.registrationId}</td>
+                          <td>{item.classTitle}</td>
+                          <td>{item.registeredAt}</td>
+                          <td>{item.studentEmail}</td>
                           <td>
-                            <div className="admin-class-btn">
+                            {item.registrationStatus === "ACCEPTED" ? (
+                              <div className="status-class-accpet">
+                                <p>Đã duyệt</p>
+                              </div>
+                            ) : item.registrationStatus === "REJECTED" ? (
+                              <div className="status-class-reject">
+                                <p>Đã huỷ</p>
+                              </div>
+                            ) : (
+                              <div className="status-class-pending">
+                                <p>Chờ duyệt</p>
+                              </div>
+                            )}
+                          </td>
+                          <td>
+                            <div className="admin-reigster-btn">
+                              {item.pending && (
+                                <>
+                                  <button
+                                    className="admin-register-btn-accept"
+                                    onClick={() =>
+                                      handleAccpet(item.registrationId)
+                                    }
+                                  >
+                                    <img
+                                      className="img-register-deny-approve "
+                                      src={img_accept}
+                                      alt=""
+                                    />
+                                  </button>
+                                  <button
+                                    className="admin-reigster-btn-deny"
+                                    onClick={() =>
+                                      handleDeny(item.registrationId)
+                                    }
+                                  >
+                                    <img
+                                      className="img-register-deny-approve "
+                                      src={img_deny}
+                                      alt=""
+                                    />
+                                  </button>
+                                </>
+                              )}
+
                               <button
-                                className="admin-class-btn-Edit"
-                                onClick={() => handleEdit(user)}
+                                className="admin-reigster-btn-Del"
+                                onClick={() =>
+                                  handleDelete(item.registrationId)
+                                }
                               >
                                 <img
-                                  className="img-btn"
-                                  src={EditButton}
-                                  alt=""
-                                />
-                              </button>
-                              <button
-                                className="admin-class-btn-Del"
-                                onClick={() => handleDelete(user.id)}
-                              >
-                                <img
-                                  className="img-btn"
+                                  className="img-register"
                                   src={DelButton}
                                   alt=""
                                 />

@@ -106,9 +106,9 @@ const GetAllRegisterByAdminApi = async (params, token) => {
   const queryParams = new URLSearchParams({
     page: params.page,
     size: params.size,
-    sort: params.size,
+    sort: params.sort,
   });
-  return Api.get(`/api/v1/registration${queryParams.toString()}`, {
+  return Api.get(`/api/v1/registration?${queryParams.toString()}`, {
     headers: {
       Authorization: `Bearer ${token} `,
     },
@@ -128,6 +128,22 @@ const UserRegisterClassApi = async (classId, token) => {
   );
 };
 
+const AdminApproveOrDenyRegisterApi = async (dataApproveOrDeny, token) => {
+  return await Api.post("/api/v1/registration/approve", dataApproveOrDeny, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const AdminDeleteRegisterApi = async (registrationId, token) => {
+  return await Api.delete(`/api/v1/registration/${registrationId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export {
   LoginApi,
   ProfileUser,
@@ -143,4 +159,6 @@ export {
   UpdateClassByAdminApi,
   GetAllRegisterByAdminApi,
   UserRegisterClassApi,
+  AdminApproveOrDenyRegisterApi,
+  AdminDeleteRegisterApi,
 };

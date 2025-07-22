@@ -170,7 +170,30 @@ const AdminClass = () => {
                             <td>{item.startDate}</td>
                             <td>{item.endDate}</td>
                             <td>{item.teacherFullName}</td>
-                            <td>Cho api</td>
+                            <td>
+                              {item.status == "IN_PROGRESS" ? (
+                                <div className="admin-class-status-progress">
+                                  <p>Đang mở</p>
+                                </div>
+                              ) : item.status == "COMPLETED" ? (
+                                <div className="admin-class-status-complete ">
+                                  <p>Đã kết thúc</p>
+                                </div>
+                              ) : (
+                                <div className="admin-class-status-upcomming">
+                                  <p>Sắp diễn ra</p>
+                                </div>
+                              )}
+                              {/* <div className="admin-class-status-progress">
+                                <p>Đang mở</p>
+                              </div>
+                              <div className="admin-class-status-upcomming">
+                                <p>Đang mở</p>
+                              </div>
+                              <div className="admin-class-status-complete ">
+                                <p>Đang mở</p>
+                              </div> */}
+                            </td>
                             <td>
                               <div className="admin-class-btn">
                                 <button
