@@ -1,10 +1,17 @@
 @use "../../styles/index" as style;
 .AdminRegister-container {
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.1); /* Lớp mờ màu đen 40% */
+  .BoxConfirm-container {
+    position: absolute;
+    z-index: 100;
+  }
   .AdminRegister {
     &_left {
       position: fixed;
       width: 20%;
       height: 100vh;
+      z-index: 9999;
     }
     &_right {
       width: 100%;
@@ -144,8 +151,73 @@
             text-align: left;
             padding: 12px;
           }
+          .status-class-accpet {
+            background-color: #d9f9e8;
+            width: 100px;
+            padding: 2px 0px;
+            border-radius: 12px;
+            text-align: center;
+            p {
+              color: #14ae5c;
+            }
+          }
+          .status-class-pending {
+            background-color: #fef9c3;
+            width: 100px;
+            padding: 2px 0px;
+            border-radius: 12px;
+            text-align: center;
+            p {
+              color: #854d0e;
+            }
+          }
+          .status-class-reject {
+            background-color: #686339;
+            width: 100px;
+            padding: 2px 0px;
+            border-radius: 12px;
+            text-align: center;
+            p {
+              color: #fdfdfd;
+            }
+          }
         }
       }
+    }
+  }
+}
+
+.admin-reigster-btn {
+  background-color: none;
+  display: flex;
+  gap: 10px;
+  button {
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: none;
+    .img-register {
+      height: 16px;
+    }
+    .img-register-deny-approve {
+      height: 16px;
+    }
+  }
+
+  .admin-register-btn-accept {
+    background-color: #fff7ed;
+    &:hover {
+      background-color: #d1d1d1;
+    }
+  }
+  .admin-reigster-btn-deny {
+    background-color: #fff7ed;
+    &:hover {
+      background-color: #d1d1d1;
+    }
+  }
+  .admin-reigster-btn-Del {
+    &:hover {
+      background-color: #d1d1d1;
     }
   }
 }

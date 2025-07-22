@@ -26,6 +26,7 @@ export const fetchAllUser = (params) => {
     const token = localStorage.getItem("token");
     try {
       const res = await GetAllUserApi(params, token);
+
       dispatch({ type: ADMIN_USER_LIST_SUCCESS, payload: res.data.data });
     } catch (error) {
       dispatch({ type: ADMIN_USER_LIST_FAIL, payload: error.message });
