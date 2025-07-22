@@ -11,7 +11,11 @@ import img_deny from "../../assets/imgs/img_deny.png";
 import useApproveOrDeny from "../../hooks/useApproveOrDeny";
 import { deleteRegisterbyAdmin } from "../../redux/adminRegister/adminRegisterActions";
 import BoxConfirmDelete from "../../components/BoxConfrimDelete/BoxConfirmDelete";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 const AdminRegister = () => {
+  const [showToast, setShowToast] = useState(false);
+  const [text, setText] = useState("");
+  const [statusBox, setStatusBox] = useState(null);
   const dispatch = useDispatch();
   const size = 5;
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,16 +25,18 @@ const AdminRegister = () => {
     const params = { page: page - 1, size: size, sort: "registrationId" };
     dispatch(fectchRegisterbyAdmin(params));
   };
-  const listRegister = useSelector((state) => state.adminRegister.listRegister);
+  const data = useSelector((state) => state.adminRegister.listRegister);
+  const listRegister = data?.data?.content;
+
   useEffect(() => {
     fetchRegisters(currentPage);
   }, [currentPage]);
-  let totalPages = 3;
-  // if (data.amountOfAllUsers % size == 0) {
-  //   totalPages = data.amountOfAllUsers / size;
-  // } else {
-  //   totalPages = data.amountOfAllUsers / size + 1;
-  // }
+  let totalPages = 0;
+  if (data?.data?.totalElements % size == 0) {
+    totalPages = data?.data?.totalElements / size;
+  } else {
+    totalPages = data?.data?.totalElements / size + 1;
+  }
   const onPageChange = (page) => {
     if (page < 1 || page > totalPages) return;
     setCurrentPage(page);
@@ -75,12 +81,28 @@ const AdminRegister = () => {
     setIdDel(id);
   };
   const handleDeleteBoxConfirm = async () => {
-    await dispatch(deleteRegisterbyAdmin(idDel));
+    const res = await dispatch(deleteRegisterbyAdmin(idDel));
     await fetchRegisters(currentPage);
     setShowConfirm(false);
+    if (res.success) {
+      setShowToast(true);
+      setText("Xoá đơn đăng ký thành công");
+      setStatusBox(true);
+    } else {
+      setShowToast(true);
+      setText("Xoá đơn đăng ký không thành công");
+      setStatusBox(false);
+    }
   };
   return (
     <div className="AdminRegister-container">
+      {showToast && (
+        <BoxNotification
+          message={text}
+          status={statusBox}
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <div className="BoxConfirm-container">
         <BoxConfirmDelete
           display={showConfirm}
@@ -122,11 +144,11 @@ const AdminRegister = () => {
 
                 <div className="but-box">
                   <button className="but-add">Tìm kiếm</button>
-                  <Link to="#" className="Link">
+                  {/* <Link to="#" className="Link">
                     <button className="but-add">
                       <span>+ </span> Thêm
                     </button>
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
 
@@ -146,7 +168,6 @@ const AdminRegister = () => {
                     {listRegister &&
                       listRegister.map((item, index) => (
                         <tr key={index}>
-                          {/* <td>{(currentPage - 1) * size + index + 1}</td> */}
                           <td>{item.registrationId}</td>
                           <td>{item.classTitle}</td>
                           <td>{item.registeredAt}</td>

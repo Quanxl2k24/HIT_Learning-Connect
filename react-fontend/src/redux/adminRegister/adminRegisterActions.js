@@ -18,11 +18,11 @@ export const fectchRegisterbyAdmin = (params) => {
     try {
       const token = localStorage.getItem("token");
       const res = await GetAllRegisterByAdminApi(params, token);
-      console.log("res", res.data.data);
+      console.log("res", res.data);
 
       dispatch({
         type: ADMIN_GET_REGISTER_SUCCESS,
-        payload: res.data.data.content,
+        payload: res.data,
       });
     } catch (error) {
       dispatch({ type: ADMIN_GET_REGISTER_FAIL, payload: error.message });
