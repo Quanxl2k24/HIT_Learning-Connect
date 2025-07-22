@@ -5,16 +5,9 @@
   width: 20%;
   height: 100vh;
 }
-// .SideBar {
-//   width: 100%;
-// }
-// Right
-body {
-  background: style.$background-color;
-  color: #333;
-}
 
 .container {
+  background: style.$background-color;
   display: flex;
   height: 100vh;
 }

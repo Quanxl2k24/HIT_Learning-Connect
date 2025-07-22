@@ -1,13 +1,10 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useState } from "react";
 
-import ChangePasswordShema from "../../utlis/changePasswordSchema"; // bo
 import fotgotPasswordSchema from "../../utlis/fotgotPasswordSchema";
-import ShowPassword from "../../assets/imgs/ShowPassword.png";
-import HiddenPassword from "../../assets/imgs/HiddenPassword.png";
 import "./ForgotPassword.scss";
 import Logo from "../../assets/imgs/Logo-2.png";
-
+import { ForgotPassword } from "../../api/UserCallApi";
 const ChangePassword = () => {
   const [typePassword, setTypePassword] = useState(false);
   const [typeConfirmPassword, setTypeConfirmPassword] = useState(false);
@@ -25,8 +22,9 @@ const ChangePassword = () => {
   };
 
   //handle submit
-  const handleSubmit = (values) => {
-    console.log(">>", values.newpassword);
+  const handleSubmit = async (values) => {
+    const res = await ForgotPassword(values.email);
+    console.log(">>", res);
   };
 
   return (
@@ -44,7 +42,7 @@ const ChangePassword = () => {
 
         <div className="ChangePassword_box--input">
           <Formik
-            initialValues={{ newpassword: "", confirmpassword: "" }}
+            initialValues={{ email: "" }}
             validationSchema={fotgotPasswordSchema}
             onSubmit={handleSubmit}
           >

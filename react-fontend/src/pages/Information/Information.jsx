@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import Logo from "../../assets/imgs/LogoHit.png";
-import "./Information.css";
+import "./Information.scss";
 import Key from "../../assets/imgs/key.png";
 import Pen from "../../assets/imgs/pen.png";
 import Male from "../../assets/imgs/male.png";
