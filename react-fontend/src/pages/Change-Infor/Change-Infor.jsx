@@ -120,7 +120,6 @@ function Change_Infor() {
                     value={formik.values.email}
                     onChange={formik.handleChange}
                   />
-                  {/* <small>Email không thể thay đổi</small> */}
                 </div>
               </div>
               <div className="form-row">

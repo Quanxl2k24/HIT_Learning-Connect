@@ -4,6 +4,14 @@ const LoginApi = async (logindata) => {
   return await Api.post("/api/v1/auth/login", logindata);
 };
 
+const ForgotPassword = async (email) => {
+  return await Api.post("/api/v1/auth/send-code", email, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 const ProfileUser = async (token) => {
   return await Api.get("/api/v1/users/profile", {
     headers: {

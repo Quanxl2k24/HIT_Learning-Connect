@@ -3,11 +3,14 @@ import { useFormik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./AdminCreateUser.scss";
+import ShowPassword from "../../assets/imgs/ShowPassword.png";
+import HiddenPassword from "../../assets/imgs/HiddenPassword.png";
 import SideBar from "../../components/Sidebar/Sidebar";
 import adminCreateUserSchema from "../../utlis/adminCreateUserSchema";
 import { adminUserCreate } from "../../redux/admin/adminActions";
 import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 const AdminCreateUser = () => {
+  const [typeConfirmPassword, setTypeConfirmPassword] = useState(false);
   const [statusBox, setStatusBox] = useState(false);
   const navigate = useNavigate();
   const [showToast, setShowToast] = useState(null);
@@ -40,6 +43,11 @@ const AdminCreateUser = () => {
       }
     },
   });
+
+  const handleTypeConfirmPassword = (e) => {
+    e.preventDefault();
+    setTypeConfirmPassword(!typeConfirmPassword);
+  };
 
   return (
     <>
@@ -119,7 +127,7 @@ const AdminCreateUser = () => {
                 />
                 <p className="validate p">{formik.errors.username}</p>
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label>Mật khẩu</label>
                 <input
                   type="password"
@@ -128,7 +136,31 @@ const AdminCreateUser = () => {
                   placeholder="Password"
                 />
                 <p className="validate p">{formik.errors.password}</p>
+              </div> */}
+              <div className="form-group">
+                <div>
+                  <label>Nhập mật lại khẩu mới</label>
+                </div>
+                <div className="AdminCreaterPassword">
+                  <input
+                    className="inputAdminCreaterPassword"
+                    type={typeConfirmPassword ? "text" : "password"}
+                    name="password"
+                    onChange={formik.handleChange}
+                    placeholder="Password"
+                  />
+
+                  <button onClick={handleTypeConfirmPassword}>
+                    <img
+                      src={typeConfirmPassword ? HiddenPassword : ShowPassword}
+                      alt=""
+                    />
+                  </button>
+                </div>
+                <p className="validate p">{formik.errors.password}</p>
               </div>
+
+              {/* sua lai */}
               <div className="form-actions">
                 <Link to={"/Admin/UserManagement/"}>
                   <button type="button" className="cancel btn">
