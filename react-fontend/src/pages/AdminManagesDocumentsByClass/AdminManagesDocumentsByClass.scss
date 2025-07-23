@@ -1,0 +1,72 @@
+@use "../../styles/index" as style;
+
+.AdminManagesDocumentsByClass {
+  &_left {
+    position: fixed;
+    width: 20%;
+  }
+  &_right {
+    width: 100%;
+    padding-left: 20%;
+    &--banner {
+      @include style.flex(none, center);
+      padding: 16px 32px;
+      gap: 16px;
+      background-color: white;
+      margin-bottom: 64px;
+      .logo-banner {
+        height: 40px;
+        width: 10px;
+        background: linear-gradient(to bottom, #f06c24, #f97316, #eab308);
+        border-radius: 12px;
+      }
+    }
+
+    &--listboxclass {
+      display: grid;
+      justify-content: center;
+      grid-template-columns: repeat(4, 16rem);
+      gap: 6rem 3rem;
+      button {
+        border: none;
+        background-color: none;
+      }
+      .box-class {
+        width: 16rem;
+        height: 9rem;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        .img-class {
+          width: 100%;
+          height: 100%;
+          img {
+            object-fit: cover;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        .text-class {
+          width: 100%;
+          text-align: start;
+          background-color: #f7f7f7;
+          padding: 10px 0px 16px 12px;
+          border-bottom-left-radius: 16px;
+          border-bottom-right-radius: 16px;
+          h3 {
+            font-weight: 500;
+            color: #c34f10;
+            margin-bottom: 4px;
+          }
+          p {
+            color: #b9b7b7;
+            font-size: 14px;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  }
+}

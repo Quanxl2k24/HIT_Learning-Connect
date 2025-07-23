@@ -126,6 +126,8 @@
       }
       .table-box {
         overflow-x: auto;
+        height: 32rem; /* Chiều cao cố định */
+        overflow-y: auto;
 
         table {
           min-width: 768px;
