@@ -52,6 +52,8 @@ const SideBar = () => {
       { id: 2, path: "/Information", name: "Thông tin cá nhân" },
       { id: 3, path: "/Admin/UserManagement", name: "Người dùng" },
       { id: 4, path: "/Admin/Class", name: "Lớp Học" },
+      { id: 5, path: "/Admin/Document", name: "Tài Liệu" },
+      { id: 6, path: "/w", name: "Đăng Kí lớp học" },
       { id: 5, path: "/g", name: "Tài Liệu" },
       { id: 6, path: "/Admin/Regiter", name: "Đăng Kí lớp học" },
       { id: 7, path: "/e", name: "Contest online" },
