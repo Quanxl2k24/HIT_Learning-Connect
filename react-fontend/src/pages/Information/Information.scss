@@ -1,14 +1,4 @@
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background-color: #f9fafb;
-}
-
-/* .infor {
-  display: flex;
-  min-height: 100vh;
-} */
-
+@use "../../styles/index" as style;
 .infor-colum1 {
   width: 20%;
   background-color: #ffffff;

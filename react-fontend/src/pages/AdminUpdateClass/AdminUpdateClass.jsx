@@ -1,43 +1,47 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import "./AdminCreateClass.scss";
+import "./AdminUpdateClass.scss";
 import SideBar from "../../components/SideBar/SideBar";
 import adminCreateClassSchema from "../../utlis/adminCreateClassSchema";
-import { createClassByAdmin } from "../../redux/adminClass/adminClassActions";
+import { updateClassByAdmin } from "../../redux/adminClass/adminClassActions";
 import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 
-const AdminCreateClass = () => {
+const AdminUpdateClass = () => {
   const [statusBox, setStatusBox] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [text, setText] = useState("");
+  const location = useLocation();
+  const data = location.state;
+  console.log(data.user.classId);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
-      title: "",
-      description: "",
-      teacherId: "",
-      startDate: "",
-      endDate: "",
+      title: data.user.title,
+      description: data.user.description,
+      teacherId: data.user.teacherId,
+      startDate: data.user.startDate,
+      endDate: data.user.endDate,
     },
     validationSchema: adminCreateClassSchema,
 
     onSubmit: async (values) => {
-      const res = await dispatch(createClassByAdmin(values));
+      const res = await dispatch(updateClassByAdmin(data.user.classId, values));
 
       if (res.success) {
         setShowToast(true);
-        setText("Tạo class thành công");
+        setText("Cập nhật class thành công");
         setStatusBox(true);
         setTimeout(() => {
           navigate("/Admin/Class");
         }, 1500);
       } else {
         setShowToast(true);
-        setText("Tạo class không thành công");
+        setText("Cập nhật class không thành công");
         setStatusBox(false);
       }
     },
@@ -60,7 +64,7 @@ const AdminCreateClass = () => {
         <div className="AdminCreateClass_right--banner">
           <div className="logo-banner"></div>
           <div className="title-banner">
-            <h3>Thêm mới lớp học</h3>
+            <h3>Cập nhật lớp học</h3>
           </div>
         </div>
 
@@ -129,7 +133,6 @@ const AdminCreateClass = () => {
                   value={formik.values.description}
                   rows="3"
                 ></textarea>
-                <span className="error">{formik.errors.description}</span>
               </div>
 
               <div className="form-actions">
@@ -139,7 +142,7 @@ const AdminCreateClass = () => {
                   </button>
                 </Link>
                 <button type="submit" className="submitClass">
-                  Thêm
+                  Cập nhật
                 </button>
               </div>
             </form>
@@ -150,4 +153,4 @@ const AdminCreateClass = () => {
   );
 };
 
-export default AdminCreateClass;
+export default AdminUpdateClass;

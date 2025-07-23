@@ -5,16 +5,9 @@
   width: 20%;
   height: 100vh;
 }
-// .SideBar {
-//   width: 100%;
-// }
-// Right
-body {
-  background: style.$background-color;
-  color: #333;
-}
 
 .container {
+  background: style.$background-color;
   display: flex;
   height: 100vh;
 }
@@ -121,4 +114,39 @@ body {
 .p {
   margin-top: 4px;
   margin-left: 4px;
+}
+
+.AdminCreaterPassword {
+  width: 100%;
+  height: 44px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 8px;
+  @include style.flex(space-between, center);
+  padding-right: 12px;
+  margin-top: 8px;
+  .inputAdminCreaterPassword {
+    width: 80%;
+    height: 40px;
+    padding-left: 12px;
+    font-size: 16px;
+    background-color: white;
+    border: none;
+    border-radius: 8px;
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
+
+  button {
+    height: 24px;
+    width: 24px;
+    border: none;
+    background-color: #f5f7f9;
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
 }

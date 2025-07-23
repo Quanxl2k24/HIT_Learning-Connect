@@ -8,7 +8,11 @@ import { useEffect, useState } from "react";
 import DelButton from "../../assets/imgs/img_Del.png";
 import EditButton from "../../assets/imgs/img_Edit.png";
 import BoxConfirmDelete from "../../components/BoxConfrimDelete/BoxConfirmDelete";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 const AdminUserManagement = () => {
+  const [statusBox, setStatusBox] = useState(false);
+  const [showToast, setShowToast] = useState(null);
+  const [text, setText] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -38,10 +42,22 @@ const AdminUserManagement = () => {
   };
 
   const handleDeleteBoxConfirm = async () => {
-    await dispatch(adminUserDelete(idDel));
+    const res = await dispatch(adminUserDelete(idDel));
     await fetchData(currentPage);
     setIdDel(null);
     setShowConfirm(false);
+    if (res.success) {
+      setText("Xoá người dùng thành công");
+      setStatusBox(true);
+      setShowToast(true);
+      setTimeout(() => {
+        navigate("/Admin/UserManagement");
+      }, 1500);
+    } else {
+      setText("Xoá người dùng không thành công");
+      setShowToast(true);
+      setStatusBox(false);
+    }
   };
 
   const handleCancel = () => {
@@ -74,6 +90,13 @@ const AdminUserManagement = () => {
 
   return (
     <div className="AdminUserManagement-container">
+      {showToast && (
+        <BoxNotification
+          message={text}
+          status={statusBox}
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <div className="BoxConfirm-container">
         <BoxConfirmDelete
           display={ShowConfirm}

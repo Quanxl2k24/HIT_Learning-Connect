@@ -1,13 +1,43 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./UserClassRegisterDetails.scss";
 import SideBar from "../../components/SideBar/SideBar";
-const UserClassRegisterDetail = ({ classData, onBack }) => {
+import useRegisterByUser from "../../hooks/useRegiterByUser";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
+import { useState } from "react";
+const UserClassRegisterDetail = () => {
+  const [statusBox, setStatusBox] = useState(null);
+  const [showToast, setShowToast] = useState(false);
+  const [text, setText] = useState("");
+  const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
-  console.log("data class: ", data);
+  const { callAPI } = useRegisterByUser();
+
+  const handleRegister = async (Id) => {
+    const res = await callAPI(Id);
+    if (res.success) {
+      setShowToast(true);
+      setText("Đăng ký thành công");
+      setStatusBox(true);
+      setTimeout(() => {
+        navigate("/User/Register");
+      }, 1500);
+    } else {
+      setShowToast(true);
+      setText(" Đã đăng ký lớp này rồi");
+      setStatusBox(false);
+    }
+  };
 
   return (
     <div className="class-detail-page">
+      {showToast && (
+        <BoxNotification
+          message={text}
+          status={statusBox}
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <div className="Home_left">
         <SideBar />
       </div>
@@ -49,11 +79,7 @@ const UserClassRegisterDetail = ({ classData, onBack }) => {
 
               <div className="form-group">
                 <label>Trạng thái</label>
-                <input
-                  type="text"
-                  value={classData?.status || "Thieu api"}
-                  readOnly
-                />
+                <input type="text" value={"Thieu api"} readOnly />
               </div>
 
               <div className="form-group">
@@ -61,11 +87,14 @@ const UserClassRegisterDetail = ({ classData, onBack }) => {
                 <textarea rows="4" value={data.description} readOnly />
               </div>
               <div className="btn">
-                <button className="register-btn">Đăng ký lớp học</button>
+                <button
+                  className="register-btn"
+                  onClick={() => handleRegister(data.classId)}
+                >
+                  Đăng ký lớp học
+                </button>
                 <Link to={"/User/Register"}>
-                  <button className="back-btn" onClick={onBack}>
-                    Quay lại
-                  </button>
+                  <button className="back-btn">Quay lại</button>
                 </Link>
               </div>
             </div>

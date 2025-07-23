@@ -18,7 +18,12 @@ import AdminUpdateUser from "./pages/AdminUpdateUser/AdminUpdateUser";
 import UserRegister from "./pages/UserRegister/UserRegister";
 import AdminClass from "./pages/AdminClass/AdminClass";
 import AdminCreateClass from "./pages/AdminCreateClass/AdminCreateClass";
+
 import AdminDocument from "./pages/AdminDocument/AdminDocument";
+
+import AdminUpdateClass from "./pages/AdminUpdateClass/AdminUpdateClass";
+import AdminRegister from "./pages/AdminRegister/AdminRegister";
+
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -56,7 +61,12 @@ function App() {
         <Route path="User/Register" element={<UserRegister />} />
         <Route path="Admin/Class" element={<AdminClass />} />
         <Route path="Admin/Class/Create" element={<AdminCreateClass />} />
+
         <Route path="Admin/Document" element={<AdminDocument />} />
+
+        <Route path="/Admin/Class/Update" element={<AdminUpdateClass />} />
+        <Route path="Admin/Regiter" element={<AdminRegister />} />
+
       </Routes>
     </>
   );

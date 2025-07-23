@@ -46,7 +46,7 @@
           border: none;
           background-color: none;
         }
-        .box-class {
+        .box-class-register {
           width: 16rem;
           height: 9rem;
           border-top-left-radius: 16px;
@@ -63,8 +63,9 @@
             }
           }
 
-          .text-class {
+          .text-class-register {
             width: 100%;
+            text-align: start;
             background-color: #f7f7f7;
             padding: 10px 0px 16px 12px;
             border-bottom-left-radius: 16px;

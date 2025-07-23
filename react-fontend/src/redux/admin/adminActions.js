@@ -26,6 +26,7 @@ export const fetchAllUser = (params) => {
     const token = localStorage.getItem("token");
     try {
       const res = await GetAllUserApi(params, token);
+
       dispatch({ type: ADMIN_USER_LIST_SUCCESS, payload: res.data.data });
     } catch (error) {
       dispatch({ type: ADMIN_USER_LIST_FAIL, payload: error.message });
@@ -71,8 +72,6 @@ export const adminUserDelete = (UserId) => {
       const token = localStorage.getItem("token");
       const res = await DeleteUserByAdminApi(UserId, token);
       console.log("co vao day");
-
-      console.log("ressss", res);
       dispatch({ type: ADMIN_USER_DELETE_SUCCESS, payload: res.data.data });
       return { success: true };
     } catch (error) {
