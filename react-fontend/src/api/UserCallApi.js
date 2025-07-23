@@ -83,6 +83,8 @@ const GetAllClassByUserAndAdmin = async (token) => {
 };
 
 const DeleteClassByAdmin = async (classId, token) => {
+  console.log("id class: ", classId);
+
   return await Api.delete(`/api/v1/classes/${classId}`, {
     headers: {
       Authorization: `Bearer ${token} `,

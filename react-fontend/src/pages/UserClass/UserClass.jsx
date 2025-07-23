@@ -34,7 +34,7 @@ const UserClass = () => {
                   <h3>Danh sách lớp học của Câu lạc bộ tin học - HIT</h3>
                 </div>
                 {/* Link dang de trong */}
-                <Link to="#" className="Link">
+                <Link to="/User/Register" className="Link">
                   <button className="btn-register">+ Đăng ký lớp học</button>
                 </Link>
               </div>
