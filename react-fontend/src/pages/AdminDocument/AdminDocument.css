@@ -10,6 +10,8 @@
 .Home_Right {
   flex: 1;
   padding: 24px;
+  padding-left: 20%;
+  margin-left: 24px;
 }
 
 .AdminClass_Banner {
@@ -69,10 +71,21 @@
 
 .SearchBtn {
   padding: 10px 20px;
-  background-color: #d1d5db;
+  background-color: #f97316;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  color: white;
+}
+
+.AddBtn {
+  padding: 10px 20px;
+  background-color: #f97316;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 90px;
+  color: white;
 }
 
 .DocumentTableWrapper {
@@ -116,3 +129,18 @@
   background-color: #f97316;
   color: white;
 }
+
+.button-action {
+  display: flex;
+  gap: 8px;
+  background-color: none;
+  cursor: pointer;
+}
+
+.button-action button {
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+}
+
