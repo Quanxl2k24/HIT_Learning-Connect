@@ -1,8 +1,21 @@
 import React from 'react';
 import './AdminDocument.css';
 import SideBar from '../../components/SideBar/SideBar';
+import DelButton from "../../assets/imgs/img_Del.png";
+import EditButton from "../../assets/imgs/img_Edit.png";
+import { useNavigate } from 'react-router-dom';
 
 function AdminDocument() {
+  const navigate = useNavigate();
+
+  const handleAdd = (slug) => {
+    navigate(`/admin/document/add/${slug}`);
+  };
+
+  const handleEdit = (slug) => {
+    navigate(`/admin/document/edit/${slug}`);
+  };
+
   return (
     <div className="AdminDocument">
       <div className="Home_left">
@@ -29,6 +42,7 @@ function AdminDocument() {
               className="SearchInput"
             />
             <button className="SearchBtn">Tìm kiếm</button>
+            <button className="AddBtn"  onClick={() => handleAdd('AdminDocumentAdd')}>+   Thêm</button>
           </div>
 
           <div className="DocumentTableWrapper">
@@ -39,6 +53,7 @@ function AdminDocument() {
                   <th>Tên tài liệu</th>
                   <th>Người tạo</th>
                   <th>Ngày tạo</th>
+                  <th>Hành động</th>
                 </tr>
               </thead>
               <tbody>
@@ -47,6 +62,16 @@ function AdminDocument() {
                   <td>Tài liệu học bài</td>
                   <td>Thành Đạt</td>
                   <td>21/10/2005</td>
+                  <td>
+                    <div className="button-action">
+                      <button onClick={() => handleEdit('AdminDocumentEdit')}>
+                        <img className="img-btn" src={EditButton} alt="Edit"/>
+                      </button>
+                      <button>
+                        <img className="img-btn" src={DelButton} alt="Delete" />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
