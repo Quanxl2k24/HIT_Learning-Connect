@@ -1,6 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import SideBar from "../../components/SideBar/SideBar";
 import "./Home.scss";
+import img_class from "../../assets/imgs/img_class.png";
 const Home = () => {
   const navigate = useNavigate();
   const handleNavigateLogin = () => {
@@ -34,6 +35,27 @@ const Home = () => {
                   <button className="but_class">Học ngay thôi nào!!</button>
                 </Link>
               </div>
+            </div>
+          </div>
+
+          <div className="Home_right--content">
+            <div className="title-content">
+              <h1>Các khoá học</h1>
+            </div>
+
+            <div className="list-class">
+              <button>
+                <div className="box-class">
+                  <div className="img-class">
+                    <img src={img_class} alt="" />
+                  </div>
+                  <div className="text-class">
+                    <h3>heheeh</h3>
+                    <p>teacherFullName</p>
+                    <p>startDate - endDate</p>
+                  </div>
+                </div>
+              </button>
             </div>
           </div>
         </div>
