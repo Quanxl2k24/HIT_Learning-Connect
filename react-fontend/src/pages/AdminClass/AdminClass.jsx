@@ -20,11 +20,6 @@ const AdminClass = () => {
   const [statusBox, setStatusBox] = useState(null);
   const size = 5; // số lượng user mỗi trang
   const [currentPage, setCurrentPage] = useState(1);
-  // Gọi API
-  // const fetchData = (page) => {
-  //   const param = { page: page - 1, size: size, sort: "id" };
-  //   dispatch(fetchAllUser(param));
-  // };
 
   // goi api
   useEffect(() => {
@@ -68,22 +63,6 @@ const AdminClass = () => {
     setShowConfirm(false);
   };
 
-  // Total page
-  // let totalPages = 0;
-  // if (data.amountOfAllUsers % size == 0) {
-  //   totalPages = data.amountOfAllUsers / size;
-  // } else {
-  //   totalPages = data.amountOfAllUsers / size + 1;
-  // }
-
-  // const getPages = () => {
-  //   const pages = [];
-  //   for (let i = 1; i <= totalPages; i++) {
-  //     pages.push(i);
-  //   }
-  //   return pages;
-  // };
-
   const onPageChange = (page) => {
     if (page < 1 || page > totalPages) return;
     setCurrentPage(page);
@@ -123,7 +102,7 @@ const AdminClass = () => {
             <div className="box-container">
               <div className="box">
                 <div className="title-box">
-                  <p>Danh sách tài khoản của thành viên HIT</p>
+                  <p>Danh sách các lớp học</p>
                 </div>
 
                 <div className="SearchAndAdd-box">
@@ -184,15 +163,6 @@ const AdminClass = () => {
                                   <p>Sắp diễn ra</p>
                                 </div>
                               )}
-                              {/* <div className="admin-class-status-progress">
-                                <p>Đang mở</p>
-                              </div>
-                              <div className="admin-class-status-upcomming">
-                                <p>Đang mở</p>
-                              </div>
-                              <div className="admin-class-status-complete ">
-                                <p>Đang mở</p>
-                              </div> */}
                             </td>
                             <td>
                               <div className="admin-class-btn">
