@@ -73,6 +73,23 @@
             width: 100%;
             border: none;
           }
+          .btn-push-file {
+            background-color: #f1f1f1;
+            padding: 10px 10px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            border: none;
+            border-radius: 16px;
+            &:hover {
+              background-color: style.$hover-second-color;
+            }
+          }
+          .validate {
+            color: #f06c24;
+            font-size: 12px;
+            margin-top: 4px;
+          }
         }
         .button-create-document-by-class {
           display: flex;

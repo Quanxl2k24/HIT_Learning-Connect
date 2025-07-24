@@ -126,7 +126,7 @@ const AdminClass = () => {
                   </div>
                 </div>
 
-                <div className="table-box">
+                <div className="table-box-class">
                   <table>
                     <thead>
                       <tr>
