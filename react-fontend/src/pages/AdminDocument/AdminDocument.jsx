@@ -6,11 +6,14 @@ import EditButton from "../../assets/imgs/img_Edit.png";
 import SearchBoxUser from "../../assets/imgs/SearchBoxUser.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import useGetDocumentByClass from "../../hooks/useGetDocumentByClass";
+import useDeleteDocument from "../../hooks/useDeleteDocument";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
+
 function AdminDocument() {
+  const [showToast, setShowToast] = useState(false);
+  const [text, setText] = useState("");
+  const [statusBox, setStatusBox] = useState(null);
   const navigate = useNavigate();
-  const handleEdit = (slug) => {
-    navigate(`/admin/document/edit/${slug}`);
-  };
   //lay params
   const location = useLocation();
   const param = new URLSearchParams(location.search);
@@ -21,20 +24,43 @@ function AdminDocument() {
     navigate(`/Admin/DocumentByClass/Document/Create?classId=${classId}`);
   };
 
-  //call api
+  //call api lay document
   const [data, setData] = useState([]);
   const getdocumentbyclass = useGetDocumentByClass();
-
+  const fetchData = async (classId) => {
+    const data = await getdocumentbyclass(classId);
+    setData(data);
+  };
   useEffect(() => {
-    const fetchData = async (classId) => {
-      const data = await getdocumentbyclass(classId);
-      setData(data);
-    };
     fetchData(classId);
   }, []);
 
+  //xoa document
+  const deletedocument = useDeleteDocument();
+  const handleDeleteDocument = async (documentId) => {
+    const res = await deletedocument(documentId);
+    await fetchData(classId);
+
+    if (res) {
+      setShowToast(true);
+      setText("Xoá tài liệu thành công");
+      setStatusBox(true);
+    } else {
+      setShowToast(true);
+      setText("Xoá tài liệukhông thành công");
+      setStatusBox(false);
+    }
+  };
+
   return (
     <div className="AdminDocument">
+      {showToast && (
+        <BoxNotification
+          message={text}
+          status={statusBox}
+          onClose={() => setShowToast(false)}
+        />
+      )}
       <div className="Home_left">
         <SideBar />
       </div>
@@ -91,16 +117,16 @@ function AdminDocument() {
                         <td>{item.createdAt}</td>
                         <td>
                           <div className="button-action">
-                            <button
-                              onClick={() => handleEdit("AdminDocumentEdit")}
-                            >
+                            <button>
                               <img
                                 className="img-btn"
                                 src={EditButton}
                                 alt="Edit"
                               />
                             </button>
-                            <button>
+                            <button
+                              onClick={() => handleDeleteDocument(item.id)}
+                            >
                               <img
                                 className="img-btn"
                                 src={DelButton}
