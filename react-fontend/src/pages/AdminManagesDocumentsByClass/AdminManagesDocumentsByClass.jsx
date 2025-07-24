@@ -18,7 +18,6 @@ const AdminManagesDocumentsByClass = () => {
     dispatch(fetchAllClassByAdmin());
   }, []);
   const listClass = useSelector((state) => state.adminClass.listClass);
-  console.log("lisstClass: ", listClass);
 
   return (
     <div className="AdminManagesDocumentsByClass-container">

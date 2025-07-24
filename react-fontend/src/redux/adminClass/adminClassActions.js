@@ -26,7 +26,6 @@ export const fetchAllClassByAdmin = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await GetAllClassByUserAndAdmin(token);
-      console.log("res; ", res.data.data);
 
       dispatch({ type: ADMIN_GET_ALL_CLASS_SUCCESS, payload: res.data.data });
     } catch (error) {

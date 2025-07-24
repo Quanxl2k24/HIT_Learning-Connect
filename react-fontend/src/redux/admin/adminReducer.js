@@ -11,6 +11,9 @@ import {
   ADMIN_USER_DELETE_REQUEST,
   ADMIN_USER_DELETE_SUCCESS,
   ADMIN_USER_DELETE_FAIL,
+  ADMIN_USER_SREACH_REQUEST,
+  ADMIN_USER_SREACH_SUCCESS,
+  ADMIN_USER_SREACH_FAIL,
 } from "./adminType";
 
 const initialState = {
@@ -27,14 +30,17 @@ const adminReducer = (state = initialState, action) => {
     case ADMIN_USER_CREATE_REQUEST:
     case ADMIN_USER_UPDATE_REQUEST:
     case ADMIN_USER_DELETE_REQUEST:
+    case ADMIN_USER_SREACH_REQUEST:
       return { ...state, loading: true, success: false };
 
     // success
     case ADMIN_USER_LIST_SUCCESS:
+    case ADMIN_USER_SREACH_SUCCESS:
       return {
         ...state,
         loading: false,
         listUser: action.payload,
+        success: true,
       };
     case ADMIN_USER_CREATE_SUCCESS:
     case ADMIN_USER_UPDATE_SUCCESS:
@@ -45,6 +51,7 @@ const adminReducer = (state = initialState, action) => {
     case ADMIN_USER_CREATE_FAIL:
     case ADMIN_USER_UPDATE_FAIL:
     case ADMIN_USER_DELETE_FAIL:
+    case ADMIN_USER_SREACH_FAIL:
       return { ...state, loading: false, error: action.payload };
     default:
       return state;

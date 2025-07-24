@@ -150,6 +150,47 @@ const AdminDeleteRegisterApi = async (registrationId, token) => {
   });
 };
 
+const AdminSreachUserApi = async (params, token) => {
+  const queryParams = new URLSearchParams({
+    size: params.size,
+    page: params.page,
+    sort: params.sort,
+    keyword: params.keyword,
+  });
+  return await Api.get(`/api/v1/users/filter?${queryParams.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+};
+
+const AdminGetAllDocumnetByClass = async (classId, token) => {
+  return await Api.get(`/api/v1/documents/class/${classId}`, {
+    headers: {
+      Authorization: `Bearer ${token} `,
+    },
+  });
+};
+
+const AdminPushFileByClass = async (file, token) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  return await Api.post("/api/v1/storage/upload", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const AdminPushFromDocument = async (dataPush, token) => {
+  return Api.post("/api/v1/documents", dataPush, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export {
   LoginApi,
   ForgotPassword,
@@ -168,4 +209,8 @@ export {
   UserRegisterClassApi,
   AdminApproveOrDenyRegisterApi,
   AdminDeleteRegisterApi,
+  AdminSreachUserApi,
+  AdminGetAllDocumnetByClass,
+  AdminPushFileByClass,
+  AdminPushFromDocument,
 };

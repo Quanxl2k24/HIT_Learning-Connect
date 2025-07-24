@@ -3,7 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import "./AdminUserManagement.scss";
 import SearchBoxUser from "../../assets/imgs/SearchBoxUser.png";
 import SideBar from "../../components/SideBar/SideBar";
-import { fetchAllUser, adminUserDelete } from "../../redux/admin/adminActions";
+import {
+  fetchAllUser,
+  adminUserDelete,
+  fetchUserByKeyword,
+} from "../../redux/admin/adminActions";
 import { useEffect, useState } from "react";
 import DelButton from "../../assets/imgs/img_Del.png";
 import EditButton from "../../assets/imgs/img_Edit.png";
@@ -15,26 +19,38 @@ const AdminUserManagement = () => {
   const [text, setText] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const size = 5; // số lượng user mỗi trang
+  // số lượng user mỗi trang
+  const size = 5;
   const [currentPage, setCurrentPage] = useState(1);
-  // Gọi API
-  const fetchData = (page) => {
+
+  // Gọi API lay du lieu khong co keyword
+  const fetchData = async (page) => {
     const param = { page: page - 1, size: size, sort: "id" };
-    dispatch(fetchAllUser(param));
+    await dispatch(fetchAllUser(param));
   };
 
   useEffect(() => {
     fetchData(currentPage);
   }, [currentPage]);
-
+  // Gọi API lay du lieu co keyword
+  const [keyword, setKeyword] = useState("");
+  const fecthUsersByFilter = async (page) => {
+    const param = { page: page - 1, size: size, sort: "id", keyword: keyword };
+    const res = await dispatch(fetchUserByKeyword(param));
+    console.log("res", res);
+  };
+  //handle sreach
+  const handleSreach = () => {
+    fecthUsersByFilter(currentPage);
+  };
   // Lấy dữ liệu từ redux
   const data = useSelector((state) => state.admin.listUser) || [];
   const Users = data.data;
-
+  //handel edit
   const handleEdit = (user) => {
     navigate("/Admin/UserManagement/Update", { state: { user } });
   };
+  //handle delete
   const [idDel, setIdDel] = useState(null);
   const handleDelete = (id) => {
     setShowConfirm(true);
@@ -59,12 +75,12 @@ const AdminUserManagement = () => {
       setStatusBox(false);
     }
   };
-
+  //handle huy xoa
   const handleCancel = () => {
     setShowConfirm(false);
   };
 
-  // Total page  (ở đây dang fix cứng)
+  // Total page
   let totalPages = 0;
   if (data.amountOfAllUsers % size == 0) {
     totalPages = data.amountOfAllUsers / size;
@@ -87,6 +103,7 @@ const AdminUserManagement = () => {
 
   // Xử lý box confirm
   const [ShowConfirm, setShowConfirm] = useState(false);
+  // Call sreach
 
   return (
     <div className="AdminUserManagement-container">
@@ -129,12 +146,16 @@ const AdminUserManagement = () => {
                     </div>
                     <input
                       type="text"
+                      value={keyword}
+                      onChange={(e) => setKeyword(e.target.value)}
                       placeholder="Tìm kiếm theo username, fullname, email"
                     />
                   </div>
 
                   <div className="but-box">
-                    <button className="but-add">Tìm kiếm</button>
+                    <button className="but-add" onClick={handleSreach}>
+                      Tìm kiếm
+                    </button>
                     <Link
                       to="/Admin/UserManagement/CreateUser"
                       className="Link"

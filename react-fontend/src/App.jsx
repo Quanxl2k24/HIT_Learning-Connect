@@ -25,6 +25,7 @@ import AdminRegister from "./pages/AdminRegister/AdminRegister";
 // import AdminDocumentActionEdit from "./pages/AdminDocumentAction/AdminDocumentActionEdit";
 import AdminManagesDocumentsByClass from "./pages/AdminManagesDocumentsByClass/AdminManagesDocumentsByClass";
 import AdminCreateDocumentByClass from "./pages/AdminCreateDocumentByClass/AdminCreateDocumentByClass";
+import UserLearningClass from "./pages/UserLearningClass/UserLearningClass";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -70,7 +71,7 @@ function App() {
         <Route path="/Admin/Regiter" element={<AdminRegister />} />
         <Route
           path="/Admin/DocumentByClass/Document/Create"
-          element={<AdminCreateDocumentByClass/>}
+          element={<AdminCreateDocumentByClass />}
         />
         {/* <Route
           path="/Admin/Document/Edit/:id"
@@ -80,6 +81,8 @@ function App() {
           path="/Admin/DocumentByClass"
           element={<AdminManagesDocumentsByClass />}
         />
+
+        <Route path="/User/Learning/Class" element={<UserLearningClass />} />
       </Routes>
     </>
   );

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./AdminDocument.scss";
 import SideBar from "../../components/SideBar/SideBar";
 import DelButton from "../../assets/imgs/img_Del.png";
 import EditButton from "../../assets/imgs/img_Edit.png";
 import SearchBoxUser from "../../assets/imgs/SearchBoxUser.png";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import useGetDocumentByClass from "../../hooks/useGetDocumentByClass";
 function AdminDocument() {
   const navigate = useNavigate();
   const handleEdit = (slug) => {
@@ -20,6 +20,19 @@ function AdminDocument() {
   const handleChangeAddDocument = () => {
     navigate(`/Admin/DocumentByClass/Document/Create?classId=${classId}`);
   };
+
+  //call api
+  const [data, setData] = useState([]);
+  const getdocumentbyclass = useGetDocumentByClass();
+
+  useEffect(() => {
+    const fetchData = async (classId) => {
+      const data = await getdocumentbyclass(classId);
+      setData(data);
+    };
+    fetchData(classId);
+  }, []);
+
   return (
     <div className="AdminDocument">
       <div className="Home_left">
@@ -61,7 +74,7 @@ function AdminDocument() {
               <table className="DocumentTable">
                 <thead>
                   <tr>
-                    <th>STT</th>
+                    <th>Id tài liệu</th>
                     <th>Tên tài liệu</th>
                     <th>Người tạo</th>
                     <th>Ngày tạo</th>
@@ -69,30 +82,35 @@ function AdminDocument() {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Tài liệu học bài</td>
-                    <td>Thành Đạt</td>
-                    <td>21/10/2005</td>
-                    <td>
-                      <div className="button-action">
-                        <button onClick={() => handleEdit("AdminDocumentEdit")}>
-                          <img
-                            className="img-btn"
-                            src={EditButton}
-                            alt="Edit"
-                          />
-                        </button>
-                        <button>
-                          <img
-                            className="img-btn"
-                            src={DelButton}
-                            alt="Delete"
-                          />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
+                  {data &&
+                    data.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.id}</td>
+                        <td>{item.title}</td>
+                        <td>{item.uploader.fullName}</td>
+                        <td>{item.createdAt}</td>
+                        <td>
+                          <div className="button-action">
+                            <button
+                              onClick={() => handleEdit("AdminDocumentEdit")}
+                            >
+                              <img
+                                className="img-btn"
+                                src={EditButton}
+                                alt="Edit"
+                              />
+                            </button>
+                            <button>
+                              <img
+                                className="img-btn"
+                                src={DelButton}
+                                alt="Delete"
+                              />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>

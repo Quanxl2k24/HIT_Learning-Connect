@@ -124,9 +124,9 @@
         border-top-right-radius: 10px;
         margin-top: 4rem;
       }
-      .table-box {
+      .table-box-class {
         overflow-x: auto;
-        height: 32rem; /* Chiều cao cố định */
+        height: 32rem;
         overflow-y: auto;
 
         table {
@@ -136,7 +136,11 @@
           font-family: arial, sans-serif;
           border-collapse: collapse;
         }
-
+        thead {
+          position: sticky;
+          top: 0;
+          z-index: 99;
+        }
         td {
           max-width: 180px; // hoặc thay đổi theo từng cột
           white-space: nowrap;

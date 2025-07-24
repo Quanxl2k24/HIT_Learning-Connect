@@ -2,6 +2,7 @@ import {
   CreateUserByAdminApi,
   DeleteUserByAdminApi,
   UpdateUserByAdminApi,
+  AdminSreachUserApi,
 } from "../../api/UserCallApi";
 
 import { GetAllUserApi } from "../../api/UserCallApi";
@@ -18,6 +19,9 @@ import {
   ADMIN_USER_DELETE_REQUEST,
   ADMIN_USER_DELETE_SUCCESS,
   ADMIN_USER_DELETE_FAIL,
+  ADMIN_USER_SREACH_REQUEST,
+  ADMIN_USER_SREACH_SUCCESS,
+  ADMIN_USER_SREACH_FAIL,
 } from "./adminType";
 
 export const fetchAllUser = (params) => {
@@ -26,7 +30,6 @@ export const fetchAllUser = (params) => {
     const token = localStorage.getItem("token");
     try {
       const res = await GetAllUserApi(params, token);
-
       dispatch({ type: ADMIN_USER_LIST_SUCCESS, payload: res.data.data });
     } catch (error) {
       dispatch({ type: ADMIN_USER_LIST_FAIL, payload: error.message });
@@ -77,6 +80,19 @@ export const adminUserDelete = (UserId) => {
     } catch (error) {
       dispatch({ type: ADMIN_USER_DELETE_FAIL, payload: error.message });
       return { success: false };
+    }
+  };
+};
+
+export const fetchUserByKeyword = (params) => {
+  return async (dispatch) => {
+    dispatch({ type: ADMIN_USER_SREACH_REQUEST });
+    const token = localStorage.getItem("token");
+    try {
+      const res = await AdminSreachUserApi(params, token);
+      dispatch({ type: ADMIN_USER_SREACH_SUCCESS, payload: res.data.data });
+    } catch (error) {
+      dispatch({ type: ADMIN_USER_SREACH_FAIL, payload: error.message });
     }
   };
 };
