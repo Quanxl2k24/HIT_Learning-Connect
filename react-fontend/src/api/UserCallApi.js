@@ -191,6 +191,14 @@ const AdminPushFromDocument = async (dataPush, token) => {
   });
 };
 
+const AdminDeleteDocumentApi = async (documentId, token) => {
+  return await Api.delete(`/api/v1/documents/${documentId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export {
   LoginApi,
   ForgotPassword,
@@ -213,4 +221,5 @@ export {
   AdminGetAllDocumnetByClass,
   AdminPushFileByClass,
   AdminPushFromDocument,
+  AdminDeleteDocumentApi,
 };
