@@ -28,15 +28,14 @@
 //   },
 // });
 
-
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react-swc";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'dist',
+    outDir: "dist",
   },
   server: {
     port: 3000,
@@ -44,7 +43,7 @@ export default defineConfig({
   // 👇 thêm cấu hình này để xử lý fallback
   resolve: {
     alias: {
-      '@': '/src',
+      "@": "/src",
     },
   },
-})
+});
