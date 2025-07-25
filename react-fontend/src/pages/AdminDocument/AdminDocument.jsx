@@ -3,7 +3,7 @@ import "./AdminDocument.scss";
 import SideBar from "../../components/SideBar/SideBar";
 import DelButton from "../../assets/imgs/img_Del.png";
 import EditButton from "../../assets/imgs/img_Edit.png";
-import SearchBoxUser from "../../assets/imgs/SearchBoxUser.png";
+import SearchBoxUser from "../../assets/imgs/searchBoxUser.png";
 import { useNavigate, useLocation } from "react-router-dom";
 import useGetDocumentByClass from "../../hooks/useGetDocumentByClass";
 import useDeleteDocument from "../../hooks/useDeleteDocument";

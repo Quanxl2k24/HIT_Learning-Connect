@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./AdminUserManagement.scss";
-import SearchBoxUser from "../../assets/imgs/SearchBoxUser.png";
+import SearchBoxUser from "../../assets/imgs/searchBoxUser.png";
 import SideBar from "../../components/SideBar/SideBar";
 import {
   fetchAllUser,

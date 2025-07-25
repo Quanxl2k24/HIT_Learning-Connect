@@ -4,7 +4,7 @@ import { fectchRegisterbyAdmin } from "../../redux/adminRegister/adminRegisterAc
 import { useDispatch, useSelector } from "react-redux";
 import "./AdminRegister.scss";
 import SideBar from "../../components/SideBar/SideBar";
-import SearchBoxUser from "../../assets/imgs/SearchBoxUser.png";
+import SearchBoxUser from "../../assets/imgs/searchBoxUser.png";
 import DelButton from "../../assets/imgs/img_Del.png";
 import img_accept from "../../assets/imgs/img_accept.png";
 import img_deny from "../../assets/imgs/img_deny.png";
