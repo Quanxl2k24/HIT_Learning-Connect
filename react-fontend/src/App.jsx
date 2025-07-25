@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { fetchUser } from "./redux/user/userActions";
 import { useDispatch } from "react-redux";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
@@ -35,6 +35,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/" element={<Navigate to="/Home" replace />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/ChangePassword" element={<ChangePassword />} />
