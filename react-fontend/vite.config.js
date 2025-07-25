@@ -36,7 +36,7 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'dist',
+    outDir: "dist",
   },
   server: {
     port: 3000,
@@ -44,7 +44,7 @@ export default defineConfig({
   // 👇 thêm cấu hình này để xử lý fallback
   resolve: {
     alias: {
-      '@': '/src',
+      "@": "/src",
     },
   },
-})
+});

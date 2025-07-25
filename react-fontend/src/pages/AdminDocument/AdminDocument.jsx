@@ -8,7 +8,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import useGetDocumentByClass from "../../hooks/useGetDocumentByClass";
 import useDeleteDocument from "../../hooks/useDeleteDocument";
 import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
-
+import BoxConfrimDelete from "../../components/BoxConfrimDelete/BoxConfirmDelete";
 function AdminDocument() {
   const [showToast, setShowToast] = useState(false);
   const [text, setText] = useState("");
@@ -25,7 +25,7 @@ function AdminDocument() {
   };
 
   //call api lay document
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const getdocumentbyclass = useGetDocumentByClass();
   const fetchData = async (classId) => {
     const data = await getdocumentbyclass(classId);
@@ -36,24 +36,54 @@ function AdminDocument() {
   }, []);
 
   //xoa document
+  const [ShowConfirm, setShowConfirm] = useState(false);
+  const [documentId, setDocumentId] = useState(null);
   const deletedocument = useDeleteDocument();
-  const handleDeleteDocument = async (documentId) => {
+  //handle click delete
+  const handleClickDelete = (documentId) => {
+    setShowConfirm(true);
+    setDocumentId(documentId);
+  };
+  //handle huy
+  const handleCancel = () => {
+    setShowConfirm(false);
+  };
+  //handle xoa doc
+  const handleDeleteDocument = async () => {
     const res = await deletedocument(documentId);
-    await fetchData(classId);
 
+    await fetchData(classId);
+    setShowConfirm(false);
+    setDocumentId(null);
     if (res) {
       setShowToast(true);
       setText("Xoá tài liệu thành công");
       setStatusBox(true);
     } else {
       setShowToast(true);
-      setText("Xoá tài liệukhông thành công");
+      setText("Xoá tài liệu không thành công");
       setStatusBox(false);
     }
   };
 
+  // handle chuyen trang edit tai lieu
+  const handleChangeUrlEdit = (documentId) => {
+    navigate(
+      `/Admin/DocumentByClass/Document/Edit?ClassId=${classId}&documentId=${documentId}`,
+      {
+        state: data,
+      }
+    );
+  };
   return (
     <div className="AdminDocument">
+      <div className="BoxConfirm-container">
+        <BoxConfrimDelete
+          display={ShowConfirm}
+          handleCancel={handleCancel}
+          handleDeleteBoxConfirm={handleDeleteDocument}
+        />
+      </div>
       {showToast && (
         <BoxNotification
           message={text}
@@ -117,16 +147,16 @@ function AdminDocument() {
                         <td>{item.createdAt}</td>
                         <td>
                           <div className="button-action">
-                            <button>
+                            <button
+                              onClick={() => handleChangeUrlEdit(item.id)}
+                            >
                               <img
                                 className="img-btn"
                                 src={EditButton}
                                 alt="Edit"
                               />
                             </button>
-                            <button
-                              onClick={() => handleDeleteDocument(item.id)}
-                            >
+                            <button onClick={() => handleClickDelete(item.id)}>
                               <img
                                 className="img-btn"
                                 src={DelButton}

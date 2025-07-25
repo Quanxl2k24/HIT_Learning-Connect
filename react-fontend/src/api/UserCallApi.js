@@ -183,6 +183,20 @@ const AdminPushFileByClass = async (file, token) => {
   });
 };
 
+const AdminDeleteFileByClass = async (url, token) => {
+  console.log("api", { url });
+
+  return Api.post(
+    "/api/v1/storage/delete",
+    { url },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
 const AdminPushFromDocument = async (dataPush, token) => {
   return Api.post("/api/v1/documents", dataPush, {
     headers: {
@@ -193,6 +207,22 @@ const AdminPushFromDocument = async (dataPush, token) => {
 
 const AdminDeleteDocumentApi = async (documentId, token) => {
   return await Api.delete(`/api/v1/documents/${documentId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const AdminGetDocumentApi = async (documentId, token) => {
+  return await Api.get(`/api/v1/documents/${documentId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const AdminEditDocumentByClassApi = async (documentId, dataUpdate, token) => {
+  return await Api.put(`/api/v1/documents/${documentId}`, dataUpdate, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -220,6 +250,9 @@ export {
   AdminSreachUserApi,
   AdminGetAllDocumnetByClass,
   AdminPushFileByClass,
+  AdminDeleteFileByClass,
   AdminPushFromDocument,
   AdminDeleteDocumentApi,
+  AdminGetDocumentApi,
+  AdminEditDocumentByClassApi,
 };

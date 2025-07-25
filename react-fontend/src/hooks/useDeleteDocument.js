@@ -6,7 +6,7 @@ const useDeleteDocument = () => {
       const res = await AdminDeleteDocumentApi(documentId, token);
       return res;
     } catch (error) {
-      return false;
+      return error.message;
     }
   };
   return deletedocument;

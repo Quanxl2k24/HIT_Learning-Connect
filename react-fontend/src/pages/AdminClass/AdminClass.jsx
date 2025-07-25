@@ -18,8 +18,6 @@ const AdminClass = () => {
   const [showToast, setShowToast] = useState(false);
   const [text, setText] = useState("");
   const [statusBox, setStatusBox] = useState(null);
-  const size = 5; // số lượng user mỗi trang
-  const [currentPage, setCurrentPage] = useState(1);
 
   // goi api
   useEffect(() => {
@@ -49,9 +47,6 @@ const AdminClass = () => {
       setShowToast(true);
       setText("Xoá lớp thành công");
       setStatusBox(true);
-      setTimeout(() => {
-        navigate("/Admin/Class");
-      }, 1500);
     } else {
       setShowToast(true);
       setText("Xoá lớp không thành công");
