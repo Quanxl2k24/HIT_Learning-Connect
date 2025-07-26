@@ -36,8 +36,7 @@ const AdminUserManagement = () => {
   const [keyword, setKeyword] = useState("");
   const fecthUsersByFilter = async (page) => {
     const param = { page: page - 1, size: size, sort: "id", keyword: keyword };
-    const res = await dispatch(fetchUserByKeyword(param));
-    console.log("res", res);
+    await dispatch(fetchUserByKeyword(param));
   };
   //handle sreach
   const handleSreach = () => {
