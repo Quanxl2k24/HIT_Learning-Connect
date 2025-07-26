@@ -7,27 +7,25 @@ import { useEffect, useState } from "react";
 const Home = () => {
   // chuyen trang
   const navigate = useNavigate();
-  const handleNavigateLogin = () => {
-    navigate("/login");
-  };
   // call api
   const [data, setData] = useState([]);
   const getallclassaccpet = useGetAllClassAccpet();
   const fetchdata = async () => {
     const res = await getallclassaccpet();
-    console.log("res", res);
+
     setData(res?.data?.data?.content);
   };
-
-  console.log(">>>", data);
 
   useEffect(() => {
     fetchdata();
   }, []);
 
   //handle change page
-  const handleChangePage = () => {
-    navigate("/User/Learning/Class");
+
+  const handleChangePage = ({ classId, classTitle }) => {
+    navigate(
+      `/User/Learning/Class?classId=${classId}&classTitle=${classTitle}`
+    );
   };
 
   return (
@@ -68,7 +66,15 @@ const Home = () => {
             <div className="list-class">
               {data &&
                 data.map((item, index) => (
-                  <button key={index} onClick={() => handleChangePage()}>
+                  <button
+                    key={index}
+                    onClick={() =>
+                      handleChangePage({
+                        classId: item.classRoom.classId,
+                        classTitle: item.classTitle,
+                      })
+                    }
+                  >
                     <div className="box-class">
                       <div className="img-class">
                         <img src={img_class} alt="" />
@@ -83,18 +89,6 @@ const Home = () => {
                     </div>
                   </button>
                 ))}
-              {/* <button>
-                <div className="box-class">
-                  <div className="img-class">
-                    <img src={img_class} alt="" />
-                  </div>
-                  <div className="text-class">
-                    <h3>heheeh</h3>
-                    <p>teacherFullName</p>
-                    <p>startDate - endDate</p>
-                  </div>
-                </div>
-              </button> */}
             </div>
           </div>
         </div>

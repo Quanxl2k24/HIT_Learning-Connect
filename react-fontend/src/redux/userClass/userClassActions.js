@@ -4,14 +4,14 @@ import {
   USER_GET_LIST_CLASS_FAIL,
 } from "./userTypes";
 
-import { GetAllClassByUserAndAdmin } from "../../api/UserCallApi";
+import { UserGetAllClass } from "../../api/UserCallApi";
 
 export const fetchAllClass = () => {
   return async (dispatch) => {
     try {
       dispatch({ type: USER_GET_LIST_CLASS_REQUEST });
       const token = localStorage.getItem("token");
-      const res = await GetAllClassByUserAndAdmin(token);
+      const res = await UserGetAllClass(token);
       dispatch({ type: USER_GET_LIST_CLASS_SUCCESS, payload: res.data.data });
 
       return { success: true };

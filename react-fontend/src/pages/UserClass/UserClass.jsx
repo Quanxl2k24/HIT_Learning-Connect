@@ -11,8 +11,10 @@ const UserClass = () => {
   useEffect(() => {
     dispatch(fetchAllClass());
   }, []);
-  const data = useSelector((state) => state.userClass.listClass);
 
+  const data = useSelector((state) => state.userClass.listClass) || [];
+  console.log("data: ", data.content);
+  const list = data.content;
   return (
     <div>
       <div className="class-page">
@@ -43,15 +45,39 @@ const UserClass = () => {
                 <thead>
                   <tr>
                     <th>Tên lớp học</th>
-                    <th>Thời gian</th>
+                    <th>Thời gian đăng ký</th>
                     <th>Leader</th>
-                    <th>Số lượng</th>
+                    <th>Thời gian</th>
                     <th>Trạng thái</th>
                     <th>Hành động</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  {list &&
+                    list.map((item, index) => (
+                      <tr key={index}>
+                        <td>
+                          <span className="class-name">{item.classTitle}</span>
+                        </td>
+                        <td>{item.registeredAt}</td>
+                        <td>{item.classRoom.teacherFullName}</td>
+                        <td>
+                          {item.classRoom.startDate} - {item.classRoom.endDate}
+                        </td>
+                        <td>
+                          {item.registrationStatus == "PENDING" ? (
+                            <span className="status pending">Chưa duyệt</span>
+                          ) : (
+                            <span className="status approved">Đã duyệt</span>
+                          )}
+                        </td>
+                        <td>
+                          {/* <Link to="/User/Class/Evaluate">Đánh giá</Link> */}
+                          <a href="#">Hủy đăng ký</a>
+                        </td>
+                      </tr>
+                    ))}
+                  {/* <tr>
                     <td>
                       <span className="class-name">
                         Lập trình ngôn ngữ siêu nâng cao
@@ -80,7 +106,7 @@ const UserClass = () => {
                     <td>
                       <a href="#">Hủy đăng ký</a>
                     </td>
-                  </tr>
+                  </tr> */}
                 </tbody>
               </table>
             </div>
