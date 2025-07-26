@@ -261,6 +261,14 @@ const UserGetAllDocument = async (classId, token) => {
   });
 };
 
+const UserGetAllClass = async (token) => {
+  return await Api.get("/api/v1/registration/view", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export {
   LoginApi,
   ForgotPassword,
@@ -290,4 +298,5 @@ export {
   AdminSreachClassApi,
   AdminGetAllClassAccpet,
   UserGetAllDocument,
+  UserGetAllClass,
 };
