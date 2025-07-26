@@ -2,10 +2,32 @@ import { useNavigate, Link } from "react-router-dom";
 import SideBar from "../../components/SideBar/SideBar";
 import "./Home.scss";
 import img_class from "../../assets/imgs/img_class.png";
+import useGetAllClassAccpet from "../../hooks/useGetAllClassAccpet";
+import { useEffect, useState } from "react";
 const Home = () => {
+  // chuyen trang
   const navigate = useNavigate();
   const handleNavigateLogin = () => {
     navigate("/login");
+  };
+  // call api
+  const [data, setData] = useState([]);
+  const getallclassaccpet = useGetAllClassAccpet();
+  const fetchdata = async () => {
+    const res = await getallclassaccpet();
+    console.log("res", res);
+    setData(res?.data?.data?.content);
+  };
+
+  console.log(">>>", data);
+
+  useEffect(() => {
+    fetchdata();
+  }, []);
+
+  //handle change page
+  const handleChangePage = () => {
+    navigate("/User/Learning/Class");
   };
 
   return (
@@ -44,7 +66,24 @@ const Home = () => {
             </div>
 
             <div className="list-class">
-              <button>
+              {data &&
+                data.map((item, index) => (
+                  <button key={index} onClick={() => handleChangePage()}>
+                    <div className="box-class">
+                      <div className="img-class">
+                        <img src={img_class} alt="" />
+                      </div>
+                      <div className="text-class">
+                        <h3>{item.classTitle}</h3>
+                        <p>{item.classRoom.teacherFullName}</p>
+                        <p>
+                          {item.classRoom.startDate} - {item.classRoom.endDate}
+                        </p>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              {/* <button>
                 <div className="box-class">
                   <div className="img-class">
                     <img src={img_class} alt="" />
@@ -55,7 +94,7 @@ const Home = () => {
                     <p>startDate - endDate</p>
                   </div>
                 </div>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

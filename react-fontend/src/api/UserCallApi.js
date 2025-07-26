@@ -229,6 +229,31 @@ const AdminEditDocumentByClassApi = async (documentId, dataUpdate, token) => {
   });
 };
 
+const AdminSreachClassApi = async (keyword, token) => {
+  const queryParams = new URLSearchParams({
+    keyword: keyword,
+  });
+
+  return await Api.get(`/api/v1/classes/filter?${queryParams.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const AdminGetAllClassAccpet = async (token) => {
+  console.log("token", token);
+  return await Api.post(
+    "/api/v1/registration/accept",
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
 export {
   LoginApi,
   ForgotPassword,
@@ -255,4 +280,6 @@ export {
   AdminDeleteDocumentApi,
   AdminGetDocumentApi,
   AdminEditDocumentByClassApi,
+  AdminSreachClassApi,
+  AdminGetAllClassAccpet,
 };

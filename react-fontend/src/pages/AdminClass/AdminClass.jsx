@@ -12,6 +12,8 @@ import DelButton from "../../assets/imgs/img_Del.png";
 import EditButton from "../../assets/imgs/img_Edit.png";
 import BoxConfirmDelete from "../../components/BoxConfrimDelete/BoxConfirmDelete";
 import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
+import useSreachClass from "../../hooks/useSreachClass";
+import { LuTextSearch } from "react-icons/lu";
 const AdminClass = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,14 +21,22 @@ const AdminClass = () => {
   const [text, setText] = useState("");
   const [statusBox, setStatusBox] = useState(null);
 
+  const [Class, setClass] = useState(null);
+
   // goi api
-  useEffect(() => {
+  const fetchData = () => {
     dispatch(fetchAllClassByAdmin());
+  };
+  useEffect(() => {
+    fetchData();
   }, []);
 
   // Lấy dữ liệu từ redux
-  const Class = useSelector((state) => state.adminClass.listClass) || [];
+  const data = useSelector((state) => state.adminClass.listClass) || [];
 
+  useEffect(() => {
+    setClass(data);
+  }, [data]);
   const handleEdit = (user) => {
     navigate("/Admin/Class/Update", { state: { user } });
   };
@@ -58,13 +68,24 @@ const AdminClass = () => {
     setShowConfirm(false);
   };
 
-  const onPageChange = (page) => {
-    if (page < 1 || page > totalPages) return;
-    setCurrentPage(page);
-  };
-
   // Xử lý box confirm
   const [ShowConfirm, setShowConfirm] = useState(false);
+
+  // Sreach
+  const [textSearch, setTextSearch] = useState("");
+
+  const sreachclass = useSreachClass();
+  const handleSreach = async () => {
+    console.log("th nao", textSearch == "");
+
+    if (textSearch == "") {
+      fetchData();
+    } else {
+      console.log("co call");
+      const res = await sreachclass(textSearch);
+      setClass(res.data.data);
+    }
+  };
 
   return (
     <div className="AdminUserManagement-container">
@@ -107,12 +128,16 @@ const AdminClass = () => {
                     </div>
                     <input
                       type="text"
+                      value={textSearch}
+                      onChange={(e) => setTextSearch(e.target.value)}
                       placeholder="Tìm kiếm theo username, fullname, email"
                     />
                   </div>
 
                   <div className="but-box">
-                    <button className="but-add">Tìm kiếm</button>
+                    <button className="but-add" onClick={handleSreach}>
+                      Tìm kiếm
+                    </button>
                     <Link to="/Admin/Class/Create" className="Link">
                       <button className="but-add">
                         <span>+ </span> Thêm
