@@ -242,7 +242,6 @@ const AdminSreachClassApi = async (keyword, token) => {
 };
 
 const AdminGetAllClassAccpet = async (token) => {
-  console.log("token", token);
   return await Api.post(
     "/api/v1/registration/accept",
     {},
@@ -252,6 +251,14 @@ const AdminGetAllClassAccpet = async (token) => {
       },
     }
   );
+};
+
+const UserGetAllDocument = async (classId, token) => {
+  return await Api.get(`/api/v1/documents/class/${classId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 export {
@@ -282,4 +289,5 @@ export {
   AdminEditDocumentByClassApi,
   AdminSreachClassApi,
   AdminGetAllClassAccpet,
+  UserGetAllDocument,
 };
