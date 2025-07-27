@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./UserRegister.scss";
 import SideBar from "../../components/SideBar/SideBar";
 import img_class from "../../assets/imgs/img_class.png";
@@ -8,11 +9,17 @@ import { useNavigate } from "react-router-dom";
 
 const UserRegister = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchAllClass());
-  }, []);
+  const fetchData = async () => {
+    const res = await dispatch(fetchAllClass());
+  };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
   const listClass = useSelector((state) => state.userClass.listClass);
+  console.log(listClass);
+
+  // setListClass(data);
   const navigate = useNavigate();
   const handleShowDetailsClass = (data) => {
     navigate("/User/Register/Class/Details", { state: data });
@@ -47,10 +54,10 @@ const UserRegister = () => {
                       <img src={img_class} alt="" />
                     </div>
                     <div className="text-class-register">
-                      <h3>{item.title}</h3>
-                      <p>{item.teacherFullName}</p>
+                      <h3>{item.classRoom.title}</h3>
+                      <p>{item.classRoom.teacherFullName}</p>
                       <p>
-                        {item.startDate} - {item.endDate}
+                        {item.classRoom.startDate} - {item.classRoom.endDate}
                       </p>
                     </div>
                   </div>

@@ -13,8 +13,7 @@ const UserClass = () => {
   }, []);
 
   const data = useSelector((state) => state.userClass.listClass) || [];
-  console.log("data: ", data.content);
-  const list = data.content;
+  console.log("data: ", data);
   return (
     <div>
       <div className="class-page">
@@ -53,8 +52,8 @@ const UserClass = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {list &&
-                    list.map((item, index) => (
+                  {data &&
+                    data.map((item, index) => (
                       <tr key={index}>
                         <td>
                           <span className="class-name">{item.classTitle}</span>
@@ -77,36 +76,6 @@ const UserClass = () => {
                         </td>
                       </tr>
                     ))}
-                  {/* <tr>
-                    <td>
-                      <span className="class-name">
-                        Lập trình ngôn ngữ siêu nâng cao
-                      </span>
-                    </td>
-                    <td>19:00 - 21:00, Thứ 2 & Thứ 4</td>
-                    <td>Nguyễn thị bích ngọc thảo mây</td>
-                    <td>-</td>
-                    <td>
-                      <span className="status approved">Đã duyệt</span>
-                    </td>
-                    <td>
-                      <Link to="/User/Class/Evaluate">Đánh giá</Link>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <span className="class-name">adadadadad</span>
-                    </td>
-                    <td>19:00 - 21:00, Thứ 2 & Thứ 9</td>
-                    <td>Nguyễn thị bích ngọc thảo mây</td>
-                    <td>-</td>
-                    <td>
-                      <span className="status pending">Chưa duyệt</span>
-                    </td>
-                    <td>
-                      <a href="#">Hủy đăng ký</a>
-                    </td>
-                  </tr> */}
                 </tbody>
               </table>
             </div>
