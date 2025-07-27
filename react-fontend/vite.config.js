@@ -39,6 +39,7 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+
   },
   // 👇 thêm cấu hình này để xử lý fallback
   resolve: {
