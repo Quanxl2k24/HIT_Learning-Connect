@@ -12,7 +12,11 @@ export const fetchAllClass = () => {
       dispatch({ type: USER_GET_LIST_CLASS_REQUEST });
       const token = localStorage.getItem("token");
       const res = await UserGetAllClass(token);
-      dispatch({ type: USER_GET_LIST_CLASS_SUCCESS, payload: res.data.data });
+
+      dispatch({
+        type: USER_GET_LIST_CLASS_SUCCESS,
+        payload: res.data.data.content,
+      });
 
       return { success: true };
     } catch (error) {
