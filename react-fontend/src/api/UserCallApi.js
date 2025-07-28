@@ -262,7 +262,31 @@ const UserGetAllDocument = async (classId, token) => {
 };
 
 const UserGetAllClass = async (token) => {
+  return await Api.get("/api/v1/classes", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const UserGetDocumentById = async (documentId, token) => {
+  return await Api.get(`/api/v1/documents/${documentId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const UserGetClassRegisterApi = async (token) => {
   return await Api.get("/api/v1/registration/view", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const UserCancelRegisterApi = async (classId, token) => {
+  return await Api.delete(`/api/v1/registration/cancel/${classId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -299,4 +323,7 @@ export {
   AdminGetAllClassAccpet,
   UserGetAllDocument,
   UserGetAllClass,
+  UserGetDocumentById,
+  UserGetClassRegisterApi,
+  UserCancelRegisterApi,
 };

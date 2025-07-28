@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import "./UserLearningClass.scss";
 import SideBar from "../../components/SideBar/SideBar";
 import useGetAllDocumentByUser from "../../hooks/useGetAllDocumentByUser";
@@ -17,11 +17,18 @@ const UserLearningClass = () => {
     const res = await getdocumnet(classId);
     setData(res.data.data);
   };
-  console.log(data);
 
   useEffect(() => {
     fetchdata();
   }, []);
+
+  //handleChangePage
+  const navigate = useNavigate();
+  const handleChangePage = (documentId) => {
+    navigate(
+      `/Home/User/Learning/Class/Details?classId=${classId}&classTitle=${classTitle}&documentId=${documentId}`
+    );
+  };
   return (
     <div className="UserLearningClass-container">
       <div className="UserLearningClass">
@@ -45,7 +52,10 @@ const UserLearningClass = () => {
               <div className="list-card">
                 {data &&
                   data.map((item, index) => (
-                    <button key={index}>
+                    <button
+                      key={index}
+                      onClick={() => handleChangePage(item.id)}
+                    >
                       <div className="card-lesson">
                         <div className="card-title">
                           <h2>{item.title}</h2>

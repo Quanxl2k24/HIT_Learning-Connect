@@ -124,6 +124,7 @@ const AdminCreateDocumentByClass = () => {
                       />
 
                       <button
+                        type="button"
                         onClick={handlePushFile}
                         className="btn-push-file"
                       >

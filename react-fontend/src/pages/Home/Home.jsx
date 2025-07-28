@@ -24,7 +24,7 @@ const Home = () => {
 
   const handleChangePage = ({ classId, classTitle }) => {
     navigate(
-      `/User/Learning/Class?classId=${classId}&classTitle=${classTitle}`
+      `/Home/User/Learning/Class?classId=${classId}&classTitle=${classTitle}`
     );
   };
 
