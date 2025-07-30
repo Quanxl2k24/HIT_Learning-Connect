@@ -1,0 +1,180 @@
+@use "../../styles/index" as style;
+
+.AdminContest {
+  &_left {
+    width: 20%;
+    position: fixed;
+  }
+
+  &_right {
+    width: 100%;
+    padding-left: 20%;
+    &--banner {
+      @include style.flex(none, center);
+      padding: 16px 32px;
+      gap: 16px;
+      background-color: white;
+
+      .logo-banner {
+        height: 40px;
+        width: 10px;
+        background: linear-gradient(to bottom, #f06c24, #f97316, #eab308);
+        border-radius: 12px;
+      }
+    }
+    &--content {
+      .box-container {
+        padding: 64px 6rem 0 6rem;
+        .box {
+          background-color: white;
+          box-shadow: 0 12px 12px rgba(0, 0, 0, 0.1);
+          padding-bottom: 30px;
+          border-bottom-left-radius: 16px;
+          border-bottom-right-radius: 16px;
+          .title-box {
+            background: linear-gradient(to right, #f46f1e, #fb923c);
+            padding: 20px;
+            color: white;
+            font-weight: 600;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+          }
+          .SearchAndAdd-box {
+            @include style.flex(space-between, center);
+            padding: 20px 12px;
+
+            .search {
+              padding: 24px 0px;
+              width: 448px;
+              @include style.flex(none, center);
+              border: 1px solid style.$primary-color;
+              border-radius: 12px;
+
+              input {
+                width: 100%;
+                height: 47px;
+                border: none;
+                padding: 12px;
+                font-size: 16px;
+                border-radius: 12px;
+                border-bottom-right-radius: 1px solid style.$primary-color;
+                border-top-right-radius: 1px solid style.$primary-color;
+                &:focus {
+                  border: none;
+                  outline: none;
+                }
+              }
+
+              .imgSearch {
+                position: relative;
+                width: 56px;
+                height: 47px;
+                background-color: #edf5fd;
+                border-top-left-radius: 12px;
+                border-bottom-left-radius: 12px;
+                img {
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  height: 16px;
+                  width: 16px;
+                }
+              }
+            }
+
+            .but-box {
+              @include style.flex(none, none);
+              gap: 16px;
+              .but-search {
+                background-color: #e6eaf1;
+                border: none;
+                padding: 12px 22px;
+                font-size: 16px;
+                color: #808080;
+                border-radius: 12px;
+              }
+
+              .but-add {
+                background-color: style.$primary-color;
+                padding: 12px 22px;
+                font-size: 16px;
+                color: white;
+                border: none;
+                border-radius: 12px;
+              }
+            }
+          }
+          .table-box-contest {
+            overflow-x: auto;
+            max-height: 32rem;
+            overflow-y: auto;
+
+            table {
+              min-width: 768px;
+              width: 100%;
+              border-collapse: collapse;
+              thead {
+                position: sticky;
+                top: 0;
+                z-index: 99;
+              }
+              td {
+                max-width: 120px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-align: left;
+                padding: 6px 14px;
+              }
+              th {
+                max-width: 120px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: #4b5563;
+                font-weight: 400;
+                background-color: #f9fafb;
+                text-align: left;
+                padding: 12px;
+              }
+            }
+
+            .admin-contest-btn {
+              background-color: none;
+              display: flex;
+              gap: 10px;
+              button {
+                padding: 10px 12px;
+                border-radius: 12px;
+                border: none;
+                .img-btn {
+                  height: 16px;
+                }
+              }
+              .btn-show-result {
+                background-color: rgb(168, 85, 247);
+                color: white;
+                font-weight: 500;
+                &:hover {
+                  background-color: rgb(154, 60, 242);
+                }
+              }
+
+              .admin-contest-btn-Edit {
+                &:hover {
+                  background-color: #d1d1d1;
+                }
+              }
+              .admin-contest-btn-Del {
+                &:hover {
+                  background-color: #d1d1d1;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

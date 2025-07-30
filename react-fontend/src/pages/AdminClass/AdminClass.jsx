@@ -13,7 +13,6 @@ import EditButton from "../../assets/imgs/img_Edit.png";
 import BoxConfirmDelete from "../../components/BoxConfrimDelete/BoxConfirmDelete";
 import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 import useSreachClass from "../../hooks/useSreachClass";
-import { LuTextSearch } from "react-icons/lu";
 const AdminClass = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -213,36 +212,6 @@ const AdminClass = () => {
                     </tbody>
                   </table>
                 </div>
-
-                {/* <div className="pagination">
-                  <button
-                    className="nav-button"
-                    onClick={() => onPageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                  >
-                    &laquo;
-                  </button>
-
-                  {getPages().map((page) => (
-                    <button
-                      key={page}
-                      className={`page-number ${
-                        page === currentPage ? "active" : ""
-                      }`}
-                      onClick={() => onPageChange(page)}
-                    >
-                      {page}
-                    </button>
-                  ))}
-
-                  <button
-                    className="nav-button"
-                    onClick={() => onPageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                  >
-                    &raquo;
-                  </button>
-                </div> */}
               </div>
             </div>
           </div>

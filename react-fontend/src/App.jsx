@@ -21,12 +21,14 @@ import AdminCreateClass from "./pages/AdminCreateClass/AdminCreateClass";
 import AdminDocument from "./pages/AdminDocument/AdminDocument";
 import AdminUpdateClass from "./pages/AdminUpdateClass/AdminUpdateClass";
 import AdminRegister from "./pages/AdminRegister/AdminRegister";
-// import AdminDocumentActionAdd from "./pages/AdminDocumentAction/AdminDocumentActionAdd";
-// import AdminDocumentActionEdit from "./pages/AdminDocumentAction/AdminDocumentActionEdit";
 import AdminManagesDocumentsByClass from "./pages/AdminManagesDocumentsByClass/AdminManagesDocumentsByClass";
 import AdminCreateDocumentByClass from "./pages/AdminCreateDocumentByClass/AdminCreateDocumentByClass";
 import UserLearningClass from "./pages/UserLearningClass/UserLearningClass";
 import AdminEditDocumentByClass from "./pages/AdminEditDocumentByClass/AdminEditDocumentByClass";
+import UserLearningDetails from "./pages/UserLearningDetails/UserLearningDetailes";
+import AdminContest from "./pages/AdminContest/AdminContest";
+import AdminEditContest from "./pages/AdminEditContest/AdminEditContest";
+import AdminCreateContest from "./pages/AdminCreateContest/AdminCreateContest";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -75,20 +77,26 @@ function App() {
           path="/Admin/DocumentByClass/Document/Create"
           element={<AdminCreateDocumentByClass />}
         />
-        {/* <Route
-          path="/Admin/Document/Edit/:id"
-          element={<AdminDocumentActionEdit />}
-        /> */}
         <Route
           path="/Admin/DocumentByClass"
           element={<AdminManagesDocumentsByClass />}
         />
 
-        <Route path="/User/Learning/Class" element={<UserLearningClass />} />
+        <Route
+          path="Home/User/Learning/Class"
+          element={<UserLearningClass />}
+        />
         <Route
           path="/Admin/DocumentByClass/Document/Edit"
           element={<AdminEditDocumentByClass />}
         />
+        <Route
+          path="Home/User/Learning/Class/Details"
+          element={<UserLearningDetails />}
+        />
+        <Route path="Admin/Contest" element={<AdminContest />} />
+        <Route path="Admin/Contest/Edit" element={<AdminEditContest />} />
+        <Route path="Admin/Contest/Create" element={<AdminCreateContest />} />
       </Routes>
     </>
   );

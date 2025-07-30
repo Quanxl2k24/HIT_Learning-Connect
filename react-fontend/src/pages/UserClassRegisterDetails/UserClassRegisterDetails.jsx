@@ -11,6 +11,8 @@ const UserClassRegisterDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location.state;
+  console.log(">>>", data);
+
   const { callAPI } = useRegisterByUser();
 
   const handleRegister = async (Id) => {

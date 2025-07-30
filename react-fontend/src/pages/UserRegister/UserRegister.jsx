@@ -2,22 +2,21 @@ import { useState } from "react";
 import "./UserRegister.scss";
 import SideBar from "../../components/SideBar/SideBar";
 import img_class from "../../assets/imgs/img_class.png";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllClass } from "../../redux/userClass/userClassActions";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import UserGetAllClassByRegister from "../../hooks/useGetAllClass";
 const UserRegister = () => {
-  const dispatch = useDispatch();
+  const [data, setData] = useState([]);
+  const getallclass = UserGetAllClassByRegister();
   const fetchData = async () => {
-    const res = await dispatch(fetchAllClass());
+    const res = await getallclass();
+    setData(res);
   };
+  console.log("data", data);
 
   useEffect(() => {
     fetchData();
   }, []);
-  const listClass = useSelector((state) => state.userClass.listClass);
-  console.log(listClass);
 
   // setListClass(data);
   const navigate = useNavigate();
@@ -45,24 +44,23 @@ const UserRegister = () => {
             </div>
 
             <div className="list-class">
-              {listClass.map((item, index) => (
-                <button
-                  onClick={() => handleShowDetailsClass(listClass[index])}
-                >
-                  <div className="box-class-register" key={index}>
-                    <div className="img-class">
-                      <img src={img_class} alt="" />
+              {Array.isArray(data) &&
+                data.map((item, index) => (
+                  <button onClick={() => handleShowDetailsClass(item)}>
+                    <div className="box-class-register" key={index}>
+                      <div className="img-class">
+                        <img src={img_class} alt="" />
+                      </div>
+                      <div className="text-class-register">
+                        <h3>{item.title}</h3>
+                        <p>{item.teacherFullName}</p>
+                        <p>
+                          {item.startDate} - {item.endDate}
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-class-register">
-                      <h3>{item.classRoom.title}</h3>
-                      <p>{item.classRoom.teacherFullName}</p>
-                      <p>
-                        {item.classRoom.startDate} - {item.classRoom.endDate}
-                      </p>
-                    </div>
-                  </div>
-                </button>
-              ))}
+                  </button>
+                ))}
             </div>
           </div>
         </div>

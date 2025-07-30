@@ -53,7 +53,7 @@
         padding: 20px 12px;
 
         .search {
-          height: 48px;
+          padding: 24px 0px;
           width: 448px;
           @include style.flex(none, center);
           border: 1px solid style.$primary-color;
@@ -126,7 +126,7 @@
       }
       .table-box-class {
         overflow-x: auto;
-        height: 32rem;
+        max-height: 32rem;
         overflow-y: auto;
 
         table {
@@ -142,7 +142,7 @@
           z-index: 99;
         }
         td {
-          max-width: 180px; // hoặc thay đổi theo từng cột
+          max-width: 180px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -150,7 +150,7 @@
           padding: 6px 14px;
         }
         th {
-          max-width: 180px; // hoặc thay đổi theo từng cột
+          max-width: 180px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -159,37 +159,6 @@
           background-color: #f9fafb;
           text-align: left;
           padding: 12px;
-        }
-
-        .admin-class-status-progress {
-          background-color: #d9f9e8;
-          width: 100px;
-          padding: 2px 0px;
-          border-radius: 12px;
-          text-align: center;
-          p {
-            color: #14ae5c;
-          }
-        }
-        .admin-class-status-complete {
-          background-color: #fef9c3;
-          width: 100px;
-          padding: 2px 0px;
-          border-radius: 12px;
-          text-align: center;
-          p {
-            color: #854d0e;
-          }
-        }
-        .admin-class-status-upcomming {
-          background-color: #686339;
-          width: 100px;
-          padding: 2px 0px;
-          border-radius: 12px;
-          text-align: center;
-          p {
-            color: #fdfdfd;
-          }
         }
       }
     }

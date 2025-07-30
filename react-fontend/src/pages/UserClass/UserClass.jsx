@@ -3,17 +3,26 @@ import SideBar from "../../components/SideBar/SideBar";
 import { Link, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchAllClass } from "../../redux/userClass/userClassActions";
+import {
+  deleteClass,
+  fetchAllClass,
+} from "../../redux/userClass/userClassActions";
 
 const UserClass = () => {
+  // call api lay cac lop da dang ky
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(fetchAllClass());
   }, []);
-
   const data = useSelector((state) => state.userClass.listClass) || [];
-  console.log("data: ", data);
+  console.log(data);
+  // call api huy lop
+  const deleteClickClass = async (classId) => {
+    console.log(classId);
+    await dispatch(deleteClass(classId));
+    await dispatch(fetchAllClass());
+  };
+
   return (
     <div>
       <div className="class-page">
@@ -72,7 +81,16 @@ const UserClass = () => {
                         </td>
                         <td>
                           {/* <Link to="/User/Class/Evaluate">Đánh giá</Link> */}
-                          <a href="#">Hủy đăng ký</a>
+                          <button
+                            onClick={() =>
+                              deleteClickClass(item.classRoom.classId)
+                            }
+                          >
+                            {/* Hủy đăng ký */}
+                            {item.registrationStatus == "PENDING"
+                              ? "Hủy đăng ký"
+                              : "Xoá lớp"}
+                          </button>
                         </td>
                       </tr>
                     ))}
