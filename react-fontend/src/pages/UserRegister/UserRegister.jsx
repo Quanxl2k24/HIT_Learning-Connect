@@ -44,22 +44,23 @@ const UserRegister = () => {
             </div>
 
             <div className="list-class">
-              {data.map((item, index) => (
-                <button onClick={() => handleShowDetailsClass(item)}>
-                  <div className="box-class-register" key={index}>
-                    <div className="img-class">
-                      <img src={img_class} alt="" />
+              {Array.isArray(data) &&
+                data.map((item, index) => (
+                  <button onClick={() => handleShowDetailsClass(item)}>
+                    <div className="box-class-register" key={index}>
+                      <div className="img-class">
+                        <img src={img_class} alt="" />
+                      </div>
+                      <div className="text-class-register">
+                        <h3>{item.title}</h3>
+                        <p>{item.teacherFullName}</p>
+                        <p>
+                          {item.startDate} - {item.endDate}
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-class-register">
-                      <h3>{item.title}</h3>
-                      <p>{item.teacherFullName}</p>
-                      <p>
-                        {item.startDate} - {item.endDate}
-                      </p>
-                    </div>
-                  </div>
-                </button>
-              ))}
+                  </button>
+                ))}
             </div>
           </div>
         </div>

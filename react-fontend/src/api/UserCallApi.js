@@ -293,6 +293,22 @@ const UserCancelRegisterApi = async (classId, token) => {
   });
 };
 
+const AdminGetAllContestApi = async (token) => {
+  return await Api.get("/api/contests/paged", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const AdminGetContestDetails = async (id, token) => {
+  return await Api.get(`/api/contests/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export {
   LoginApi,
   ForgotPassword,
@@ -326,4 +342,6 @@ export {
   UserGetDocumentById,
   UserGetClassRegisterApi,
   UserCancelRegisterApi,
+  AdminGetAllContestApi,
+  AdminGetContestDetails,
 };

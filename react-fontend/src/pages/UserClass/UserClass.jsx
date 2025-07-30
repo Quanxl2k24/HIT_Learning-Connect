@@ -15,7 +15,7 @@ const UserClass = () => {
     dispatch(fetchAllClass());
   }, []);
   const data = useSelector((state) => state.userClass.listClass) || [];
-
+  console.log(data);
   // call api huy lop
   const deleteClickClass = async (classId) => {
     console.log(classId);
@@ -86,7 +86,10 @@ const UserClass = () => {
                               deleteClickClass(item.classRoom.classId)
                             }
                           >
-                            Hủy đăng ký
+                            {/* Hủy đăng ký */}
+                            {item.registrationStatus == "PENDING"
+                              ? "Hủy đăng ký"
+                              : "Xoá lớp"}
                           </button>
                         </td>
                       </tr>
