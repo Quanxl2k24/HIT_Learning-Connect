@@ -12,15 +12,18 @@ const AdminCreateDocumentByClass = () => {
   const [statusBox, setStatusBox] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [text, setText] = useState("");
+
   //lay param
   const location = useLocation();
   const param = new URLSearchParams(location.search);
   const classId = param.get("classId");
+
   //back lai trang cu
   const navigate = useNavigate();
   const handleBack = () => {
     navigate(`/Admin/DocumentByClass/Document?classId=${classId}`);
   };
+
   //handleFileChange
   const [selectedFile, setSelectedFile] = useState(null);
   const handleFileChange = (e) => {
@@ -32,20 +35,16 @@ const AdminCreateDocumentByClass = () => {
   const pushfile = usePushFile();
   const handlePushFile = async () => {
     const resFile = await pushfile(selectedFile);
-    console.log("res", resFile);
-
     if (resFile) {
       alert("Đã tải tệp lên thành công");
     } else {
       alert("Tải tệp lên bị lỗi");
     }
-
     if (resFile) {
       formik.setFieldValue("fileUrl", resFile);
     }
   };
 
-  //handle cancel
   //formik
   const pushdocument = usePushDocument();
   const formik = useFormik({

@@ -24,6 +24,11 @@ const AdminContest = () => {
   const handleEdit = (id) => {
     navigate(`/Admin/Contest/Edit?contestId=${id}`);
   };
+
+  // handle change page
+  const handleChangePage = () => {
+    navigate("/Admin/Contest/Create");
+  };
   return (
     <div className="AdminContest-container">
       <div className="AdminContest">
@@ -59,7 +64,7 @@ const AdminContest = () => {
                   <div className="but-box">
                     <button className="but-add">Tìm kiếm</button>
 
-                    <button className="but-add">
+                    <button className="but-add" onClick={handleChangePage}>
                       <span>+ </span> Thêm
                     </button>
                   </div>
