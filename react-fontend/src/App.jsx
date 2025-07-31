@@ -29,6 +29,7 @@ import UserLearningDetails from "./pages/UserLearningDetails/UserLearningDetaile
 import AdminContest from "./pages/AdminContest/AdminContest";
 import AdminEditContest from "./pages/AdminEditContest/AdminEditContest";
 import AdminCreateContest from "./pages/AdminCreateContest/AdminCreateContest";
+import AdminContestDetails from "./pages/AdminContestDetails/AdminContestDetails";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -97,6 +98,7 @@ function App() {
         <Route path="Admin/Contest" element={<AdminContest />} />
         <Route path="Admin/Contest/Edit" element={<AdminEditContest />} />
         <Route path="Admin/Contest/Create" element={<AdminCreateContest />} />
+        <Route path="Admin/Contest/Details" element={<AdminContestDetails />} />
       </Routes>
     </>
   );

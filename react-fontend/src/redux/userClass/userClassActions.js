@@ -37,13 +37,15 @@ export const deleteClass = (classId) => {
     try {
       dispatch({ type: USER_DELETE_CLASS_REQUEST });
       const token = localStorage.getItem("token");
-      const res = await UserCancelRegisterApi(classId, token);
+      await UserCancelRegisterApi(classId, token);
       dispatch({
         type: USER_DELETE_CLASS_SUCCESS,
       });
+      return { success: true };
     } catch (error) {
       dispatch({ type: USER_DELETE_CLASS_FAIL, payload: error.message });
       console.log("loi", error.message);
+      return { success: false };
     }
   };
 };

@@ -1,31 +1,74 @@
 import "./UserClass.scss";
 import SideBar from "../../components/SideBar/SideBar";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   deleteClass,
   fetchAllClass,
 } from "../../redux/userClass/userClassActions";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
+import BoxConfirmDelete from "../../components/BoxConfrimDelete/BoxConfirmDelete";
 
 const UserClass = () => {
+  // useState cho thong bao
+  const [showToast, setShowToast] = useState(false);
+  const [text, setText] = useState("");
+  const [statusBox, setStatusBox] = useState(null);
   // call api lay cac lop da dang ky
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllClass());
   }, []);
   const data = useSelector((state) => state.userClass.listClass) || [];
-  console.log(data);
+
   // call api huy lop
   const deleteClickClass = async (classId) => {
-    console.log(classId);
-    await dispatch(deleteClass(classId));
-    await dispatch(fetchAllClass());
+    // console.log(classId);
+    // await dispatch(deleteClass(classId));
+    // await dispatch(fetchAllClass());
+    setShowConfirm(true);
+    setIdDel(classId);
   };
 
+  // confirm delete
+  const [ShowConfirm, setShowConfirm] = useState(false);
+  const [idDel, setIdDel] = useState(null);
+  const handleCancel = () => {
+    setShowConfirm(false);
+  };
+  const handleDeleteBoxConfirm = async () => {
+    const res = await dispatch(deleteClass(idDel));
+    await dispatch(fetchAllClass());
+    setIdDel(null);
+    setShowConfirm(false);
+    if (res.success) {
+      setShowToast(true);
+      setText("Xoá lớp thành công");
+      setStatusBox(true);
+    } else {
+      setShowToast(true);
+      setText("Xoá lớp không thành công");
+      setStatusBox(false);
+    }
+  };
   return (
     <div>
       <div className="class-page">
+        {showToast && (
+          <BoxNotification
+            message={text}
+            status={statusBox}
+            onClose={() => setShowToast(false)}
+          />
+        )}
+        <div className="BoxConfirm-container">
+          <BoxConfirmDelete
+            display={ShowConfirm}
+            handleCancel={handleCancel}
+            handleDeleteBoxConfirm={handleDeleteBoxConfirm}
+          />
+        </div>
         <div className="Home_left">
           <SideBar />
         </div>

@@ -5,12 +5,10 @@ import adminCreateContestSchema from "../../utlis/adminCreateContestSchema";
 import { Link } from "react-router-dom";
 import usePushFile from "../../hooks/usePushFile";
 import { useState } from "react";
+import useCreateContest from "../../hooks/useCreateContest";
 const AdminCreateContest = () => {
   //call api push file len
   const pushfile = usePushFile();
-  //   const pushFile = async (file) => {
-  //     const res = await pushfile(file);
-  //   };
   const handlePushfile = async () => {
     const resFile = await pushfile(selectedFile);
     console.log(resFile);
@@ -30,6 +28,7 @@ const AdminCreateContest = () => {
   };
 
   //formik
+  const createcontest = useCreateContest();
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -40,8 +39,12 @@ const AdminCreateContest = () => {
       urlFile: "",
     },
     validationSchema: adminCreateContestSchema,
-    onSubmit: (values) => {
+    // submit create contest
+    onSubmit: async (values) => {
       console.log(values);
+
+      const res = await createcontest(values);
+      console.log("res: ", res);
     },
   });
 
@@ -148,7 +151,7 @@ const AdminCreateContest = () => {
                         </button>
                       </Link>
                       <button type="submit" className="submitClass">
-                        Cập nhật
+                        Tạo contest
                       </button>
                     </div>
                   </form>
