@@ -1,3 +1,4 @@
+import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 import Api from "./authApi";
 
 const LoginApi = async (logindata) => {
@@ -309,6 +310,16 @@ const AdminGetContestDetails = async (id, token) => {
   });
 };
 
+const AdminCreateContestApi = async (dataCreate, token) => {
+  console.log(">>>>", dataCreate);
+
+  return await Api.post(`/api/contests`, dataCreate, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export {
   LoginApi,
   ForgotPassword,
@@ -344,4 +355,5 @@ export {
   UserCancelRegisterApi,
   AdminGetAllContestApi,
   AdminGetContestDetails,
+  AdminCreateContestApi,
 };
