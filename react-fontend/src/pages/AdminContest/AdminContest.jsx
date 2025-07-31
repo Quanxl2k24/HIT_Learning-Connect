@@ -29,6 +29,11 @@ const AdminContest = () => {
   const handleChangePage = () => {
     navigate("/Admin/Contest/Create");
   };
+
+  // handleChangePageDetails
+  const handleChangePageDetails = (id) => {
+    navigate(`/Admin/Contest/Details?contestId=${id}`);
+  };
   return (
     <div className="AdminContest-container">
       <div className="AdminContest">
@@ -87,10 +92,19 @@ const AdminContest = () => {
                         data.map((item, index) => (
                           <tr key={index}>
                             <td style={{ width: "100px" }}>{item.contestId}</td>
-                            <td>{item.title}</td>
+                            <td>
+                              <button
+                                className="btn-details"
+                                onClick={() =>
+                                  handleChangePageDetails(item.contestId)
+                                }
+                              >
+                                {item.title}
+                              </button>
+                            </td>
                             <td>{item.startTime}</td>
                             <td>{item.endTime}</td>
-                            <td>{item.description}</td>
+                            <td>{item.status}</td>
                             <td>
                               <div className="admin-contest-btn">
                                 <button
