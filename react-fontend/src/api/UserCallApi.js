@@ -311,9 +311,15 @@ const AdminGetContestDetails = async (id, token) => {
 };
 
 const AdminCreateContestApi = async (dataCreate, token) => {
-  console.log(">>>>", dataCreate);
-
   return await Api.post(`/api/contests`, dataCreate, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const UserGetAllContestApi = async (token) => {
+  return await Api.get("/api/contest/page", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -356,4 +362,5 @@ export {
   AdminGetAllContestApi,
   AdminGetContestDetails,
   AdminCreateContestApi,
+  UserGetAllContestApi,
 };

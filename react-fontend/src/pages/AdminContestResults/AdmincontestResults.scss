@@ -1,0 +1,91 @@
+@use "../../styles/index" as style;
+
+.AdminContestResults {
+  &_left {
+    width: 20%;
+    position: fixed;
+  }
+  &_right {
+    width: 100%;
+    padding-left: 20%;
+    &--banner {
+      @include style.flex(none, center);
+      padding: 16px 32px;
+      gap: 16px;
+      background-color: white;
+
+      .logo-banner {
+        height: 40px;
+        width: 10px;
+        background: linear-gradient(to bottom, #f06c24, #f97316, #eab308);
+        border-radius: 12px;
+      }
+    }
+    &--content {
+      .box-container {
+        padding: 64px 6rem 0 6rem;
+        .box {
+          background-color: white;
+          box-shadow: 0 12px 12px rgba(0, 0, 0, 0.1);
+          padding-bottom: 30px;
+          border-bottom-left-radius: 16px;
+          border-bottom-right-radius: 16px;
+          .title-box {
+            background: linear-gradient(to right, #f46f1e, #fb923c);
+            padding: 20px;
+            color: white;
+            font-weight: 600;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+          }
+
+          .table-box-contest-results {
+            overflow-x: auto;
+            max-height: 32rem;
+            overflow-y: auto;
+            table {
+              min-width: 768px;
+              width: 100%;
+              border-collapse: collapse;
+              thead {
+                position: sticky;
+                top: 0;
+                z-index: 99;
+              }
+              td {
+                max-width: 120px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                text-align: left;
+                padding: 6px 14px;
+              }
+              th {
+                max-width: 120px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                color: #4b5563;
+                font-weight: 400;
+                background-color: #f9fafb;
+                text-align: left;
+                padding: 12px;
+              }
+
+              .btn-details {
+                text-align: left;
+                background-color: white;
+                border: none;
+                font-size: 16px;
+                width: 100%;
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

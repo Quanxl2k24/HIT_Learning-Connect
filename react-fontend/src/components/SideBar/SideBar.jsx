@@ -39,9 +39,8 @@ const SideBar = () => {
       { id: 1, path: "/Home", name: "Trang chủ" },
       { id: 2, path: "/Information", name: "Thông tin cá nhân" },
       { id: 3, path: "/User/Class", name: "Lớp Học" },
-      // { id: 4, path: "/g", name: "Tài Liệu" },
       { id: 4, path: "/User/Register", name: "Đăng Ký lớp học" },
-      { id: 5, path: "/e", name: "Contest online" },
+      { id: 5, path: "/User/Contest", name: "Contest online" },
       { id: 6, path: "/e", name: "Bài Viết" },
     ];
   } else {
