@@ -30,6 +30,9 @@ import AdminContest from "./pages/AdminContest/AdminContest";
 import AdminEditContest from "./pages/AdminEditContest/AdminEditContest";
 import AdminCreateContest from "./pages/AdminCreateContest/AdminCreateContest";
 import AdminContestDetails from "./pages/AdminContestDetails/AdminContestDetails";
+import AdminContestResults from "./pages/AdminContestResults/AdminContestResults";
+import UserContest from "./pages/UserContest/UserContest";
+import UserContestDetails from "./pages/UserContestDetails/UserContestDetails";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -99,6 +102,9 @@ function App() {
         <Route path="Admin/Contest/Edit" element={<AdminEditContest />} />
         <Route path="Admin/Contest/Create" element={<AdminCreateContest />} />
         <Route path="Admin/Contest/Details" element={<AdminContestDetails />} />
+        <Route path="Admin/Contest/Results" element={<AdminContestResults />} />
+        <Route path="User/Contest" element={<UserContest />} />
+        <Route path="User/Contest/Details" element={<UserContestDetails />} />
       </Routes>
     </>
   );

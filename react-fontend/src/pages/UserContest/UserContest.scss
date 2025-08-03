@@ -1,0 +1,107 @@
+@use "../../styles/index" as style;
+
+.UserContest {
+  &_left {
+    width: 20%;
+    position: fixed;
+  }
+  &_right {
+    width: 100%;
+    padding-left: 20%;
+    &--banner {
+      @include style.flex(none, center);
+      padding: 16px 32px;
+      gap: 16px;
+      background-color: white;
+
+      .logo-banner {
+        height: 40px;
+        width: 10px;
+        background: linear-gradient(to bottom, #f06c24, #f97316, #eab308);
+        border-radius: 12px;
+      }
+    }
+
+    &--content {
+      .box-container {
+        padding: 64px 6rem 0 6rem;
+        .box {
+          background-color: white;
+          box-shadow: 0 12px 12px rgba(0, 0, 0, 0.1);
+          padding-bottom: 30px;
+          border-radius: 16px;
+          .title-box {
+            padding: 20px 30px;
+            box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+          }
+          .content-contest {
+            max-height: 32rem;
+            overflow-y: auto; 
+            .list-contest {
+              padding: 36px;
+              .contest {
+                padding: 12px;
+                border-radius: 16px;
+                margin-bottom: 16px;
+                box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+                  rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+                .title-contest {
+                  h1 {
+                    color: #4d63eb;
+                  }
+                }
+                .date-contest {
+                  margin-bottom: 12px;
+                  p {
+                    color: rgb(167, 167, 167);
+                    font-style: italic;
+                  }
+                }
+                .contest-status {
+                  .contest-status-progress {
+                    background-color: #d9f9e8;
+                    width: max-content;
+                    padding: 2px 12px;
+                    border-radius: 12px;
+                    text-align: center;
+                  }
+                  .contest-status-upcoming {
+                    background-color: #fef9c3;
+                    width: max-content;
+                    padding: 2px 12px;
+                    border-radius: 12px;
+                    text-align: center;
+                  }
+                  .contest-status-completed {
+                    background-color: #686339;
+                    width: max-content;
+                    padding: 2px 12px;
+                    border-radius: 12px;
+                    text-align: center;
+                    color: white;
+                  }
+                }
+                .btn-contest-details {
+                  display: flex;
+                  flex-direction: row-reverse;
+                  button {
+                    padding: 8px 20px;
+                    background-color: #f06c24;
+                    color: white;
+                    border: none;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    &:hover {
+                      background-color: style.$hover-color;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

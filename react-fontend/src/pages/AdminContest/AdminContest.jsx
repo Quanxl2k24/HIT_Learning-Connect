@@ -34,6 +34,11 @@ const AdminContest = () => {
   const handleChangePageDetails = (id) => {
     navigate(`/Admin/Contest/Details?contestId=${id}`);
   };
+
+  //handleChangePageReults
+  const handleChangePageReults = (id) => {
+    navigate(`/Admin/Contest/Results?contestId=${id}`);
+  };
   return (
     <div className="AdminContest-container">
       <div className="AdminContest">
@@ -91,7 +96,7 @@ const AdminContest = () => {
                       {Array.isArray(data) &&
                         data.map((item, index) => (
                           <tr key={index}>
-                            <td style={{ width: "100px" }}>{item.contestId}</td>
+                            <td>{item.contestId}</td>
                             <td>
                               <button
                                 className="btn-details"
@@ -127,7 +132,12 @@ const AdminContest = () => {
                                     alt=""
                                   />
                                 </button>
-                                <button className="btn-show-result">
+                                <button
+                                  className="btn-show-result"
+                                  onClick={() =>
+                                    handleChangePageReults(item.contestId)
+                                  }
+                                >
                                   Xem kết quả
                                 </button>
                               </div>
