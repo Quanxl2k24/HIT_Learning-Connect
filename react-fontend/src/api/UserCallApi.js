@@ -295,7 +295,7 @@ const UserCancelRegisterApi = async (classId, token) => {
 };
 
 const AdminGetAllContestApi = async (token) => {
-  return await Api.get("/api/contests/paged", {
+  return await Api.get("/api/contests", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -319,7 +319,15 @@ const AdminCreateContestApi = async (dataCreate, token) => {
 };
 
 const UserGetAllContestApi = async (token) => {
-  return await Api.get("/api/contest/page", {
+  return await Api.get("/api/v1/contest", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const UserGetContestByContestId = async (contestId, token) => {
+  return await Api.get(`/api/v1/contest/${contestId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -363,4 +371,5 @@ export {
   AdminGetContestDetails,
   AdminCreateContestApi,
   UserGetAllContestApi,
+  UserGetContestByContestId,
 };
