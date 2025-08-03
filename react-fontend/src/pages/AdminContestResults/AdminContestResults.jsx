@@ -1,4 +1,4 @@
-import "./AdminContestResults.scss";
+import "./AdmincontestResults.scss";
 import SideBar from "../../components/SideBar/SideBar";
 const AdminContestResults = () => (
   <div className="AdminContestResults-container">
