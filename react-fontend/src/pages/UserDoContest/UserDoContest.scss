@@ -1,0 +1,144 @@
+@use "../../styles/index" as style;
+
+.UserDoContest {
+  &_left {
+    width: 20%;
+    position: fixed;
+  }
+  &_right {
+    width: 100%;
+    padding-left: 20%;
+    &--banner {
+      @include style.flex(none, center);
+      padding: 16px 32px;
+      gap: 16px;
+      background-color: white;
+
+      .logo-banner {
+        height: 40px;
+        width: 10px;
+        background: linear-gradient(to bottom, #f06c24, #f97316, #eab308);
+        border-radius: 12px;
+      }
+    }
+
+    &--content {
+      .box-container {
+        padding: 64px 6rem 0 6rem;
+        .box {
+          background-color: white;
+          box-shadow: 0 12px 12px rgba(0, 0, 0, 0.1);
+          padding-bottom: 30px;
+          border-radius: 16px;
+          .title-box {
+            background: linear-gradient(to right, #f46f1e, #fb923c);
+            padding: 20px 20px;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+            p {
+              font-weight: 600;
+            }
+          }
+          .content-contest {
+            padding: 30px 30px 0 30px;
+            .contest-title {
+              margin-bottom: 20px;
+            }
+            .title-problem {
+              margin-bottom: 6px;
+            }
+            .problem {
+              .btn-problem {
+                width: 100%;
+                padding: 12px;
+                text-align: left;
+                background-color: white;
+                border-radius: 6px;
+                border: none;
+                background-color: #f9fafb;
+                box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+                  rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+                margin-bottom: 12px;
+              }
+            }
+            .title-description {
+              margin-bottom: 6px;
+            }
+            .description {
+              width: 100%;
+              padding: 12px;
+              text-align: left;
+              background-color: white;
+              border-radius: 6px;
+              border: none;
+              background-color: #f9fafb;
+              box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+                rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+              margin-bottom: 12px;
+            }
+            .title-submit {
+              margin-bottom: 6px;
+            }
+            .box-submit {
+              width: 100%;
+              padding: 12px;
+              text-align: left;
+              background-color: white;
+              border-radius: 6px;
+              border: none;
+              background-color: #f9fafb;
+              box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+                rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+              margin-bottom: 12px;
+
+              .push-file {
+                margin: 10px 0px;
+                .btn-push-file {
+                  background-color: #f1f1f1;
+                  padding: 10px 10px;
+                  font-size: 16px;
+                  border: none;
+                  border-radius: 16px;
+                  &:hover {
+                    background-color: style.$hover-second-color;
+                  }
+                }
+              }
+              .btn-container {
+                .btn-submit {
+                  width: max-content;
+                  padding: 12px 20px;
+                  background-color: #f06c24;
+                  color: white;
+                  border: none;
+                  border-radius: 10px;
+                  cursor: pointer;
+                  font-weight: bold;
+                  &:hover {
+                    background-color: style.$hover-color;
+                  }
+                }
+              }
+            }
+            .btn-back {
+              display: flex;
+              flex-direction: row-reverse;
+              button {
+                margin-top: 10px;
+                padding: 12px 20px;
+                background-color: white;
+                border: 2px solid #e5e7eb;
+                border-radius: 10px;
+                cursor: pointer;
+                font-weight: bold;
+                &:hover {
+                  background-color: style.$hover-second-color;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

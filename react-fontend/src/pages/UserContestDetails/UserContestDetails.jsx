@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useGetContestByContestId from "../../hooks/useGetContestByContestId";
 import { useEffect, useState } from "react";
 import { LuArrowDownToLine } from "react-icons/lu";
+import useJoinContest from "../../hooks/useJoinContest";
 const UserContestDetails = () => {
   //lay param
   const location = useLocation();
@@ -23,11 +24,15 @@ const UserContestDetails = () => {
     const res = await getcontestbyid(id);
     setData(res);
   };
-  console.log(data);
-
   useEffect(() => {
     fetchDataContestById(contestId);
   }, []);
+
+  //Call join contest
+  const joincontest = useJoinContest();
+  const handleJoinContest = async (contestId) => {
+    await joincontest(contestId);
+  };
 
   return (
     <div className="UserContestDetails-container">
@@ -74,7 +79,7 @@ const UserContestDetails = () => {
 
                   <div className="url-file">
                     <p className="url-file-title">File hướng dẫn</p>
-                    <a href={data.fileUrl}>
+                    <a href={data.urlFile }>
                       <button>
                         <LuArrowDownToLine />
                         Tải tài liệu
@@ -83,12 +88,15 @@ const UserContestDetails = () => {
                   </div>
 
                   <div className="btn-content-details">
-                    <button
-                      className="btn btn-edit"
-                      //   onClick={handleChangePageEdit}
-                    >
-                      Đăng ký
-                    </button>
+                    {data.status !== "Has Ended" && (
+                      <button
+                        className="btn btn-edit"
+                        onClick={() => handleJoinContest(data.contestId)}
+                      >
+                        Đăng ký
+                      </button>
+                    )}
+
                     <button className="btn btn-cancel" onClick={handleBackPage}>
                       Huỷ
                     </button>

@@ -334,6 +334,26 @@ const UserGetContestByContestId = async (contestId, token) => {
   });
 };
 
+const UserJoinContestApi = async (contestId, token) => {
+  return await Api.post(
+    `/api/v1/contest/join/${contestId}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
+const AdminEditContest = async (id, dataUpdate, token) => {
+  return await Api.put(`/api/contests/${id}`, dataUpdate, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export {
   LoginApi,
   ForgotPassword,
@@ -372,4 +392,6 @@ export {
   AdminCreateContestApi,
   UserGetAllContestApi,
   UserGetContestByContestId,
+  UserJoinContestApi,
+  AdminEditContest,
 };

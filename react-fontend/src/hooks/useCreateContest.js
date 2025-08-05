@@ -2,6 +2,7 @@ import { AdminCreateContestApi } from "../api/UserCallApi";
 
 const useCreateContest = () => {
   const createcontest = async (dataCreate) => {
+    console.log("data: ", dataCreate);
     const token = localStorage.getItem("token");
     try {
       const res = await AdminCreateContestApi(dataCreate, token);
