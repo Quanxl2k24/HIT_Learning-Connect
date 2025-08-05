@@ -3,6 +3,7 @@ import SideBar from "../../components/SideBar/SideBar";
 import useGetAllContestByUser from "../../hooks/useGetAllContestByUser";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useDeleteContestByAdmin from "../../hooks/useDeleteContestByAdmin";
 const UserContest = () => {
   // call api get all contest
   const [data, setData] = useState([]);
@@ -26,6 +27,7 @@ const UserContest = () => {
   const handleChangePageDoContest = (contestId) => {
     navigate(`/User/Contest/DoContest?contestId=${contestId}`);
   };
+
   return (
     <div className="UserContest-container">
       <div className="UserContest">

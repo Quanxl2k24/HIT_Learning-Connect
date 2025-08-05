@@ -4,7 +4,6 @@ const UserGetAllContestByAdmin = () => {
     const token = localStorage.getItem("token");
     try {
       const res = await AdminGetAllContestApi(token);
-      console.log(res);
       return res.data.data.content;
     } catch (error) {
       return error.message;

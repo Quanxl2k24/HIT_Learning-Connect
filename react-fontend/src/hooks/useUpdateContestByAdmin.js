@@ -2,13 +2,14 @@ import { AdminEditContest } from "../api/UserCallApi";
 
 const useUpdateContestByAdmin = () => {
   const updatecontest = async (contestId, dataUpdate) => {
-    const token = localStorage.get("token");
+    const token = localStorage.getItem("token");
+    console.log(contestId);
+    console.log(dataUpdate);
     try {
-      const res = await AdminEditContest(contestId, dataUpdate, token);
-      console.log("res: ", res);
-      return res;
+      await AdminEditContest(contestId, dataUpdate, token);
+      return true;
     } catch (error) {
-      return error.message;
+      return false;
     }
   };
   return updatecontest;
