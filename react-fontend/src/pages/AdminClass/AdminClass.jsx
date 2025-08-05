@@ -80,7 +80,6 @@ const AdminClass = () => {
     if (textSearch == "") {
       fetchData();
     } else {
-      console.log("co call");
       const res = await sreachclass(textSearch);
       setClass(res.data.data);
     }

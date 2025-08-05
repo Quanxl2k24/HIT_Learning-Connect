@@ -6,7 +6,15 @@ import EditButton from "../../assets/imgs/img_Edit.png";
 import UserGetAllContestByAdmin from "../../hooks/useGetAllContestByAdmin";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useDeleteContestByAdmin from "../../hooks/useDeleteContestByAdmin";
+import BoxConfirmDelete from "../../components/BoxConfrimDelete/BoxConfirmDelete";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 const AdminContest = () => {
+  //useState
+  const [showToast, setShowToast] = useState(false);
+  const [text, setText] = useState("");
+  const [statusBox, setStatusBox] = useState(null);
+
   //call api lay tat ca contest
   const [data, setData] = useState([]);
   const usegetcontestbyadmin = UserGetAllContestByAdmin();
@@ -17,7 +25,6 @@ const AdminContest = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log("data", data);
 
   //handle edit
   const navigate = useNavigate();
@@ -39,9 +46,53 @@ const AdminContest = () => {
   const handleChangePageReults = (id) => {
     navigate(`/Admin/Contest/Results?contestId=${id}`);
   };
+
+  //handleDeleteContest
+  const [idDel, setIdDel] = useState(null);
+  const [ShowConfirm, setShowConfirm] = useState(false);
+  const deletecontest = useDeleteContestByAdmin();
+  const handleDeleteContest = async (contestId) => {
+    setShowConfirm(true);
+    setIdDel(contestId);
+  };
+
+  const handleDeleteBoxConfirm = async () => {
+    const res = await deletecontest(idDel);
+    await fetchData();
+    setIdDel(null);
+    setShowConfirm(false);
+    if (res) {
+      setShowToast(true);
+      setText("Xoá contest thành công");
+      setStatusBox(true);
+    } else {
+      setShowToast(true);
+      setText("Xoá contest không thành công");
+      setStatusBox(false);
+    }
+  };
+
+  const handleCancel = () => {
+    setShowConfirm(false);
+  };
+
   return (
     <div className="AdminContest-container">
       <div className="AdminContest">
+        {showToast && (
+          <BoxNotification
+            message={text}
+            status={statusBox}
+            onClose={() => setShowToast(false)}
+          />
+        )}
+        <div className="BoxConfirm-container">
+          <BoxConfirmDelete
+            display={ShowConfirm}
+            handleCancel={handleCancel}
+            handleDeleteBoxConfirm={handleDeleteBoxConfirm}
+          />
+        </div>
         <div className="AdminContest_left">
           <SideBar />
         </div>
@@ -109,7 +160,21 @@ const AdminContest = () => {
                             </td>
                             <td>{item.startTime}</td>
                             <td>{item.endTime}</td>
-                            <td>{item.status}</td>
+                            <td>
+                              {item.status == "Has Ended" ? (
+                                <p className="contest-status-completed">
+                                  Đã kết thúc
+                                </p>
+                              ) : item.status == "Opening" ? (
+                                <p className="contest-status-progress">
+                                  Đang diễn ra
+                                </p>
+                              ) : (
+                                <p className="contest-status-upcoming">
+                                  Sắp diễn ra
+                                </p>
+                              )}
+                            </td>
                             <td>
                               <div className="admin-contest-btn">
                                 <button
@@ -124,7 +189,9 @@ const AdminContest = () => {
                                 </button>
                                 <button
                                   className="admin-contest-btn-Del"
-                                  onClick={() => handleDelete(item.classId)}
+                                  onClick={() =>
+                                    handleDeleteContest(item.contestId)
+                                  }
                                 >
                                   <img
                                     className="img-btn"

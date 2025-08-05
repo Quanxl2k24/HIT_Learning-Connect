@@ -2,10 +2,17 @@ import SideBar from "../../components/SideBar/SideBar";
 import "./AdminEditContest.scss";
 import adminEditContestSchema from "../../utlis/adminEditContestSchema";
 import { useFormik } from "formik";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useGetContestDetails from "../../hooks/useGetContestDetails";
 import { useEffect, useState } from "react";
+import useUpdateContestByAdmin from "../../hooks/useUpdateContestByAdmin";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 const AdminEditContest = () => {
+  //useState notification
+  const [showToast, setShowToast] = useState(false);
+  const [text, setText] = useState("");
+  const [statusBox, setStatusBox] = useState(null);
+
   //lay param
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -21,7 +28,11 @@ const AdminEditContest = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  // khai bao hook
+  const updatecontest = useUpdateContestByAdmin();
   //formik
+  const navigate = useNavigate();
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -32,13 +43,34 @@ const AdminEditContest = () => {
       urlFile: data?.urlFile || "",
     },
     validationSchema: adminEditContestSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log(values);
+      const res = await updatecontest(contestId, values);
+      console.log("res: ", res);
+      if (res) {
+        setShowToast(true);
+        setText("Cập nhật contest thành công");
+        setStatusBox(true);
+        setTimeout(() => {
+          navigate("/Admin/Contest");
+        }, 1500);
+      } else {
+        setShowToast(true);
+        setText("Cập nhật contest không thành công");
+        setStatusBox(false);
+      }
     },
   });
   return (
     <div className="AdminEditContest-container">
       <div className="AdminEditContetst">
+        {showToast && (
+          <BoxNotification
+            message={text}
+            status={statusBox}
+            onClose={() => setShowToast(false)}
+          />
+        )}
         <div className="AdminEditContest_left">
           <SideBar />
         </div>

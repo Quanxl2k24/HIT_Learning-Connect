@@ -149,6 +149,28 @@
                   text-decoration: underline;
                 }
               }
+              .contest-status-progress {
+                background-color: #d9f9e8;
+                width: max-content;
+                padding: 2px 12px;
+                border-radius: 12px;
+                text-align: center;
+              }
+              .contest-status-upcoming {
+                background-color: #fef9c3;
+                width: max-content;
+                padding: 2px 12px;
+                border-radius: 12px;
+                text-align: center;
+              }
+              .contest-status-completed {
+                background-color: #686339;
+                width: max-content;
+                padding: 2px 12px;
+                border-radius: 12px;
+                text-align: center;
+                color: white;
+              }
             }
 
             .admin-contest-btn {

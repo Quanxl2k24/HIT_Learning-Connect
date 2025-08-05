@@ -354,6 +354,14 @@ const AdminEditContest = async (id, dataUpdate, token) => {
   });
 };
 
+const AdminDeleteContestApi = async (id, token) => {
+  return Api.delete(`/api/contests/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export {
   LoginApi,
   ForgotPassword,
@@ -394,4 +402,5 @@ export {
   UserGetContestByContestId,
   UserJoinContestApi,
   AdminEditContest,
+  AdminDeleteContestApi,
 };
