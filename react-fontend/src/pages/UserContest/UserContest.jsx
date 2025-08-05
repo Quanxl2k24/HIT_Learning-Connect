@@ -21,6 +21,11 @@ const UserContest = () => {
   const handleChangePageDetails = (contestId) => {
     navigate(`/User/Contest/Details?contestId=${contestId}`);
   };
+
+  // handleChangePageDoContest
+  const handleChangePageDoContest = (contestId) => {
+    navigate(`/User/Contest/DoContest?contestId=${contestId}`);
+  };
   return (
     <div className="UserContest-container">
       <div className="UserContest">
@@ -49,7 +54,15 @@ const UserContest = () => {
                       data.map((item, index) => (
                         <div className="contest" key={index}>
                           <div className="title-contest">
-                            <h1>{item.title}</h1>
+                            <h1>
+                              <button
+                                onClick={() =>
+                                  handleChangePageDetails(item.contestId)
+                                }
+                              >
+                                {item.title}
+                              </button>
+                            </h1>
                           </div>
                           <div className="date-contest">
                             <p>
@@ -57,24 +70,30 @@ const UserContest = () => {
                             </p>
                           </div>
                           <div className="contest-status">
-                            <p className="contest-status-progress">
-                              Đang diễn ra
-                            </p>
-                            <p className="contest-status-upcoming">
-                              Sắp diễn ra
-                            </p>
-                            <p className="contest-status-completed">
-                              Đã kết thúc
-                            </p>
+                            {item.status == "Has Ended" ? (
+                              <p className="contest-status-completed">
+                                Đã kết thúc
+                              </p>
+                            ) : item.status == "Opening" ? (
+                              <p className="contest-status-progress">
+                                Đang diễn ra
+                              </p>
+                            ) : (
+                              <p className="contest-status-upcoming">
+                                Sắp diễn ra
+                              </p>
+                            )}
                           </div>
                           <div className="btn-contest-details">
-                            <button
-                              onClick={() =>
-                                handleChangePageDetails(item.contestId)
-                              }
-                            >
-                              Đăng ký
-                            </button>
+                            {item.hasJoined && (
+                              <button
+                                onClick={() =>
+                                  handleChangePageDoContest(item.contestId)
+                                }
+                              >
+                                Tham gia
+                              </button>
+                            )}
                           </div>
                         </div>
                       ))}

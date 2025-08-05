@@ -11,7 +11,6 @@ const AdminCreateContest = () => {
   const pushfile = usePushFile();
   const handlePushfile = async () => {
     const resFile = await pushfile(selectedFile);
-    console.log(resFile);
     if (resFile) {
       alert("Đã tải tệp lên thành công");
       formik.setFieldValue("urlFile", resFile);
@@ -42,11 +41,14 @@ const AdminCreateContest = () => {
     // submit create contest
     onSubmit: async (values) => {
       console.log(values);
-
+      values.endTime = values.endTime + "T00:00:00Z";
+      values.startTime = values.startTime + "T00:00:00Z";
       const res = await createcontest(values);
       console.log("res: ", res);
     },
   });
+
+  // console.log(">>>", formik.values.endTime + "T00:00:00Z");
 
   return (
     <div className="AdminCreateContest-container">

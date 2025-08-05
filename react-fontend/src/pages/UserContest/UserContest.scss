@@ -35,21 +35,56 @@
             box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
           }
           .content-contest {
-            max-height: 32rem;
-            overflow-y: auto; 
+            max-height: 38rem;
+            overflow-y: auto;
             .list-contest {
               padding: 36px;
+              .btn-contest {
+                width: 100%;
+                text-align: left;
+                border: none;
+                height: max-content;
+                margin-bottom: 16px;
+                border-radius: 16px;
+                background-color: #fff;
+                &:hover {
+                  background-color: style.$hover-second-color;
+                }
+              }
               .contest {
                 padding: 12px;
                 border-radius: 16px;
-                margin-bottom: 16px;
+                margin-bottom: 12px;
                 box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
                   rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
                 .title-contest {
-                  h1 {
+                  button {
+                    position: relative;
                     color: #4d63eb;
+                    border: none;
+                    background-color: white;
+                    font-size: 32px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    padding: 4px 0;
+
+                    &::after {
+                      content: "";
+                      position: absolute;
+                      bottom: 0;
+                      left: 0;
+                      height: 2px;
+                      width: 0;
+                      background-color: #4d63eb;
+                      transition: width 0.3s ease;
+                    }
+
+                    &:hover::after {
+                      width: 100%;
+                    }
                   }
                 }
+
                 .date-contest {
                   margin-bottom: 12px;
                   p {
