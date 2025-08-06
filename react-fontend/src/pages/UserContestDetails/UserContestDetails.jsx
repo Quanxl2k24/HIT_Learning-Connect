@@ -34,6 +34,17 @@ const UserContestDetails = () => {
     await joincontest(contestId);
   };
 
+  // hien dang ki neu dang trong thoi gian cua contest
+  const [showButton, setShowButton] = useState(false);
+  useEffect(() => {
+    if (data.length != 0) {
+      if (data.status !== "Has Ended") {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    }
+  }, [data.status]);
   return (
     <div className="UserContestDetails-container">
       <div className="UserContestDetails">
@@ -88,7 +99,7 @@ const UserContestDetails = () => {
                   </div>
 
                   <div className="btn-content-details">
-                    {data.status !== "Has Ended" && (
+                    {showButton && (
                       <button
                         className="btn btn-edit"
                         onClick={() => handleJoinContest(data.contestId)}
