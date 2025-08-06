@@ -88,6 +88,14 @@
             font-size: 12px;
             margin-top: 4px;
           }
+          .btn-delete-file {
+            padding: 12px 20px;
+            background-color: rgb(226, 50, 50);
+            font-weight: 500;
+            color: white;
+            border: none;
+            border-radius: 12px;
+          }
         }
         .button-create-document-by-class {
           display: flex;

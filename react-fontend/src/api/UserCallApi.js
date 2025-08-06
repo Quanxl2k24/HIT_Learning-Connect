@@ -362,6 +362,19 @@ const AdminDeleteContestApi = async (id, token) => {
   });
 };
 
+const AdminSearchContestApi = async (keyword, token) => {
+  const queryParams = new URLSearchParams({
+    keyword: keyword,
+  });
+  console.log(`/api/contests/search?${queryParams.toString()}`);
+
+  return Api.get(`/api/contests/search?${queryParams.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export {
   LoginApi,
   ForgotPassword,
@@ -403,4 +416,5 @@ export {
   UserJoinContestApi,
   AdminEditContest,
   AdminDeleteContestApi,
+  AdminSearchContestApi,
 };

@@ -37,6 +37,7 @@ const AdminEditDocumentByClass = () => {
   };
   // call api update
   const updatedocumentbyclass = useUpdateDocumentByClass();
+
   //formik
   const formik = useFormik({
     enableReinitialize: true,
@@ -48,7 +49,6 @@ const AdminEditDocumentByClass = () => {
     },
 
     validationSchema: adminUpdateDocumentSchema,
-
     onSubmit: async (values) => {
       console.log("documentId", documentId);
       const res = await updatedocumentbyclass(documentId, values);
@@ -72,19 +72,14 @@ const AdminEditDocumentByClass = () => {
   const deletefile = useDeleteFile();
   const handleDeleteFile = async (urlFile) => {
     const res = await deletefile(urlFile);
-    console.log("res", res);
   };
 
   const [showUpFile, setShowUpFile] = useState(false);
   useEffect(() => {
     if (data?.fileUrl) {
-      console.log(data?.fileUrl);
-
       setShowUpFile(true);
     }
   }, [data]);
-
-  console.log("showFile", showUpFile);
 
   return (
     <div className="AdminEditDocumentByClass-conatainer">
@@ -140,6 +135,7 @@ const AdminEditDocumentByClass = () => {
                       />
                       <p className="validate">{formik.errors.fileUrl}</p>
                       <button
+                        className="btn-delete-file"
                         type="button"
                         onClick={() => handleDeleteFile(formik.values.fileUrl)}
                       >

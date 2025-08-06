@@ -42,12 +42,14 @@
           .box-content {
             padding: 30px 30px 0 30px;
             .title-contest {
-              margin-bottom: 12px;
+              margin-bottom: 24px;
               h1 {
                 font-size: 36px;
               }
             }
             .box-date {
+              box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+                rgb(209, 213, 219) 0px 0px 0px 1px inset;
               background-color: #f9fafb;
               display: grid;
               grid-template-columns: auto auto;
@@ -61,10 +63,15 @@
               }
             }
             .description {
+              box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+                rgb(209, 213, 219) 0px 0px 0px 1px inset;
+              background-color: #f9fafb;
+              padding: 20px 12px;
+              border-radius: 12px;
               margin-bottom: 12px;
               .description-title {
                 color: black;
-                font-weight: 400;
+                font-weight: 500;
                 font-size: 18px;
                 margin-bottom: 4px;
               }
@@ -72,9 +79,15 @@
 
             .url-file {
               margin-bottom: 24px;
+              box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px,
+                rgb(209, 213, 219) 0px 0px 0px 1px inset;
+              background-color: #f9fafb;
+              padding: 20px 12px;
+              border-radius: 12px;
+
               .url-file-title {
                 color: black;
-                font-weight: 400;
+                font-weight: 500;
                 font-size: 18px;
                 margin-bottom: 4px;
               }

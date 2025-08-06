@@ -79,7 +79,7 @@ const UserContestDetails = () => {
 
                   <div className="url-file">
                     <p className="url-file-title">File hướng dẫn</p>
-                    <a href={data.urlFile }>
+                    <a href={data.urlFile}>
                       <button>
                         <LuArrowDownToLine />
                         Tải tài liệu

@@ -46,6 +46,7 @@
             }
             .title-problem {
               margin-bottom: 6px;
+              font-weight: 500;
             }
             .problem {
               .btn-problem {
@@ -59,10 +60,22 @@
                 box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
                   rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
                 margin-bottom: 12px;
+                .a-problem {
+                  font-size: 18px;
+                }
+                .data-start-end {
+                  margin-top: 12px;
+                }
+                .date {
+                  font-style: italic;
+                  font-size: 14px;
+                  color: #777575;
+                }
               }
             }
             .title-description {
               margin-bottom: 6px;
+              font-weight: 500;
             }
             .description {
               width: 100%;
@@ -78,6 +91,7 @@
             }
             .title-submit {
               margin-bottom: 6px;
+              font-weight: 500;
             }
             .box-submit {
               width: 100%;

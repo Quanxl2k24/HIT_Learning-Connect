@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import useDeleteContestByAdmin from "../../hooks/useDeleteContestByAdmin";
 import BoxConfirmDelete from "../../components/BoxConfrimDelete/BoxConfirmDelete";
 import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
+import useSearchContestByAdmin from "../../hooks/useSearchContestByAdmin";
 const AdminContest = () => {
   //useState
   const [showToast, setShowToast] = useState(false);
@@ -55,7 +56,6 @@ const AdminContest = () => {
     setShowConfirm(true);
     setIdDel(contestId);
   };
-
   const handleDeleteBoxConfirm = async () => {
     const res = await deletecontest(idDel);
     await fetchData();
@@ -71,9 +71,23 @@ const AdminContest = () => {
       setStatusBox(false);
     }
   };
-
   const handleCancel = () => {
     setShowConfirm(false);
+  };
+
+  //handle search contest
+  const [keyword, setKeyword] = useState("");
+  const searchcontest = useSearchContestByAdmin();
+  const search = async () => {
+    const res = await searchcontest(keyword);
+    setData(res);
+  };
+  const handleSearch = () => {
+    if (keyword !== "") {
+      search();
+    } else {
+      fetchData();
+    }
   };
 
   return (
@@ -119,11 +133,19 @@ const AdminContest = () => {
                     <input
                       type="text"
                       placeholder="Tìm kiếm theo username, fullname, email"
+                      value={keyword}
+                      onChange={(e) => setKeyword(e.target.value)}
                     />
                   </div>
 
                   <div className="but-box">
-                    <button className="but-add">Tìm kiếm</button>
+                    <button
+                      type="button"
+                      onClick={handleSearch}
+                      className="but-add"
+                    >
+                      Tìm kiếm
+                    </button>
 
                     <button className="but-add" onClick={handleChangePage}>
                       <span>+ </span> Thêm
