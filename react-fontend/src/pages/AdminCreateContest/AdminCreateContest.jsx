@@ -48,8 +48,6 @@ const AdminCreateContest = () => {
     },
   });
 
-  // console.log(">>>", formik.values.endTime + "T00:00:00Z");
-
   return (
     <div className="AdminCreateContest-container">
       <div className="AdminCreateContest">

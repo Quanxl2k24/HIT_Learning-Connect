@@ -19,7 +19,7 @@ const AdminEditContest = () => {
   const contestId = params.get("contestId");
 
   //call api lay noi dung
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const getcontestdetails = useGetContestDetails();
   const fetchData = async () => {
     const res = await getcontestdetails(contestId);
@@ -28,6 +28,7 @@ const AdminEditContest = () => {
   useEffect(() => {
     fetchData();
   }, []);
+  console.log(data);
 
   // khai bao hook
   const updatecontest = useUpdateContestByAdmin();
@@ -41,9 +42,14 @@ const AdminEditContest = () => {
       endTime: data?.endTime || "",
       description: data?.description || "",
       urlFile: data?.urlFile || "",
+      highestScore: null,
+      resultSummary: null,
+      ranking: null,
     },
     validationSchema: adminEditContestSchema,
     onSubmit: async (values) => {
+      values.endTime = values.endTime + "T00:00:00Z";
+      values.startTime = values.startTime + "T00:00:00Z";
       console.log(values);
       const res = await updatecontest(contestId, values);
       console.log("res: ", res);

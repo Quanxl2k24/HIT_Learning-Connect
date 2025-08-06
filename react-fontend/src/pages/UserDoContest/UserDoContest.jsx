@@ -1,13 +1,37 @@
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import "./UserDoContest.scss";
 import SideBar from "../../components/SideBar/SideBar";
-import { useNavigate } from "react-router-dom";
+import useGetContestByContestId from "../../hooks/useGetContestByContestId";
+import usePushFile from "../../hooks/usePushFile";
 const UserDoContest = () => {
+  //lay param
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const contestId = params.get("contestId");
+
   //handleBack
   const navigate = useNavigate();
   const handleBack = () => {
     navigate("/User/Contest");
   };
-  
+
+  // api lay chi tiet contest
+  const [data, setData] = useState([]);
+  const getcontestbyid = useGetContestByContestId();
+  const fetchDataContestById = async (id) => {
+    const res = await getcontestbyid(id);
+    setData(res);
+  };
+  console.log(data);
+  useEffect(() => {
+    fetchDataContestById(contestId);
+  }, []);
+
+// call api push file 
+const pushfile = usePushFile();
+
   return (
     <div className="UserDoContest-conatainer">
       <div className="UserDoContest">
@@ -26,21 +50,24 @@ const UserDoContest = () => {
             <div className="box-container">
               <div className="box">
                 <div className="title-box">
-                  <p>Teen contest: api....</p>
+                  <p>Nộp bài</p>
                 </div>
 
                 <div className="content-contest">
                   <div className="contest-title">
-                    <h1>Api.... </h1>
+                    <h1>{data.title}</h1>
                   </div>
                   <div className="title-problem">Đề bài</div>
                   <div className="problem">
                     <button className="btn-problem">
                       <div>
-                        <p>đề bài</p>
+                        <a href={data.urlFile} className="a-problem">
+                          Đề bài
+                        </a>
                       </div>
-                      <div>
-                        <p>Ngày tạo: </p>
+                      <div className="data-start-end">
+                        <p className="date">Ngày tạo: {data.startTime}</p>
+                        <p className="date">Ngày kết thúc: {data.startTime}</p>
                       </div>
                     </button>
                   </div>
@@ -48,7 +75,7 @@ const UserDoContest = () => {
                     <p>Mô tả</p>
                   </div>
                   <div className="description">
-                    <p>Api.....</p>
+                    <p>{data.description}</p>
                   </div>
                   <div className="title-submit">
                     <p>Nộp bài</p>

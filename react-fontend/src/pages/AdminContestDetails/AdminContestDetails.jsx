@@ -28,6 +28,7 @@ const AdminContestDetails = () => {
     const res = await getcontestdetails(contestId);
     setData(res);
   };
+  console.log(data);
 
   useEffect(() => {
     fetchData();
@@ -74,7 +75,8 @@ const AdminContestDetails = () => {
 
                   <div className="url-file">
                     <p className="url-file-title">File hướng dẫn</p>
-                    <p>{data?.fileUrl}</p>
+                    <a href={data.urlFile}>Chi tiết hướng dẫn</a>
+                    <p></p>
                   </div>
 
                   <div className="btn-content-details">

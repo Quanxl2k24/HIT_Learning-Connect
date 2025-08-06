@@ -28,6 +28,8 @@ const UserContest = () => {
     navigate(`/User/Contest/DoContest?contestId=${contestId}`);
   };
 
+8
+
   return (
     <div className="UserContest-container">
       <div className="UserContest">
