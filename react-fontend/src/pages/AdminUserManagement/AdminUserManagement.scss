@@ -1,16 +1,17 @@
 @use "../../styles/index" as style;
 .AdminUserManagement-container {
   position: relative;
-  background-color: rgba(0, 0, 0, 0.1); /* Lớp mờ màu đen 40% */
+  .BoxConfirm-container {
+    position: absolute;
+    z-index: 100;
+  }
 }
-.BoxConfirm-container {
-  position: absolute;
-}
+
 .AdminUserManagement {
   display: flex;
   @include style.flex(none, none);
   //sidebar
-  .Home_left {
+  &_left {
     position: fixed;
     width: 20%;
     height: 100vh;

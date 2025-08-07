@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import "./AdminClass.scss";
 import SearchBoxUser from "../../assets/imgs/searchBoxUser.png";
 import SideBar from "../../components/SideBar/SideBar";
@@ -7,7 +8,6 @@ import {
   fetchAllClassByAdmin,
   deleteClassByAdmin,
 } from "../../redux/adminClass/adminClassActions";
-import { useEffect, useState } from "react";
 import DelButton from "../../assets/imgs/img_Del.png";
 import EditButton from "../../assets/imgs/img_Edit.png";
 import BoxConfirmDelete from "../../components/BoxConfrimDelete/BoxConfirmDelete";
@@ -16,6 +16,8 @@ import useSreachClass from "../../hooks/useSreachClass";
 const AdminClass = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  //useState notification
   const [showToast, setShowToast] = useState(false);
   const [text, setText] = useState("");
   const [statusBox, setStatusBox] = useState(null);
@@ -87,22 +89,22 @@ const AdminClass = () => {
 
   return (
     <div className="AdminUserManagement-container">
-      {showToast && (
-        <BoxNotification
-          message={text}
-          status={statusBox}
-          onClose={() => setShowToast(false)}
-        />
-      )}
-      <div className="BoxConfirm-container">
-        <BoxConfirmDelete
-          display={ShowConfirm}
-          handleCancel={handleCancel}
-          handleDeleteBoxConfirm={handleDeleteBoxConfirm}
-        />
-      </div>
       <div className="AdminUserManagement">
-        <div className="Home_left">
+        {showToast && (
+          <BoxNotification
+            message={text}
+            status={statusBox}
+            onClose={() => setShowToast(false)}
+          />
+        )}
+        <div className="BoxConfirm-container">
+          <BoxConfirmDelete
+            display={ShowConfirm}
+            handleCancel={handleCancel}
+            handleDeleteBoxConfirm={handleDeleteBoxConfirm}
+          />
+        </div>
+        <div className="AdminUserManagement_left">
           <SideBar />
         </div>
         <div className="AdminUserManagement_right">

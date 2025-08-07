@@ -1,7 +1,6 @@
 @use "../../styles/index" as style;
 .AdminRegister-container {
   position: relative;
-  background-color: rgba(0, 0, 0, 0.1); /* Lớp mờ màu đen 40% */
   .BoxConfirm-container {
     position: absolute;
     z-index: 100;
@@ -10,8 +9,6 @@
     &_left {
       position: fixed;
       width: 20%;
-      height: 100vh;
-      z-index: 9999;
     }
     &_right {
       width: 100%;

@@ -24,9 +24,6 @@ const UserClass = () => {
 
   // call api huy lop
   const deleteClickClass = async (classId) => {
-    // console.log(classId);
-    // await dispatch(deleteClass(classId));
-    // await dispatch(fetchAllClass());
     setShowConfirm(true);
     setIdDel(classId);
   };

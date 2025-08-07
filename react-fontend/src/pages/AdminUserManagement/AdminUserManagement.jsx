@@ -106,22 +106,22 @@ const AdminUserManagement = () => {
 
   return (
     <div className="AdminUserManagement-container">
-      {showToast && (
-        <BoxNotification
-          message={text}
-          status={statusBox}
-          onClose={() => setShowToast(false)}
-        />
-      )}
-      <div className="BoxConfirm-container">
-        <BoxConfirmDelete
-          display={ShowConfirm}
-          handleCancel={handleCancel}
-          handleDeleteBoxConfirm={handleDeleteBoxConfirm}
-        />
-      </div>
       <div className="AdminUserManagement">
-        <div className="Home_left">
+        {showToast && (
+          <BoxNotification
+            message={text}
+            status={statusBox}
+            onClose={() => setShowToast(false)}
+          />
+        )}
+        <div className="BoxConfirm-container">
+          <BoxConfirmDelete
+            display={ShowConfirm}
+            handleCancel={handleCancel}
+            handleDeleteBoxConfirm={handleDeleteBoxConfirm}
+          />
+        </div>
+        <div className="AdminUserManagement_left">
           <SideBar />
         </div>
         <div className="AdminUserManagement_right">

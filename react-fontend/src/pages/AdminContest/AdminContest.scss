@@ -1,4 +1,11 @@
 @use "../../styles/index" as style;
+.AdminContest-container {
+  position: relative;
+  .BoxConfirm-container {
+    position: absolute;
+    z-index: 100;
+  }
+}
 
 .AdminContest {
   &_left {
