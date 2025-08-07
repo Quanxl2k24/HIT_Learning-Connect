@@ -15,7 +15,6 @@ const AdminCreateUser = () => {
   const [statusBox, setStatusBox] = useState(false);
   const navigate = useNavigate();
   const [showToast, setShowToast] = useState(null);
-  const error = useSelector((state) => state.admin.error);
   const [text, setText] = useState("");
   const dispatch = useDispatch();
   const formik = useFormik({

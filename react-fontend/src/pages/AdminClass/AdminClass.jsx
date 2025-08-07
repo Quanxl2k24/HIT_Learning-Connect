@@ -161,7 +161,6 @@ const AdminClass = () => {
                       {Class &&
                         Class.map((item, index) => (
                           <tr key={index}>
-                            {/* <td>{(currentPage - 1) * size + index + 1}</td> */}
                             <td>{item.classId}</td>
                             <td>{item.title}</td>
                             <td>{item.startDate}</td>

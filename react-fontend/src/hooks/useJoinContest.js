@@ -5,11 +5,10 @@ const useJoinContest = () => {
     const token = localStorage.getItem("token");
 
     try {
-      const res = await UserJoinContestApi(contestId, token);
-      console.log(">>>>", res);
-      return res;
+      await UserJoinContestApi(contestId, token);
+      return true;
     } catch (error) {
-      return error.message;
+      return false;
     }
   };
   return joincontest;

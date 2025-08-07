@@ -32,6 +32,7 @@ const UserDoContest = () => {
   const pushfile = usePushFile();
   const handlePushfile = async () => {
     const resFile = await pushfile(selectedFile);
+    console.log(resFile);
     if (resFile) {
       alert("Đã tải tệp lên thành công");
       formik.setFieldValue("urlFile", resFile);
