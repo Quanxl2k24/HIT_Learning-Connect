@@ -1,11 +1,21 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useFormik } from "formik";
 
 import "./UserDoContest.scss";
 import SideBar from "../../components/SideBar/SideBar";
 import useGetContestByContestId from "../../hooks/useGetContestByContestId";
 import usePushFile from "../../hooks/usePushFile";
+import userSubmitContestSchema from "../../utlis/userSubmitContestSchema";
+import useSubmitContestByUser from "../../hooks/useSubmitContestByUser";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
+
 const UserDoContest = () => {
+  //useState notification
+  const [showToast, setShowToast] = useState(false);
+  const [text, setText] = useState("");
+  const [statusBox, setStatusBox] = useState(null);
+
   //lay param
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -47,9 +57,40 @@ const UserDoContest = () => {
     const file = e.target.files[0];
     if (file) setSelectedFile(file);
   };
+
+  //Formik
+  const submitbyuser = useSubmitContestByUser();
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues: {
+      urlFile: "",
+    },
+    validationSchema: userSubmitContestSchema,
+    onSubmit: async (values) => {
+      const res = await submitbyuser(contestId, values);
+      console.log(res);
+      if (res) {
+        setShowToast(true);
+        setText("Nộp bài thành công");
+        setStatusBox(true);
+      } else {
+        setShowToast(true);
+        setText("Nộp bài không thành công");
+        setStatusBox(false);
+      }
+    },
+  });
+
   return (
     <div className="UserDoContest-conatainer">
       <div className="UserDoContest">
+        {showToast && (
+          <BoxNotification
+            message={text}
+            status={statusBox}
+            onClose={() => setShowToast(false)}
+          />
+        )}
         <div className="UserDoContest_left">
           <SideBar />
         </div>
@@ -97,16 +138,30 @@ const UserDoContest = () => {
                   </div>
                   <div className="box-submit">
                     <div className="push-file">
-                      <input type="file" onChange={handleChangeFile} />
-                      <button
-                        className="btn-push-file"
-                        onClick={handlePushfile}
-                      >
-                        Tải tệp lên
-                      </button>
-                    </div>
-                    <div className="btn-container">
-                      <button className="btn-submit">Nộp bài</button>
+                      <form onSubmit={formik.handleSubmit}>
+                        <input
+                          type="text"
+                          name="urlFile"
+                          value={formik.values.urlFile}
+                          // onChange={formik.handleChange}
+                          className="input-urlFile"
+                          placeholder="Đường link của file"
+                        />
+                        <p className="validate">{formik.errors.urlFile}</p>
+                        <input type="file" onChange={handleChangeFile} />
+                        <button
+                          type="button"
+                          className="btn-push-file"
+                          onClick={handlePushfile}
+                        >
+                          Tải tệp lên
+                        </button>
+                        <div className="btn-container">
+                          <button className="btn-submit" type="submit">
+                            Nộp bài
+                          </button>
+                        </div>
+                      </form>
                     </div>
                   </div>
                   <div className="btn-back">
