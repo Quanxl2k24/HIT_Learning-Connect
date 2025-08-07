@@ -13,6 +13,7 @@ import { deleteRegisterbyAdmin } from "../../redux/adminRegister/adminRegisterAc
 import BoxConfirmDelete from "../../components/BoxConfrimDelete/BoxConfirmDelete";
 import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 const AdminRegister = () => {
+  //useState notification
   const [showToast, setShowToast] = useState(false);
   const [text, setText] = useState("");
   const [statusBox, setStatusBox] = useState(null);
@@ -27,7 +28,6 @@ const AdminRegister = () => {
   };
   const data = useSelector((state) => state.adminRegister.listRegister);
   const listRegister = data?.data?.content;
-
   useEffect(() => {
     fetchRegisters(currentPage);
   }, [currentPage]);
@@ -41,7 +41,6 @@ const AdminRegister = () => {
     if (page < 1 || page > totalPages) return;
     setCurrentPage(page);
   };
-
   const getPages = () => {
     const pages = [];
     for (let i = 1; i <= totalPages; i++) {
@@ -49,8 +48,10 @@ const AdminRegister = () => {
     }
     return pages;
   };
+
   //handleAccpet va handleDney
   const { callApproveOrDeny } = useApproveOrDeny();
+
   // accpet
   const handleAccpet = async (id) => {
     const data = {
@@ -60,6 +61,7 @@ const AdminRegister = () => {
     await callApproveOrDeny(data);
     await fetchRegisters(currentPage);
   };
+
   // deny
   const handleDeny = async (id) => {
     const data = {
@@ -69,6 +71,7 @@ const AdminRegister = () => {
     await callApproveOrDeny(data);
     await fetchRegisters(currentPage);
   };
+
   //handleDelete
   const [showConfirm, setShowConfirm] = useState(false);
   const handleCancel = () => {
@@ -96,22 +99,21 @@ const AdminRegister = () => {
   };
   return (
     <div className="AdminRegister-container">
-      {showToast && (
-        <BoxNotification
-          message={text}
-          status={statusBox}
-          onClose={() => setShowToast(false)}
-        />
-      )}
-      <div className="BoxConfirm-container">
-        <BoxConfirmDelete
-          display={showConfirm}
-          handleCancel={handleCancel}
-          handleDeleteBoxConfirm={handleDeleteBoxConfirm}
-        />
-      </div>
-
       <div className="AdminRegister">
+        {showToast && (
+          <BoxNotification
+            message={text}
+            status={statusBox}
+            onClose={() => setShowToast(false)}
+          />
+        )}
+        <div className="BoxConfirm-container">
+          <BoxConfirmDelete
+            display={showConfirm}
+            handleCancel={handleCancel}
+            handleDeleteBoxConfirm={handleDeleteBoxConfirm}
+          />
+        </div>
         <div className="AdminRegister_left">
           <SideBar />
         </div>

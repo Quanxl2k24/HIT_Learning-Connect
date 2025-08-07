@@ -1,9 +1,10 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./UserContest.scss";
 import SideBar from "../../components/SideBar/SideBar";
 import useGetAllContestByUser from "../../hooks/useGetAllContestByUser";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useDeleteContestByAdmin from "../../hooks/useDeleteContestByAdmin";
+
 const UserContest = () => {
   // call api get all contest
   const [data, setData] = useState([]);
@@ -88,6 +89,7 @@ const UserContest = () => {
                           </div>
                           <div className="btn-contest-details">
                             {item.hasJoined &&
+                              item.status !== "Upcoming" &&
                               (item.status == "Has Ended" ? (
                                 <button>Xem kết quả</button>
                               ) : (

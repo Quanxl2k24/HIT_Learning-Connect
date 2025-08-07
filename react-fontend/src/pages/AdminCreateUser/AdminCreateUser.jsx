@@ -85,23 +85,24 @@ const AdminCreateUser = () => {
                 />
                 <p className="validate p">{formik.errors.fullName}</p>
               </div>
-              {/* <div className="form-group">
-                <label>Giới tính *</label>
-                <select required>
-                  <option value="">--Chọn giới tính--</option>
-                  <option value="Nam">Nam</option>
-                  <option value="Nữ">Nữ</option>
-                </select>
-              </div> */}
               <div className="form-group">
                 <label>Role </label>
-                <input
+                {/* <input
                   type="text"
                   name="role"
                   onChange={formik.handleChange}
                   value={formik.values.role}
                   placeholder="Role(ROLE_USER)"
-                />
+                /> */}
+                <select
+                  name="role"
+                  value={formik.values.role}
+                  onChange={formik.handleChange}
+                >
+                  <option value="none">none</option>
+                  <option value="ROLE_USER">ROLE_USER</option>
+                  <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                </select>
                 <p className="validate p">{formik.errors.role}</p>
               </div>
 

@@ -1,21 +1,21 @@
 @use "../../styles/index" as style;
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.AdminDocument-container {
+  position: relative;
+  .BoxConfirm-container {
+    position: absolute;
+    z-index: 100;
+  }
 }
 .AdminDocument {
   display: flex;
-}
-
-.Home_left {
-  background-color: #fff;
-  border-right: 1px solid #ddd;
-}
-
-.Home_Right {
-  width: 100%;
-  padding-left: 20%;
+  .AdminDocument_left {
+    width: 20%;
+    position: fixed;
+  }
+  .AdminDocument_Right {
+    width: 100%;
+    padding-left: 20%;
+  }
 }
 
 .AdminClass_Banner {
