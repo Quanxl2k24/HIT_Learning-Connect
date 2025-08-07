@@ -24,14 +24,29 @@ const UserDoContest = () => {
     const res = await getcontestbyid(id);
     setData(res);
   };
-  console.log(data);
   useEffect(() => {
     fetchDataContestById(contestId);
   }, []);
 
-// call api push file 
-const pushfile = usePushFile();
+  // call api push file
+  const pushfile = usePushFile();
+  const handlePushfile = async () => {
+    const resFile = await pushfile(selectedFile);
+    console.log(resFile);
+    if (resFile) {
+      alert("Đã tải tệp lên thành công");
+      formik.setFieldValue("urlFile", resFile);
+    } else {
+      alert("Tải tệp lên bị lỗi");
+    }
+  };
 
+  //handleChangeFile
+  const [selectedFile, setSelectedFile] = useState(null);
+  const handleChangeFile = (e) => {
+    const file = e.target.files[0];
+    if (file) setSelectedFile(file);
+  };
   return (
     <div className="UserDoContest-conatainer">
       <div className="UserDoContest">
@@ -82,8 +97,13 @@ const pushfile = usePushFile();
                   </div>
                   <div className="box-submit">
                     <div className="push-file">
-                      <input type="file" />
-                      <button className="btn-push-file">Tải tệp lên</button>
+                      <input type="file" onChange={handleChangeFile} />
+                      <button
+                        className="btn-push-file"
+                        onClick={handlePushfile}
+                      >
+                        Tải tệp lên
+                      </button>
                     </div>
                     <div className="btn-container">
                       <button className="btn-submit">Nộp bài</button>

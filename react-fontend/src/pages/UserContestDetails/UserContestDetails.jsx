@@ -5,7 +5,13 @@ import useGetContestByContestId from "../../hooks/useGetContestByContestId";
 import { useEffect, useState } from "react";
 import { LuArrowDownToLine } from "react-icons/lu";
 import useJoinContest from "../../hooks/useJoinContest";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 const UserContestDetails = () => {
+  //useState notification
+  const [showToast, setShowToast] = useState(false);
+  const [text, setText] = useState("");
+  const [statusBox, setStatusBox] = useState(null);
+
   //lay param
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -31,12 +37,47 @@ const UserContestDetails = () => {
   //Call join contest
   const joincontest = useJoinContest();
   const handleJoinContest = async (contestId) => {
-    await joincontest(contestId);
+    const res = await joincontest(contestId);
+    if (res) {
+      setShowToast(true);
+      setText("Đăng ký contest thành công");
+      setStatusBox(true);
+      setTimeout(() => {
+        navigate("/User/Contest");
+      }, 1500);
+    } else {
+      setShowToast(true);
+      setText("Đã đăng ký contest  này rồi");
+      setStatusBox(false);
+    }
   };
+
+  // hien dang ki neu dang trong thoi gian cua contest
+  const [showButton, setShowButton] = useState(false);
+  useEffect(() => {
+    if (data.length != 0) {
+      if (data.status === "Has Ended") {
+        setShowButton(false);
+      } else {
+        if (data.hasJoined == false) {
+          setShowButton(true);
+        } else {
+          setShowButton(false);
+        }
+      }
+    }
+  }, [data.status]);
 
   return (
     <div className="UserContestDetails-container">
       <div className="UserContestDetails">
+        {showToast && (
+          <BoxNotification
+            message={text}
+            status={statusBox}
+            onClose={() => setShowToast(false)}
+          />
+        )}
         <div className="UserContestDetails_left">
           <SideBar />
         </div>
@@ -71,12 +112,10 @@ const UserContestDetails = () => {
                       <p>{data.endTime}</p>
                     </div>
                   </div>
-
                   <div className="description">
                     <p className="description-title">Mô tả contest</p>
                     <p>{data.description}</p>
                   </div>
-
                   <div className="url-file">
                     <p className="url-file-title">File hướng dẫn</p>
                     <a href={data.urlFile}>
@@ -86,9 +125,8 @@ const UserContestDetails = () => {
                       </button>
                     </a>
                   </div>
-
                   <div className="btn-content-details">
-                    {data.status !== "Has Ended" && (
+                    {showButton && (
                       <button
                         className="btn btn-edit"
                         onClick={() => handleJoinContest(data.contestId)}

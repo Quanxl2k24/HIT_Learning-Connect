@@ -123,7 +123,6 @@ const AdminCreateContest = () => {
                         type="text"
                         name="urlFile"
                         value={formik.values.urlFile}
-                        // onChange={formik.handleChange}
                       />
                       <small>{formik.errors.urlFile}</small>
                     </div>

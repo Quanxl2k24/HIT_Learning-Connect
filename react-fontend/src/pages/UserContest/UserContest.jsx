@@ -28,8 +28,6 @@ const UserContest = () => {
     navigate(`/User/Contest/DoContest?contestId=${contestId}`);
   };
 
-8
-
   return (
     <div className="UserContest-container">
       <div className="UserContest">
@@ -89,15 +87,18 @@ const UserContest = () => {
                             )}
                           </div>
                           <div className="btn-contest-details">
-                            {item.hasJoined && (
-                              <button
-                                onClick={() =>
-                                  handleChangePageDoContest(item.contestId)
-                                }
-                              >
-                                Tham gia
-                              </button>
-                            )}
+                            {item.hasJoined &&
+                              (item.status == "Has Ended" ? (
+                                <button>Xem kết quả</button>
+                              ) : (
+                                <button
+                                  onClick={() =>
+                                    handleChangePageDoContest(item.contestId)
+                                  }
+                                >
+                                  Tham gia
+                                </button>
+                              ))}
                           </div>
                         </div>
                       ))}
