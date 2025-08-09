@@ -108,7 +108,7 @@ function AdminDocument() {
               <div className="DocumentBoxHeader">Danh sách tài liệu</div>
 
               <div className="SearchAndAdd-box">
-                <div className="search">
+                {/* <div className="search">
                   <div className="imgSearch">
                     <img src={SearchBoxUser} alt="" />
                   </div>
@@ -116,11 +116,10 @@ function AdminDocument() {
                     type="text"
                     placeholder="Tìm kiếm theo username, fullname, email"
                   />
-                </div>
+                </div> */}
 
-                <div className="but-box">
-                  <button className="but-add">Tìm kiếm</button>
-
+                <div className="but-box-doc">
+                  {/* <button className="but-add">Tìm kiếm</button> */}
                   <button className="but-add" onClick={handleChangeAddDocument}>
                     <span>+ </span> Thêm
                   </button>
@@ -139,7 +138,7 @@ function AdminDocument() {
                     </tr>
                   </thead>
                   <tbody>
-                    {data &&
+                    {Array.isArray(data) &&
                       data.map((item, index) => (
                         <tr key={index}>
                           <td>{item.id}</td>

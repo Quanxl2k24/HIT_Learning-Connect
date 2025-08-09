@@ -22,15 +22,19 @@
   width: 100%;
 
   &-left {
-    flex: 0 0 250px;
-    min-width: 250px; /* Thêm min-width để đảm bảo không bị thu nhỏ */
+    width: 20%;
+    position: fixed;
+    // flex: 0 0 250px;
+    // min-width: 250px; /* Thêm min-width để đảm bảo không bị thu nhỏ */
   }
 
   &-right {
-    flex: 1;
-    padding: 1rem 2rem;
-    max-width: calc(100vw - 250px);
-    overflow-x: hidden;
+    // flex: 1;
+    // padding: 1rem 2rem;
+    // max-width: calc(100vw - 250px);
+    // overflow-x: hidden;
+    width: 100%;
+    padding-left: 20%;
 
     .loading,
     .error {
@@ -72,13 +76,15 @@
     }
   }
 }
-
+.blog-edit-content-conatainer {
+  padding: 2rem 4rem;
+}
 .blog-edit-content {
   background: white;
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
+  width: 100%;
 
   .page-title {
     color: $primary-color;

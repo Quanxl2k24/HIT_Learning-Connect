@@ -328,187 +328,189 @@ const BlogEdit = () => {
             </button>
           </div>
 
-          <div className="blog-edit-content">
-            <h2 className="page-title">Edit Blog Post</h2>
+          <div className="blog-edit-content-conatainer">
+            <div className="blog-edit-content">
+              <h2 className="page-title">Edit Blog Post</h2>
 
-            <form onSubmit={formik.handleSubmit} className="blog-form">
-              <div className="form-group">
-                <label htmlFor="title" className="form-label">
-                  Title *
-                </label>
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  className={`form-input ${
-                    formik.touched.title && formik.errors.title ? "error" : ""
-                  }`}
-                  placeholder="Enter blog title"
-                  value={formik.values.title}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.title && formik.errors.title && (
-                  <div className="error-message">{formik.errors.title}</div>
-                )}
-              </div>
+              <form onSubmit={formik.handleSubmit} className="blog-form">
+                <div className="form-group">
+                  <label htmlFor="title" className="form-label">
+                    Title *
+                  </label>
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    className={`form-input ${
+                      formik.touched.title && formik.errors.title ? "error" : ""
+                    }`}
+                    placeholder="Enter blog title"
+                    value={formik.values.title}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.title && formik.errors.title && (
+                    <div className="error-message">{formik.errors.title}</div>
+                  )}
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="description" className="form-label">
-                  Description *
-                </label>
-                <MarkdownEditor
-                  id="description"
-                  name="description"
-                  rows={8}
-                  placeholder="Enter blog description (up to 50,000 characters) - Paste images from clipboard to upload, use **bold**, *italic* for formatting"
-                  value={formik.values.description}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  onPaste={handleDescriptionPaste}
-                  error={formik.errors.description}
-                  touched={formik.touched.description}
-                  disabled={isSubmitting}
-                  showPreview={true}
-                  maxLength={50000}
-                />
-                {isUploadingImage && (
-                  <div className="upload-indicator">
-                    <small>Đang tải ảnh lên...</small>
+                <div className="form-group">
+                  <label htmlFor="description" className="form-label">
+                    Description *
+                  </label>
+                  <MarkdownEditor
+                    id="description"
+                    name="description"
+                    rows={8}
+                    placeholder="Enter blog description (up to 50,000 characters) - Paste images from clipboard to upload, use **bold**, *italic* for formatting"
+                    value={formik.values.description}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    onPaste={handleDescriptionPaste}
+                    error={formik.errors.description}
+                    touched={formik.touched.description}
+                    disabled={isSubmitting}
+                    showPreview={true}
+                    maxLength={50000}
+                  />
+                  {isUploadingImage && (
+                    <div className="upload-indicator">
+                      <small>Đang tải ảnh lên...</small>
+                    </div>
+                  )}
+                  <div className="description-help">
+                    <small>
+                      💡 Tip: Paste ảnh từ clipboard để tự động tải lên và chèn
+                      vào nội dung! Supports **bold**, *italic*, # headers,
+                      links, và nhiều markdown features khác.
+                    </small>
                   </div>
-                )}
-                <div className="description-help">
-                  <small>
-                    💡 Tip: Paste ảnh từ clipboard để tự động tải lên và chèn
-                    vào nội dung! Supports **bold**, *italic*, # headers, links,
-                    và nhiều markdown features khác.
-                  </small>
                 </div>
-              </div>
 
-              <div className="form-group">
-                <label htmlFor="tags" className="form-label">
-                  Tags
-                </label>
-                <input
-                  type="text"
-                  id="tags"
-                  name="tags"
-                  className={`form-input ${
-                    formik.touched.tags && formik.errors.tags ? "error" : ""
-                  }`}
-                  placeholder="Enter tags separated by commas (e.g. technology, programming, web)"
-                  value={formik.values.tags}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                />
-                {formik.touched.tags && formik.errors.tags && (
-                  <div className="error-message">{formik.errors.tags}</div>
-                )}
-                <div className="form-help">
-                  Separate multiple tags with commas
+                <div className="form-group">
+                  <label htmlFor="tags" className="form-label">
+                    Tags
+                  </label>
+                  <input
+                    type="text"
+                    id="tags"
+                    name="tags"
+                    className={`form-input ${
+                      formik.touched.tags && formik.errors.tags ? "error" : ""
+                    }`}
+                    placeholder="Enter tags separated by commas (e.g. technology, programming, web)"
+                    value={formik.values.tags}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  />
+                  {formik.touched.tags && formik.errors.tags && (
+                    <div className="error-message">{formik.errors.tags}</div>
+                  )}
+                  <div className="form-help">
+                    Separate multiple tags with commas
+                  </div>
                 </div>
-              </div>
 
-              <div className="form-group">
-                <label className="form-label">Attachment</label>
+                <div className="form-group">
+                  <label className="form-label">Attachment</label>
 
-                {/* Current file display */}
-                {filePreview && !removeCurrentFile && (
-                  <div className="current-file">
-                    <div className="file-preview">
-                      {isImageFile(filePreview) ? (
-                        <div className="image-preview">
-                          <img src={filePreview} alt="Preview" />
-                          <button
-                            type="button"
-                            className="remove-preview"
-                            onClick={
-                              currentFile
-                                ? handleRemoveFile
-                                : handleRemoveExistingFile
-                            }
-                          >
-                            <FiX />
-                          </button>
-                        </div>
-                      ) : (
-                        <div className="file-info">
-                          <span className="file-name">
-                            {getFileName(filePreview)}
-                          </span>
-                          <button
-                            type="button"
-                            className="remove-file-btn"
-                            onClick={
-                              currentFile
-                                ? handleRemoveFile
-                                : handleRemoveExistingFile
-                            }
-                          >
-                            <FiX />
-                          </button>
-                        </div>
+                  {/* Current file display */}
+                  {filePreview && !removeCurrentFile && (
+                    <div className="current-file">
+                      <div className="file-preview">
+                        {isImageFile(filePreview) ? (
+                          <div className="image-preview">
+                            <img src={filePreview} alt="Preview" />
+                            <button
+                              type="button"
+                              className="remove-preview"
+                              onClick={
+                                currentFile
+                                  ? handleRemoveFile
+                                  : handleRemoveExistingFile
+                              }
+                            >
+                              <FiX />
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="file-info">
+                            <span className="file-name">
+                              {getFileName(filePreview)}
+                            </span>
+                            <button
+                              type="button"
+                              className="remove-file-btn"
+                              onClick={
+                                currentFile
+                                  ? handleRemoveFile
+                                  : handleRemoveExistingFile
+                              }
+                            >
+                              <FiX />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                      {!currentFile && (
+                        <p className="current-file-note">Current attachment</p>
                       )}
                     </div>
-                    {!currentFile && (
-                      <p className="current-file-note">Current attachment</p>
-                    )}
-                  </div>
-                )}
+                  )}
 
-                {/* File upload */}
-                <div className="file-upload-section">
-                  <input
-                    type="file"
-                    id="file-upload"
-                    accept="image/*,.pdf,.doc,.docx,.txt"
-                    onChange={handleFileChange}
-                    className="file-input"
-                  />
-                  <label htmlFor="file-upload" className="file-upload-btn">
-                    <FiUpload />
-                    {filePreview && !removeCurrentFile
-                      ? "Change File"
-                      : "Choose File"}
-                  </label>
-                  <div className="file-help">
-                    Supported formats: Images, PDF, DOC, DOCX, TXT (Max 10MB)
+                  {/* File upload */}
+                  <div className="file-upload-section">
+                    <input
+                      type="file"
+                      id="file-upload"
+                      accept="image/*,.pdf,.doc,.docx,.txt"
+                      onChange={handleFileChange}
+                      className="file-input"
+                    />
+                    <label htmlFor="file-upload" className="file-upload-btn">
+                      <FiUpload />
+                      {filePreview && !removeCurrentFile
+                        ? "Change File"
+                        : "Choose File"}
+                    </label>
+                    <div className="file-help">
+                      Supported formats: Images, PDF, DOC, DOCX, TXT (Max 10MB)
+                    </div>
                   </div>
+
+                  {uploading && (
+                    <div className="uploading-status">
+                      <div className="uploading-text">Uploading file...</div>
+                    </div>
+                  )}
                 </div>
 
-                {uploading && (
-                  <div className="uploading-status">
-                    <div className="uploading-text">Uploading file...</div>
-                  </div>
-                )}
-              </div>
-
-              <div className="form-actions">
-                <button
-                  type="button"
-                  className="cancel-btn"
-                  onClick={() => navigate(`/Blog/${blogId}`)}
-                  disabled={updateLoading || isSubmitting}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="submit-btn"
-                  disabled={
-                    updateLoading ||
-                    uploading ||
-                    isSubmitting ||
-                    !formik.isValid
-                  }
-                >
-                  {updateLoading || isSubmitting
-                    ? "Updating..."
-                    : "Update Blog"}
-                </button>
-              </div>
-            </form>
+                <div className="form-actions">
+                  <button
+                    type="button"
+                    className="cancel-btn"
+                    onClick={() => navigate(`/Blog/${blogId}`)}
+                    disabled={updateLoading || isSubmitting}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="submit-btn"
+                    disabled={
+                      updateLoading ||
+                      uploading ||
+                      isSubmitting ||
+                      !formik.isValid
+                    }
+                  >
+                    {updateLoading || isSubmitting
+                      ? "Updating..."
+                      : "Update Blog"}
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

@@ -195,10 +195,10 @@ const BlogCreate = () => {
 
         <div className="blog-create-right">
           <div className="blog-create-header">
+            <h1>Tạo bài viết mới</h1>
             <button onClick={handleBack} className="back-btn">
               <FiArrowLeft /> Quay lại
             </button>
-            <h1>Tạo bài viết mới</h1>
           </div>
 
           <form onSubmit={formik.handleSubmit} className="blog-create-form">

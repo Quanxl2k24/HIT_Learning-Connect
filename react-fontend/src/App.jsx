@@ -54,7 +54,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Navigate to="/Home" replace />} />
+        <Route path="/" element={<Navigate to="/Login" replace />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/ChangePassword" element={<ChangePassword />} />
@@ -125,7 +125,6 @@ function App() {
         <Route path="/Blog/:blogId/Edit" element={<BlogEdit />} />
 
         <Route path="User/Contest/Result" element={<UserContestResult />} />
-
       </Routes>
     </>
   );

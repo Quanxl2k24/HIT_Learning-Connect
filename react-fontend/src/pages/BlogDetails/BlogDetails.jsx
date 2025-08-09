@@ -330,7 +330,7 @@ const BlogDetails = () => {
               <FiArrowLeft /> Quay lại
             </button>
 
-            {(isAdmin || currentBlog.author === profileUser?.username) && (
+            {/* {(isAdmin || currentBlog.author === profileUser?.username) && (
               <div className="blog-actions">
                 <button onClick={handleEdit} className="action-btn edit-btn">
                   <FiEdit /> Chỉnh sửa
@@ -343,255 +343,262 @@ const BlogDetails = () => {
                   <FiTrash2 /> Xóa
                 </button>
               </div>
-            )}
+            )} */}
           </div>
 
-          <div className="blog-content">
-            {/* Blog Info */}
-            <div className="blog-info">
-              <h1 className="blog-title">{currentBlog.title}</h1>
+          <div className="content-conatiner">
+            <div className="blog-content">
+              {/* Blog Info */}
+              <div className="blog-info">
+                <h1 className="blog-title">{currentBlog.title}</h1>
 
-              <div className="blog-meta">
-                <span className="blog-author">
-                  <FiUser /> {currentBlog.author}
-                </span>
-                <span className="blog-date">
-                  <FiCalendar /> {formatDate(currentBlog.createdAt)}
-                </span>
-                {currentBlog.updatedAt !== currentBlog.createdAt && (
-                  <span className="blog-updated">
-                    (Cập nhật: {getRelativeTime(currentBlog.updatedAt)})
+                <div className="blog-meta">
+                  <span className="blog-author">
+                    <FiUser /> {currentBlog.author}
                   </span>
-                )}
-              </div>
-
-              {currentBlog.tags && currentBlog.tags.length > 0 && (
-                <div className="blog-tags">
-                  <FiTag />
-                  {currentBlog.tags.map((tag, index) => (
-                    <span key={index} className="tag">
-                      #{tag}
+                  <span className="blog-date">
+                    <FiCalendar /> {formatDate(currentBlog.createdAt)}
+                  </span>
+                  {currentBlog.updatedAt !== currentBlog.createdAt && (
+                    <span className="blog-updated">
+                      (Cập nhật: {getRelativeTime(currentBlog.updatedAt)})
                     </span>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Blog Description */}
-            <div className="blog-description">
-              <div
-                className="description-content markdown-content"
-                dangerouslySetInnerHTML={{
-                  __html: renderMarkdownToHtml(currentBlog.description),
-                }}
-              />
-            </div>
-
-            {/* File Attachment */}
-            {currentBlog.urlFile && (
-              <div className="blog-attachment">
-                <div className="attachment-header">
-                  <FiFile /> File đính kèm
-                </div>
-                <div className="attachment-content">
-                  {isImageFile(currentBlog.urlFile) ? (
-                    <div className="image-attachment">
-                      <img src={currentBlog.urlFile} alt="Attachment" />
-                      <a
-                        href={currentBlog.urlFile}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="download-link"
-                      >
-                        <FiDownload /> Tải về
-                      </a>
-                    </div>
-                  ) : (
-                    <div className="file-attachment">
-                      <div className="file-info">
-                        <FiFile />
-                        <span>{getFileName(currentBlog.urlFile)}</span>
-                      </div>
-                      <a
-                        href={currentBlog.urlFile}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="download-link"
-                      >
-                        <FiDownload /> Tải về
-                      </a>
-                    </div>
                   )}
                 </div>
-              </div>
-            )}
 
-            {/* Reactions */}
-            <div className="blog-reactions">
-              <div className="reaction-buttons">
-                {reactionTypes.map((type) => (
-                  <button
-                    key={type}
-                    onClick={() => handleReaction(type)}
-                    disabled={reactionsLoading}
-                    className={`reaction-btn ${
-                      myReaction === type ? "active" : ""
-                    }`}
-                    title={getReactionDisplayName(type)}
-                  >
-                    {getReactionEmoji(type)}
-                    <span className="reaction-count">
-                      {blogReactionStats[type] || 0}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Comments Section */}
-            <div className="comments-section">
-              <div className="comments-header">
-                <h3>
-                  <FiMessageCircle /> Bình luận ({totalComments})
-                </h3>
-              </div>
-
-              {/* Add Comment Form */}
-              {profileUser && (
-                <form
-                  onSubmit={commentFormik.handleSubmit}
-                  className="comment-form"
-                >
-                  <div className="comment-input-group">
-                    <textarea
-                      name="content"
-                      placeholder="Viết bình luận..."
-                      value={commentFormik.values.content}
-                      onChange={commentFormik.handleChange}
-                      onBlur={commentFormik.handleBlur}
-                      className={
-                        commentFormik.touched.content &&
-                        commentFormik.errors.content
-                          ? "error"
-                          : ""
-                      }
-                      rows="3"
-                    />
-                    <button
-                      type="submit"
-                      disabled={
-                        !commentFormik.values.content.trim() || commentsLoading
-                      }
-                      className="send-btn"
-                    >
-                      <FiSend />
-                    </button>
+                {currentBlog.tags && currentBlog.tags.length > 0 && (
+                  <div className="blog-tags">
+                    <FiTag />
+                    {currentBlog.tags.map((tag, index) => (
+                      <span key={index} className="tag">
+                        #{tag}
+                      </span>
+                    ))}
                   </div>
-                  {commentFormik.touched.content &&
-                    commentFormik.errors.content && (
-                      <div className="error-message">
-                        {commentFormik.errors.content}
+                )}
+              </div>
+
+              {/* Blog Description */}
+              <div className="blog-description">
+                <div
+                  className="description-content markdown-content"
+                  dangerouslySetInnerHTML={{
+                    __html: renderMarkdownToHtml(currentBlog.description),
+                  }}
+                />
+              </div>
+
+              {/* File Attachment */}
+              {currentBlog.urlFile && (
+                <div className="blog-attachment">
+                  <div className="attachment-header">
+                    <FiFile /> File đính kèm
+                  </div>
+                  <div className="attachment-content">
+                    {isImageFile(currentBlog.urlFile) ? (
+                      <div className="image-attachment">
+                        <img src={currentBlog.urlFile} alt="Attachment" />
+                        <a
+                          href={currentBlog.urlFile}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="download-link"
+                        >
+                          <FiDownload /> Tải về
+                        </a>
+                      </div>
+                    ) : (
+                      <div className="file-attachment">
+                        <div className="file-info">
+                          <FiFile />
+                          <span>{getFileName(currentBlog.urlFile)}</span>
+                        </div>
+                        <a
+                          href={currentBlog.urlFile}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="download-link"
+                        >
+                          <FiDownload /> Tải về
+                        </a>
                       </div>
                     )}
-                </form>
+                  </div>
+                </div>
               )}
 
-              {/* Comments List */}
-              <div className="comments-list">
-                {commentsLoading ? (
-                  <div className="loading">Đang tải bình luận...</div>
-                ) : comments.length === 0 ? (
-                  <div className="empty">Chưa có bình luận nào</div>
-                ) : (
-                  comments.map((comment) => (
-                    <div
-                      key={comment.id || comment.tempId}
-                      className={`comment-item ${
-                        comment.isOptimistic ? "optimistic-comment" : ""
-                      } ${comment.isDeleting ? "deleting-comment" : ""}`}
+              {/* Reactions */}
+              <div className="blog-reactions">
+                <div className="reaction-buttons">
+                  {reactionTypes.map((type) => (
+                    <button
+                      key={type}
+                      onClick={() => handleReaction(type)}
+                      disabled={reactionsLoading}
+                      className={`reaction-btn ${
+                        myReaction === type ? "active" : ""
+                      }`}
+                      title={getReactionDisplayName(type)}
                     >
-                      {editingComment?.id === comment.id ? (
-                        <form
-                          onSubmit={editCommentFormik.handleSubmit}
-                          className="edit-comment-form"
-                        >
-                          <textarea
-                            name="content"
-                            value={editCommentFormik.values.content}
-                            onChange={editCommentFormik.handleChange}
-                            className="edit-input"
-                            rows="3"
-                          />
-                          <div className="edit-actions">
-                            <button type="submit" className="save-btn">
-                              Lưu
-                            </button>
-                            <button
-                              type="button"
-                              onClick={handleCancelEditComment}
-                              className="cancel-btn"
-                            >
-                              Hủy
-                            </button>
-                          </div>
-                        </form>
-                      ) : (
-                        <>
-                          <div className="comment-header">
-                            <div className="comment-author">
-                              <strong>{comment.username}</strong>
-                              <span className="comment-date">
-                                {getRelativeTime(comment.createdAt)}
-                              </span>
+                      {getReactionEmoji(type)}
+                      <span className="reaction-count">
+                        {blogReactionStats[type] || 0}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Comments Section */}
+              <div className="comments-section">
+                <div className="comments-header">
+                  <h3>
+                    <FiMessageCircle /> Bình luận ({totalComments})
+                  </h3>
+                </div>
+
+                {/* Add Comment Form */}
+                {profileUser && (
+                  <form
+                    onSubmit={commentFormik.handleSubmit}
+                    className="comment-form"
+                  >
+                    <div className="comment-input-group">
+                      <textarea
+                        name="content"
+                        placeholder="Viết bình luận..."
+                        value={commentFormik.values.content}
+                        onChange={commentFormik.handleChange}
+                        onBlur={commentFormik.handleBlur}
+                        className={
+                          commentFormik.touched.content &&
+                          commentFormik.errors.content
+                            ? "error"
+                            : ""
+                        }
+                        rows="3"
+                      />
+                      <button
+                        type="submit"
+                        disabled={
+                          !commentFormik.values.content.trim() ||
+                          commentsLoading
+                        }
+                        className="send-btn"
+                      >
+                        <FiSend />
+                      </button>
+                    </div>
+                    {commentFormik.touched.content &&
+                      commentFormik.errors.content && (
+                        <div className="error-message">
+                          {commentFormik.errors.content}
+                        </div>
+                      )}
+                  </form>
+                )}
+
+                {/* Comments List */}
+                <div className="comments-list">
+                  {commentsLoading ? (
+                    <div className="loading">Đang tải bình luận...</div>
+                  ) : comments.length === 0 ? (
+                    <div className="empty">Chưa có bình luận nào</div>
+                  ) : (
+                    comments.map((comment) => (
+                      <div
+                        key={comment.id || comment.tempId}
+                        className={`comment-item ${
+                          comment.isOptimistic ? "optimistic-comment" : ""
+                        } ${comment.isDeleting ? "deleting-comment" : ""}`}
+                      >
+                        {editingComment?.id === comment.id ? (
+                          <form
+                            onSubmit={editCommentFormik.handleSubmit}
+                            className="edit-comment-form"
+                          >
+                            <textarea
+                              name="content"
+                              value={editCommentFormik.values.content}
+                              onChange={editCommentFormik.handleChange}
+                              className="edit-input"
+                              rows="3"
+                            />
+                            <div className="edit-actions">
+                              <button type="submit" className="save-btn">
+                                Lưu
+                              </button>
+                              <button
+                                type="button"
+                                onClick={handleCancelEditComment}
+                                className="cancel-btn"
+                              >
+                                Hủy
+                              </button>
+                            </div>
+                          </form>
+                        ) : (
+                          <>
+                            <div className="comment-header">
+                              <div className="comment-author">
+                                <strong>{comment.username}</strong>
+                                <span className="comment-date">
+                                  {getRelativeTime(comment.createdAt)}
+                                </span>
+                              </div>
+
+                              {(canEditComment(comment) ||
+                                canDeleteComment(comment)) && (
+                                <div className="comment-actions">
+                                  <button
+                                    className="more-btn"
+                                    onClick={() =>
+                                      toggleCommentMenu(comment.id)
+                                    }
+                                  >
+                                    <FiMoreHorizontal />
+                                  </button>
+                                  <div
+                                    className={`action-menu ${
+                                      openMenuCommentId === comment.id
+                                        ? "show"
+                                        : ""
+                                    }`}
+                                  >
+                                    {canEditComment(comment) && (
+                                      <button
+                                        onClick={() =>
+                                          handleEditComment(comment)
+                                        }
+                                        className="menu-item"
+                                      >
+                                        <FiEdit /> Chỉnh sửa
+                                      </button>
+                                    )}
+                                    {canDeleteComment(comment) && (
+                                      <button
+                                        onClick={() =>
+                                          handleDeleteCommentClick(comment)
+                                        }
+                                        className="menu-item delete"
+                                      >
+                                        <FiTrash2 /> Xóa
+                                      </button>
+                                    )}
+                                  </div>
+                                </div>
+                              )}
                             </div>
 
-                            {(canEditComment(comment) ||
-                              canDeleteComment(comment)) && (
-                              <div className="comment-actions">
-                                <button
-                                  className="more-btn"
-                                  onClick={() => toggleCommentMenu(comment.id)}
-                                >
-                                  <FiMoreHorizontal />
-                                </button>
-                                <div
-                                  className={`action-menu ${
-                                    openMenuCommentId === comment.id
-                                      ? "show"
-                                      : ""
-                                  }`}
-                                >
-                                  {canEditComment(comment) && (
-                                    <button
-                                      onClick={() => handleEditComment(comment)}
-                                      className="menu-item"
-                                    >
-                                      <FiEdit /> Chỉnh sửa
-                                    </button>
-                                  )}
-                                  {canDeleteComment(comment) && (
-                                    <button
-                                      onClick={() =>
-                                        handleDeleteCommentClick(comment)
-                                      }
-                                      className="menu-item delete"
-                                    >
-                                      <FiTrash2 /> Xóa
-                                    </button>
-                                  )}
-                                </div>
-                              </div>
-                            )}
-                          </div>
-
-                          <div className="comment-content">
-                            {comment.content}
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  ))
-                )}
+                            <div className="comment-content">
+                              {comment.content}
+                            </div>
+                          </>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
               </div>
             </div>
           </div>
