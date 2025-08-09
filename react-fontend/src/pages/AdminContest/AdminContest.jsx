@@ -44,8 +44,9 @@ const AdminContest = () => {
   };
 
   //handleChangePageReults
-  const handleChangePageReults = (id) => {
-    navigate(`/Admin/Contest/Results?contestId=${id}`);
+  const handleChangePageReults = (id, title) => {
+    console.log(">>>>", title);
+    navigate(`/Admin/Contest/Results?contestId=${id}&Contest=${title}`);
   };
 
   //handleDeleteContest
@@ -182,7 +183,7 @@ const AdminContest = () => {
                             </td>
                             <td>{item.startTime}</td>
                             <td>{item.endTime}</td>
-                            <td>
+                            <td className="status-contest">
                               {item.status == "Has Ended" ? (
                                 <p className="contest-status-completed">
                                   Đã kết thúc
@@ -224,7 +225,10 @@ const AdminContest = () => {
                                 <button
                                   className="btn-show-result"
                                   onClick={() =>
-                                    handleChangePageReults(item.contestId)
+                                    handleChangePageReults(
+                                      item.contestId,
+                                      item.title
+                                    )
                                   }
                                 >
                                   Xem kết quả

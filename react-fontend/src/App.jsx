@@ -35,10 +35,14 @@ import AdminContestResults from "./pages/AdminContestResults/AdminContestResults
 import UserContest from "./pages/UserContest/UserContest";
 import UserContestDetails from "./pages/UserContestDetails/UserContestDetails";
 import UserDoContest from "./pages/UserDoContest/UserDoContest";
+
 import BlogList from "./pages/BlogList/BlogList";
 import BlogCreate from "./pages/BlogCreate/BlogCreate";
 import BlogDetails from "./pages/BlogDetails/BlogDetails";
 import BlogEdit from "./pages/BlogEdit/BlogEdit";
+
+import UserContestResult from "./pages/UserContestResult/UserContestResult";
+
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -114,10 +118,14 @@ function App() {
         <Route path="User/Contest" element={<UserContest />} />
         <Route path="User/Contest/Details" element={<UserContestDetails />} />
         <Route path="User/Contest/DoContest" element={<UserDoContest />} />
+
         <Route path="/Blog" element={<BlogList />} />
         <Route path="/Blog/Create" element={<BlogCreate />} />
         <Route path="/Blog/:blogId" element={<BlogDetails />} />
         <Route path="/Blog/:blogId/Edit" element={<BlogEdit />} />
+
+        <Route path="User/Contest/Result" element={<UserContestResult />} />
+
       </Routes>
     </>
   );

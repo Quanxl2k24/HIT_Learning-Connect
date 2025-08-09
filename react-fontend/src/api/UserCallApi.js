@@ -386,6 +386,7 @@ const UserSubmitContest = async (contestId, urlFile, token) => {
   });
 };
 
+
 // ==================== BLOG API ====================
 
 const BlogCreateApi = async (blogData, token) => {
@@ -535,6 +536,18 @@ const StorageUploadFileApi = async (file, token) => {
       Authorization: `Bearer ${token}`,
     },
   });
+
+const AdminGetSubmissionByContestIdApi = async (contestId, token) => {
+  return Api.post(
+    `/api/contests/submission/${contestId}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
 };
 
 export {
@@ -580,6 +593,7 @@ export {
   AdminDeleteContestApi,
   AdminSearchContestApi,
   UserSubmitContest,
+
   // Blog APIs
   BlogCreateApi,
   BlogUpdateApi,
@@ -599,4 +613,7 @@ export {
   ReactionGetMyReactionApi,
   // Storage APIs
   StorageUploadFileApi,
+
+  AdminGetSubmissionByContestIdApi,
+
 };
