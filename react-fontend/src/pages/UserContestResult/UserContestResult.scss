@@ -59,12 +59,21 @@
                 .point-right {
                   .point-right-content {
                     display: flex;
-
+                    align-items: center;
+                    gap: 4px;
                     img {
                       width: 43px;
                       height: 43px;
                     }
+                    h1 {
+                      font-size: 42px;
+                    }
                   }
+                }
+              }
+              .h1-point {
+                h1 {
+                  color: style.$primary-color;
                 }
               }
             }

@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { LoginApi } from "../api/UserCallApi";
 const useLoginHandler = () => {
-  const navigate = useNavigate();
   const handleLogin = async (username, password, navigator = null) => {
     try {
       const response = await LoginApi({ username, password });

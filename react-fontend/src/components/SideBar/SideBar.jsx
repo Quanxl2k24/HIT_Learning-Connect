@@ -29,6 +29,7 @@ const SideBar = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("userName");
     navigate("/Login", { replace: true });
     window.location.reload();
   };
@@ -59,6 +60,9 @@ const SideBar = () => {
     ];
   }
 
+  if (profileUser !== null) {
+    localStorage.setItem("userName", profileUser.username);
+  }
   return (
     <div>
       <div className="SideBar">
