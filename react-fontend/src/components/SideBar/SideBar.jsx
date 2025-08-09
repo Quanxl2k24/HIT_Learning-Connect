@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -41,7 +42,7 @@ const SideBar = () => {
       { id: 3, path: "/User/Class", name: "Lớp Học" },
       { id: 4, path: "/User/Register", name: "Đăng Ký lớp học" },
       { id: 5, path: "/User/Contest", name: "Contest online" },
-      { id: 6, path: "/e", name: "Bài Viết" },
+      { id: 6, path: "/Blog", name: "Bài Viết" },
     ];
   } else {
     // list phia admin
@@ -53,7 +54,7 @@ const SideBar = () => {
       { id: 4, path: "/Admin/DocumentByClass", name: "Tài Liệu" },
       { id: 5, path: "/Admin/Regiter", name: "Đăng Kí lớp học" },
       { id: 6, path: "/Admin/Contest", name: "Contest online" },
-      { id: 7, path: "/e", name: "Bài Viết" },
+      { id: 7, path: "/Blog", name: "Bài Viết" },
     ];
   }
 
@@ -111,4 +112,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default React.memo(SideBar);

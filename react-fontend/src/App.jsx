@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { fetchUser } from "./redux/user/userActions";
+import { loadCachedData } from "./redux/blog/blogActions";
 import { useDispatch } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -34,10 +35,16 @@ import AdminContestResults from "./pages/AdminContestResults/AdminContestResults
 import UserContest from "./pages/UserContest/UserContest";
 import UserContestDetails from "./pages/UserContestDetails/UserContestDetails";
 import UserDoContest from "./pages/UserDoContest/UserDoContest";
+import BlogList from "./pages/BlogList/BlogList";
+import BlogCreate from "./pages/BlogCreate/BlogCreate";
+import BlogDetails from "./pages/BlogDetails/BlogDetails";
+import BlogEdit from "./pages/BlogEdit/BlogEdit";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchUser());
+    // Load cached blog data on app startup for better performance
+    dispatch(loadCachedData());
   }, [dispatch]);
 
   return (
@@ -107,6 +114,10 @@ function App() {
         <Route path="User/Contest" element={<UserContest />} />
         <Route path="User/Contest/Details" element={<UserContestDetails />} />
         <Route path="User/Contest/DoContest" element={<UserDoContest />} />
+        <Route path="/Blog" element={<BlogList />} />
+        <Route path="/Blog/Create" element={<BlogCreate />} />
+        <Route path="/Blog/:blogId" element={<BlogDetails />} />
+        <Route path="/Blog/:blogId/Edit" element={<BlogEdit />} />
       </Routes>
     </>
   );

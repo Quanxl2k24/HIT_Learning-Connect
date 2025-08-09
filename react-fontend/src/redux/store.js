@@ -5,6 +5,7 @@ import adminReducer from "./admin/adminReducer";
 import userClassReducer from "./userClass/userClassReducer";
 import adminClassReducer from "./adminClass/adminClassReducer";
 import adminRegisterReducer from "./adminRegister/adminRegisterReducer";
+import blogReducer from "./blog/blogReducer";
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   userClass: userClassReducer,
   adminClass: adminClassReducer,
   adminRegister: adminRegisterReducer,
+  blog: blogReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

@@ -386,6 +386,157 @@ const UserSubmitContest = async (contestId, urlFile, token) => {
   });
 };
 
+// ==================== BLOG API ====================
+
+const BlogCreateApi = async (blogData, token) => {
+  return Api.post("/api/v1/blogs", blogData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+const BlogUpdateApi = async (blogId, blogData, token) => {
+  return Api.put(`/api/v1/blogs/${blogId}`, blogData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+const BlogDeleteApi = async (blogId, token) => {
+  return Api.delete(`/api/v1/blogs/${blogId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const BlogGetByIdApi = async (blogId, token) => {
+  return Api.get(`/api/v1/blogs/${blogId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const BlogGetAllApi = async (params, token) => {
+  const queryParams = new URLSearchParams({
+    page: params.page,
+    size: params.size,
+    sort: params.sort,
+  });
+  return Api.get(`/api/v1/blogs?${queryParams.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const BlogSearchByTagApi = async (tag, params, token) => {
+  const queryParams = new URLSearchParams({
+    page: params.page,
+    size: params.size,
+    sort: params.sort,
+  });
+  return Api.get(`/api/v1/blogs/search/${tag}?${queryParams.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// ==================== COMMENT API ====================
+
+const CommentCreateApi = async (commentData, token) => {
+  return Api.post("/api/v1/blogs/comment/set", commentData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+const CommentGetByIdApi = async (commentId, token) => {
+  return Api.get(`/api/v1/blogs/comment/${commentId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const CommentGetAllByBlogIdApi = async (blogId, params, token) => {
+  const queryParams = new URLSearchParams({
+    page: params.page,
+    size: params.size,
+    sort: params.sort,
+  });
+  return Api.get(`/api/v1/blogs/comments/${blogId}?${queryParams.toString()}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const CommentUpdateApi = async (commentId, content, token) => {
+  return Api.put(`/api/v1/blogs/comment/${commentId}`, content, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "text/plain",
+    },
+  });
+};
+
+const CommentDeleteApi = async (commentId, token) => {
+  return Api.delete(`/api/v1/blogs/comment/${commentId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// ==================== REACTION API ====================
+
+const ReactionDropApi = async (reactionData, token) => {
+  return Api.post("/api/v1/blogs/react", reactionData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+const ReactionGetStatsApi = async (blogId, token) => {
+  return Api.get(`/api/v1/blogs/${blogId}/reactions/stats`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const ReactionGetMyReactionApi = async (blogId, token) => {
+  return Api.get(`/api/v1/blogs/${blogId}/reactions/me`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// ==================== STORAGE API ====================
+
+const StorageUploadFileApi = async (file, token) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  return Api.post("/api/v1/storage/upload", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export {
   LoginApi,
   ForgotPassword,
@@ -429,4 +580,23 @@ export {
   AdminDeleteContestApi,
   AdminSearchContestApi,
   UserSubmitContest,
+  // Blog APIs
+  BlogCreateApi,
+  BlogUpdateApi,
+  BlogDeleteApi,
+  BlogGetByIdApi,
+  BlogGetAllApi,
+  BlogSearchByTagApi,
+  // Comment APIs
+  CommentCreateApi,
+  CommentGetByIdApi,
+  CommentGetAllByBlogIdApi,
+  CommentUpdateApi,
+  CommentDeleteApi,
+  // Reaction APIs
+  ReactionDropApi,
+  ReactionGetStatsApi,
+  ReactionGetMyReactionApi,
+  // Storage APIs
+  StorageUploadFileApi,
 };
