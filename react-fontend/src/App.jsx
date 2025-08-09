@@ -34,6 +34,7 @@ import AdminContestResults from "./pages/AdminContestResults/AdminContestResults
 import UserContest from "./pages/UserContest/UserContest";
 import UserContestDetails from "./pages/UserContestDetails/UserContestDetails";
 import UserDoContest from "./pages/UserDoContest/UserDoContest";
+import UserContestResult from "./pages/UserContestResult/UserContestResult";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -107,6 +108,7 @@ function App() {
         <Route path="User/Contest" element={<UserContest />} />
         <Route path="User/Contest/Details" element={<UserContestDetails />} />
         <Route path="User/Contest/DoContest" element={<UserDoContest />} />
+        <Route path="User/Contest/Result" element={<UserContestResult />} />
       </Routes>
     </>
   );

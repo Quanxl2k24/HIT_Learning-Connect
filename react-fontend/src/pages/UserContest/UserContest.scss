@@ -131,6 +131,18 @@
                       background-color: style.$hover-color;
                     }
                   }
+                  .btn-result {
+                    padding: 8px 20px;
+                    background-color: #a855f7;
+                    color: white;
+                    border: none;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font-weight: bold;
+                    &:hover {
+                      background-color: #7a30bf;
+                    }
+                  }
                 }
               }
             }

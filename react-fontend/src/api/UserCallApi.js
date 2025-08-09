@@ -386,6 +386,18 @@ const UserSubmitContest = async (contestId, urlFile, token) => {
   });
 };
 
+const AdminGetSubmissionByContestIdApi = async (contestId, token) => {
+  return Api.post(
+    `/api/contests/submission/${contestId}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
 export {
   LoginApi,
   ForgotPassword,
@@ -429,4 +441,5 @@ export {
   AdminDeleteContestApi,
   AdminSearchContestApi,
   UserSubmitContest,
+  AdminGetSubmissionByContestIdApi,
 };

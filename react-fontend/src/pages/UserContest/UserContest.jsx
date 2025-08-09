@@ -29,6 +29,11 @@ const UserContest = () => {
     navigate(`/User/Contest/DoContest?contestId=${contestId}`);
   };
 
+  //handleChangePageResult
+  const handleChangePageResult = (contestId) => {
+    navigate(`/User/Contest/Result?contestId=${contestId}`);
+  };
+
   return (
     <div className="UserContest-container">
       <div className="UserContest">
@@ -91,7 +96,14 @@ const UserContest = () => {
                             {item.hasJoined &&
                               item.status !== "Upcoming" &&
                               (item.status == "Has Ended" ? (
-                                <button>Xem kết quả</button>
+                                <button
+                                  className="btn-result"
+                                  onClick={() =>
+                                    handleChangePageResult(item.contestId)
+                                  }
+                                >
+                                  Xem kết quả
+                                </button>
                               ) : (
                                 <button
                                   onClick={() =>
