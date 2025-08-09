@@ -1,9 +1,7 @@
 @use "../../styles/index" as style;
 
 .SideBar {
-  width: 250px; /* Cố định width thay vì 100% */
-  min-width: 250px; /* Đảm bảo không bị thu nhỏ */
-  max-width: 250px; /* Đảm bảo không bị mở rộng */
+  width: 100%;
   height: 100vh;
   background-color: #ffffff;
   // box-shadow: 4px 0 8px rgba(0, 0, 0, 0.1);

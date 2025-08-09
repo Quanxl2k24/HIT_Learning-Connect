@@ -33,7 +33,7 @@
 }
 
 .SearchAndAdd-box {
-  @include style.flex(space-between, center);
+  // @include style.flex(space-between, center);
   padding: 20px 12px;
 
   .search {
@@ -77,9 +77,10 @@
     }
   }
 
-  .but-box {
+  .but-box-doc {
     @include style.flex(none, none);
     gap: 16px;
+    flex-direction: row-reverse;
     .but-search {
       background-color: #e6eaf1;
       border: none;

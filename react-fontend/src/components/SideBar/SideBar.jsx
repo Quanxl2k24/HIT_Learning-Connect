@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -24,11 +24,12 @@ const SideBar = () => {
 
   //Phân quyền vai trò
   const userRole = profileUser?.roleName === "ROLE_USER";
-
+  const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("token");
     localStorage.removeItem("refreshToken");
+    navigate("/Login", { replace: true });
     window.location.reload();
   };
 
