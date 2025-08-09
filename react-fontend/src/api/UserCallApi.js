@@ -1,4 +1,3 @@
-// import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 import Api from "./authApi";
 
 const LoginApi = async (logindata) => {
@@ -423,12 +422,28 @@ const BlogGetByIdApi = async (blogId, token) => {
 };
 
 const BlogGetAllApi = async (params, token) => {
-  const queryParams = new URLSearchParams({
-    page: params.page,
-    size: params.size,
-    sort: params.sort,
-  });
-  return Api.get(`/api/v1/blogs?${queryParams.toString()}`, {
+  // Ensure params have valid values, filter out undefined/null
+  const validParams = {};
+  if (params.page !== undefined && params.page !== null)
+    validParams.page = params.page;
+  if (params.size !== undefined && params.size !== null)
+    validParams.size = params.size;
+  if (
+    params.sort !== undefined &&
+    params.sort !== null &&
+    params.sort !== "undefined"
+  ) {
+    validParams.sort = params.sort;
+  }
+
+  console.log("BlogGetAllApi - original params:", params);
+  console.log("BlogGetAllApi - filtered params:", validParams);
+
+  const queryParams = new URLSearchParams(validParams);
+  const url = `/api/v1/blogs?${queryParams.toString()}`;
+  console.log("BlogGetAllApi - final URL:", url);
+
+  return Api.get(url, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -436,14 +451,66 @@ const BlogGetAllApi = async (params, token) => {
 };
 
 const BlogSearchByTagApi = async (tag, params, token) => {
-  const queryParams = new URLSearchParams({
-    page: params.page,
-    size: params.size,
-    sort: params.sort,
-  });
-  return Api.get(`/api/v1/blogs/search/${tag}?${queryParams.toString()}`, {
+  // Ensure params have valid values, filter out undefined/null
+  const validParams = {};
+  if (params.page !== undefined && params.page !== null)
+    validParams.page = params.page;
+  if (params.size !== undefined && params.size !== null)
+    validParams.size = params.size;
+  if (
+    params.sort !== undefined &&
+    params.sort !== null &&
+    params.sort !== "undefined"
+  ) {
+    validParams.sort = params.sort;
+  }
+
+  console.log("BlogSearchByTagApi - original params:", params);
+  console.log("BlogSearchByTagApi - filtered params:", validParams);
+
+  const queryParams = new URLSearchParams(validParams);
+  const url = `/api/v1/blogs/search/${tag}?${queryParams.toString()}`;
+  console.log("BlogSearchByTagApi - final URL:", url);
+
+  return Api.get(url, {
     headers: {
       Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const BlogSearchByKeywordApi = async (keyword, params, token) => {
+  // Ensure params have valid values, filter out undefined/null
+  const validParams = {};
+  if (params.page !== undefined && params.page !== null)
+    validParams.page = params.page;
+  if (params.size !== undefined && params.size !== null)
+    validParams.size = params.size;
+  if (
+    params.sort !== undefined &&
+    params.sort !== null &&
+    params.sort !== "undefined"
+  ) {
+    validParams.sort = params.sort;
+  }
+
+  console.log("BlogSearchByKeywordApi - original params:", params);
+  console.log("BlogSearchByKeywordApi - filtered params:", validParams);
+  console.log("BlogSearchByKeywordApi - keyword:", keyword);
+
+  const requestBody = {
+    keyword: keyword,
+  };
+
+  const queryParams = new URLSearchParams(validParams);
+  const url = `/api/v1/blogs/find?${queryParams.toString()}`;
+  console.log("BlogSearchByKeywordApi - final URL:", url);
+  console.log("BlogSearchByKeywordApi - request body:", requestBody);
+
+  return Api.post(url, requestBody, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
   });
 };
@@ -509,7 +576,7 @@ const ReactionDropApi = async (reactionData, token) => {
 };
 
 const ReactionGetStatsApi = async (blogId, token) => {
-  return Api.get(`/api/v1/blogs/${blogId}/reactions/stats`, {
+  return Api.get(`/api/v1/blogs/react/${blogId}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -600,6 +667,7 @@ export {
   BlogGetByIdApi,
   BlogGetAllApi,
   BlogSearchByTagApi,
+  BlogSearchByKeywordApi,
   // Comment APIs
   CommentCreateApi,
   CommentGetByIdApi,

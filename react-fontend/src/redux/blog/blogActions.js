@@ -5,6 +5,7 @@ import {
   BlogGetByIdApi,
   BlogGetAllApi,
   BlogSearchByTagApi,
+  BlogSearchByKeywordApi,
   CommentCreateApi,
   CommentGetAllByBlogIdApi,
   CommentUpdateApi,
@@ -235,12 +236,31 @@ export const createBlog = (blogData) => {
     try {
       const token = localStorage.getItem("token");
       const response = await BlogCreateApi(blogData, token);
+
+      const newBlog = response.data.data;
+      console.log("Blog created successfully:", newBlog);
+
+      // Clear blog list cache since we have new content
+      try {
+        // Clear all blog list cache entries
+        Object.keys(localStorage).forEach((key) => {
+          if (key.startsWith("blogs_") || key === "cachedBlogs") {
+            localStorage.removeItem(key);
+          }
+        });
+        console.log("Cleared blog cache after create");
+      } catch (e) {
+        console.warn("Failed to clear blog cache:", e);
+      }
+
       dispatch({
         type: BLOG_CREATE_SUCCESS,
-        payload: response.data.data,
+        payload: newBlog,
       });
-      return { success: true, data: response.data.data };
+
+      return { success: true, data: newBlog };
     } catch (error) {
+      console.error("Create blog error:", error);
       dispatch({
         type: BLOG_CREATE_FAIL,
         payload: error.response?.data?.message || error.message,
@@ -267,19 +287,26 @@ export const updateBlog = (blogId, blogData) => {
 
       const updatedBlog = response.data.data || response.data;
 
-      // Update cached data
+      // Clear blog list cache since content changed, but keep individual blog cache updated
       try {
+        // Clear all blog list cache entries
+        Object.keys(localStorage).forEach((key) => {
+          if (key.startsWith("blogs_")) {
+            localStorage.removeItem(key);
+          }
+        });
+
+        // Update individual blog cache
         const cachedBlogs = JSON.parse(
           localStorage.getItem("cachedBlogs") || "{}"
         );
-        if (cachedBlogs[blogId]) {
-          cachedBlogs[blogId] = {
-            data: updatedBlog,
-            timestamp: Date.now(),
-            ttl: 5 * 60 * 1000, // 5 minutes TTL
-          };
-          localStorage.setItem("cachedBlogs", JSON.stringify(cachedBlogs));
-        }
+        cachedBlogs[blogId] = {
+          data: updatedBlog,
+          timestamp: Date.now(),
+          ttl: 5 * 60 * 1000, // 5 minutes TTL
+        };
+        localStorage.setItem("cachedBlogs", JSON.stringify(cachedBlogs));
+        console.log("Updated blog cache after edit");
       } catch (e) {
         console.warn("Failed to update cached blog data:", e);
       }
@@ -307,23 +334,90 @@ export const updateBlog = (blogId, blogData) => {
 
 export const deleteBlog = (blogId) => {
   return async (dispatch) => {
+    console.log("Starting blog delete for ID:", blogId);
+    console.log("BlogId type:", typeof blogId);
+    console.log("BlogId value:", blogId);
+
+    // Validate blogId
+    if (!blogId || blogId === "undefined" || blogId === "null") {
+      console.error("Invalid blogId:", blogId);
+      dispatch({
+        type: BLOG_DELETE_FAIL,
+        payload: "ID bài viết không hợp lệ!",
+      });
+      return {
+        success: false,
+        error: "ID bài viết không hợp lệ!",
+      };
+    }
+
     dispatch({ type: BLOG_DELETE_REQUEST });
     try {
       const token = localStorage.getItem("token");
-      await BlogDeleteApi(blogId, token);
+      console.log("Delete blog - token:", token ? "exists" : "missing");
+      console.log("Delete blog - API call:", `/api/v1/blogs/${blogId}`);
+
+      const response = await BlogDeleteApi(blogId, token);
+      console.log("Delete blog - API response:", response);
+
+      // Clear blog list cache since we deleted content
+      try {
+        // Clear all blog list cache entries
+        Object.keys(localStorage).forEach((key) => {
+          if (key.startsWith("blogs_") || key === "cachedBlogs") {
+            localStorage.removeItem(key);
+          }
+        });
+        console.log("Cleared blog cache after delete");
+      } catch (e) {
+        console.warn("Failed to clear blog cache:", e);
+      }
+
       dispatch({
         type: BLOG_DELETE_SUCCESS,
         payload: blogId,
       });
+
+      console.log("Blog delete successful");
       return { success: true };
     } catch (error) {
+      console.error("Delete blog error:", error);
+      console.error("Error response:", error.response?.data);
+      console.error("Error status:", error.response?.status);
+      console.error("Error status text:", error.response?.statusText);
+
+      let errorMessage = "Xóa bài viết thất bại!";
+
+      if (error.response) {
+        // Server responded with error status
+        const status = error.response.status;
+        const data = error.response.data;
+
+        if (status === 403) {
+          errorMessage = "Bạn không có quyền xóa bài viết này!";
+        } else if (status === 404) {
+          errorMessage = "Bài viết không tồn tại!";
+        } else if (status === 500) {
+          errorMessage = "Lỗi server, vui lòng thử lại sau!";
+        } else if (data && data.message) {
+          errorMessage = data.message;
+        }
+      } else if (error.request) {
+        // Network error
+        errorMessage = "Lỗi kết nối, vui lòng kiểm tra internet!";
+      } else {
+        // Other error
+        errorMessage = error.message || "Có lỗi không xác định!";
+      }
+
       dispatch({
         type: BLOG_DELETE_FAIL,
-        payload: error.response?.data?.message || error.message,
+        payload: errorMessage,
       });
+
       return {
         success: false,
-        error: error.response?.data?.message || error.message,
+        error: errorMessage,
       };
     }
   };
@@ -413,6 +507,31 @@ export const searchBlogsByTag = (
         payload: response.data.data,
       });
     } catch (error) {
+      dispatch({
+        type: BLOG_SEARCH_FAIL,
+        payload: error.response?.data?.message || error.message,
+      });
+    }
+  };
+};
+
+export const searchBlogsByKeyword = (
+  keyword,
+  params = { page: 0, size: 10, sort: "blogId,desc" }
+) => {
+  return async (dispatch) => {
+    dispatch({ type: BLOG_SEARCH_REQUEST });
+    try {
+      const token = localStorage.getItem("token");
+      console.log("Redux action searchBlogsByKeyword:", { keyword, params });
+      const response = await BlogSearchByKeywordApi(keyword, params, token);
+      console.log("Redux action searchBlogsByKeyword response:", response.data);
+      dispatch({
+        type: BLOG_SEARCH_SUCCESS,
+        payload: response.data.data,
+      });
+    } catch (error) {
+      console.error("Redux action searchBlogsByKeyword error:", error);
       dispatch({
         type: BLOG_SEARCH_FAIL,
         payload: error.response?.data?.message || error.message,
@@ -695,6 +814,20 @@ export const fetchMyReaction = (blogId) => {
         success: false,
         error: error.response?.data?.message || error.message,
       };
+    }
+  };
+};
+
+// Fetch reaction stats for multiple blogs
+export const fetchMultipleReactionStats = (blogIds) => {
+  return async (dispatch) => {
+    try {
+      const promises = blogIds.map((blogId) =>
+        dispatch(fetchReactionStats(blogId))
+      );
+      await Promise.all(promises);
+    } catch (error) {
+      console.error("Error fetching multiple reaction stats:", error);
     }
   };
 };

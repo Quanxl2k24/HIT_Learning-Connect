@@ -4,7 +4,7 @@ import { VscChromeClose } from "react-icons/vsc";
 import "./BoxNotification.scss";
 
 const SuccessToast = ({
-  message = "Đăng nhập thành công",
+  message = "Thành công!",
   status,
   onClose,
   duration = 3000,
