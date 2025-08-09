@@ -4,3 +4,59 @@
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
 }
+
+// Prevent flash of unstyled content
+html {
+  opacity: 1;
+}
+
+body {
+  opacity: 1;
+}
+
+// Smooth transitions for interactive elements only
+button,
+a,
+.interactive {
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out,
+    transform 0.1s ease-in-out;
+}
+
+// Loading states
+.optimistic-comment {
+  opacity: 0.8;
+  background-color: #f9f9f9;
+}
+
+.deleting-comment {
+  opacity: 0.5;
+  text-decoration: line-through;
+  pointer-events: none;
+}
+
+// Smooth loading states
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Prevent layout shifts
+.SideBar {
+  flex-shrink: 0;
+}
+
+// Smooth page transitions
+.page-container {
+  min-height: 100vh;
+  opacity: 1;
+}
