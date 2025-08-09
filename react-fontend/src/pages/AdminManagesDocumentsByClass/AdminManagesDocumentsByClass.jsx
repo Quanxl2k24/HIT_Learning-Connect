@@ -35,7 +35,7 @@ const AdminManagesDocumentsByClass = () => {
           </div>
 
           <div className="AdminManagesDocumentsByClass_right--listboxclass">
-            {listClass &&
+            {Array.isArray(listClass) &&
               listClass.map((item, index) => (
                 <button
                   onClick={() => handleChangePage(item.classId)}

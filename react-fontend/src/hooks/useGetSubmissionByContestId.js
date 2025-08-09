@@ -5,7 +5,6 @@ const useGetSubmissionByContestId = () => {
     const token = localStorage.getItem("token");
     try {
       const res = await AdminGetSubmissionByContestIdApi(contestId, token);
-      console.log("ressss", res);
       return res.data.content;
     } catch (error) {
       return error.message;

@@ -43,7 +43,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  flex-direction: row-reverse;
+  padding: 20px;
 
   .back-btn {
     background: none;
@@ -54,8 +55,8 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 14px;
-    color: #666;
+    font-size: 16px;
+    font-weight: 500;
     transition: all 0.2s;
 
     &:hover {
