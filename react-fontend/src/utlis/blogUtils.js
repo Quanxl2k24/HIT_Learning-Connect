@@ -110,6 +110,51 @@ export const getFileExtension = (url) => {
 };
 
 /**
+ * Get file name from URL
+ * @param {string} url - File URL
+ * @returns {string} File name or "File đính kèm" as fallback
+ */
+export const getFileName = (url) => {
+  if (!url || typeof url !== "string") return "File đính kèm";
+
+  try {
+    // Extract filename from URL
+    const urlParts = url.split("/");
+    let fileName = urlParts[urlParts.length - 1];
+
+    // Remove query parameters if any
+    if (fileName.includes("?")) {
+      fileName = fileName.split("?")[0];
+    }
+
+    // Remove hash if any
+    if (fileName.includes("#")) {
+      fileName = fileName.split("#")[0];
+    }
+
+    // Decode URL encoding
+    fileName = decodeURIComponent(fileName);
+
+    // If filename is empty or too long, show truncated version
+    if (!fileName || fileName.length === 0) {
+      return "File đính kèm";
+    }
+
+    // Truncate long filenames
+    if (fileName.length > 50) {
+      const ext = getFileExtension(fileName);
+      const nameWithoutExt = fileName.substring(0, fileName.lastIndexOf("."));
+      const truncatedName = nameWithoutExt.substring(0, 40) + "...";
+      return ext ? `${truncatedName}.${ext}` : truncatedName;
+    }
+
+    return fileName;
+  } catch (error) {
+    return "File đính kèm";
+  }
+};
+
+/**
  * Check if file is image based on extension
  * @param {string} url - File URL
  * @returns {boolean} True if image file

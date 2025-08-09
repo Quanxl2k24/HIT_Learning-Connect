@@ -10,7 +10,7 @@ export const blogUpdateSchema = Yup.object().shape({
   description: Yup.string()
     .trim()
     .min(10, "Description must be at least 10 characters long")
-    .max(5000, "Description must be less than 5000 characters")
+    .max(50000, "Description must be less than 50,000 characters")
     .required("Description is required"),
 
   tags: Yup.string()

@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { FiUpload, FiX, FiSave, FiArrowLeft, FiFile } from "react-icons/fi";
 import SideBar from "../../components/SideBar/SideBar";
 import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
+import MarkdownEditor from "../../components/MarkdownEditor/MarkdownEditor";
 import { createBlog } from "../../redux/blog/blogActions";
 import useUploadFile from "../../hooks/useUploadFile";
 import blogCreateSchema from "../../utlis/blogCreateSchema";
@@ -14,6 +15,10 @@ import {
   isImageFile,
   formatFileSize,
 } from "../../utlis/blogUtils";
+import {
+  handleImagePaste,
+  insertTextAtCursor,
+} from "../../utlis/markdownUtils";
 import "./BlogCreate.scss";
 
 const BlogCreate = () => {
@@ -26,6 +31,7 @@ const BlogCreate = () => {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationText, setNotificationText] = useState("");
   const [notificationStatus, setNotificationStatus] = useState(null);
@@ -152,6 +158,34 @@ const BlogCreate = () => {
     setNotificationStatus(null);
   };
 
+  // Handle paste image in description textarea
+  const handleDescriptionPaste = async (event) => {
+    try {
+      setIsUploadingImage(true);
+
+      await handleImagePaste(event, uploadFile, (imageMarkdown, textarea) => {
+        // Insert markdown at cursor position
+        insertTextAtCursor(textarea, imageMarkdown);
+
+        // Update formik value
+        const newValue = textarea.value;
+        formik.setFieldValue("description", newValue);
+
+        // Show success notification
+        setNotificationText("Ảnh đã được tải lên và thêm vào nội dung!");
+        setNotificationStatus("success");
+        setShowNotification(true);
+      });
+    } catch (error) {
+      // Show error notification
+      setNotificationText(error.message || "Tải ảnh thất bại!");
+      setNotificationStatus("error");
+      setShowNotification(true);
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
+
   return (
     <div className="blog-create-container">
       <div className="blog-create">
@@ -191,23 +225,33 @@ const BlogCreate = () => {
             {/* Description */}
             <div className="form-group">
               <label htmlFor="description">Nội dung *</label>
-              <textarea
+              <MarkdownEditor
                 id="description"
                 name="description"
-                rows="10"
+                rows={10}
+                placeholder="Nhập nội dung bài viết (tối đa 50,000 ký tự) - Paste ảnh từ clipboard để upload, dùng **đậm**, *nghiêng* để format"
                 value={formik.values.description}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                placeholder="Nhập nội dung bài viết..."
-                className={
-                  formik.touched.description && formik.errors.description
-                    ? "error"
-                    : ""
-                }
+                onPaste={handleDescriptionPaste}
+                error={formik.errors.description}
+                touched={formik.touched.description}
+                disabled={formik.isSubmitting}
+                showPreview={true}
+                maxLength={50000}
               />
-              {formik.touched.description && formik.errors.description && (
-                <div className="error-message">{formik.errors.description}</div>
+              {isUploadingImage && (
+                <div className="upload-indicator">
+                  <small>Đang tải ảnh lên...</small>
+                </div>
               )}
+              <div className="description-help">
+                <small>
+                  💡 Tip: Paste ảnh từ clipboard để tự động tải lên và chèn vào
+                  nội dung! Supports **bold**, *italic*, # headers, links, và
+                  nhiều markdown features khác.
+                </small>
+              </div>
             </div>
 
             {/* Tags */}

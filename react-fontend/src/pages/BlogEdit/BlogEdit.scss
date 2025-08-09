@@ -1,6 +1,16 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
 
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 .blog-edit-container {
   display: flex;
   min-height: 100vh;
@@ -128,6 +138,30 @@
       color: #d32f2f;
       font-size: 13px;
       margin-top: 0.5rem;
+    }
+
+    .upload-indicator {
+      color: #2196f3;
+      font-size: 13px;
+      margin-top: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &::before {
+        content: "⏳";
+        animation: pulse 1.5s infinite;
+      }
+    }
+
+    .description-help {
+      color: #666;
+      font-size: 13px;
+      margin-top: 0.5rem;
+      padding: 8px;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+      border-left: 3px solid #2196f3;
     }
 
     .form-help {

@@ -6,11 +6,13 @@ import { FiArrowLeft, FiUpload, FiX } from "react-icons/fi";
 
 import SideBar from "../../components/SideBar/SideBar";
 import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
+import MarkdownEditor from "../../components/MarkdownEditor/MarkdownEditor";
 import { blogUpdateSchema } from "../../utlis/blogUpdateSchema";
+import { formatTagsForRequest } from "../../utlis/blogUtils";
 import {
-  parseTagsFromString,
-  formatTagsForRequest,
-} from "../../utlis/blogUtils";
+  handleImagePaste,
+  insertTextAtCursor,
+} from "../../utlis/markdownUtils";
 import useUploadFile from "../../hooks/useUploadFile";
 import {
   fetchBlogById,
@@ -39,6 +41,7 @@ const BlogEdit = () => {
   const [filePreview, setFilePreview] = useState(null);
   const [removeCurrentFile, setRemoveCurrentFile] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   const { uploadFile, uploading, uploadError } = useUploadFile();
 
@@ -52,7 +55,7 @@ const BlogEdit = () => {
     onSubmit: async (values) => {
       try {
         setIsSubmitting(true);
-        let fileUrl = currentBlog?.fileUrl;
+        let fileUrl = currentBlog?.fileUrl || currentBlog?.urlFile || null;
 
         // Handle file upload
         if (currentFile) {
@@ -74,23 +77,38 @@ const BlogEdit = () => {
           title: values.title.trim(),
           description: values.description.trim(),
           tags: formatTagsForRequest(values.tags),
-          fileUrl: fileUrl,
+          urlFile: fileUrl, // Use urlFile instead of fileUrl to match backend expectation
         };
 
+        console.log("Update data being sent:", updateData);
+
         const result = await dispatch(updateBlog(blogId, updateData));
+        console.log("Update result:", result);
+
         if (result.success) {
+          console.log("Blog updated successfully, data:", result.data);
+
           setNotificationText("Blog updated successfully");
           setNotificationStatus("success");
           setShowNotification(true);
 
           setTimeout(() => {
+            // Force refresh blog data when navigating back
+            dispatch(fetchBlogById(blogId, true)); // true = force refresh
             navigate(`/Blog/${blogId}`);
           }, 1500);
+        } else {
+          console.error("Update failed:", result.error);
+          setNotificationText(result.error || "Failed to update blog");
+          setNotificationStatus("error");
+          setShowNotification(true);
         }
         setIsSubmitting(false);
-      } catch {
+      } catch (error) {
+        console.error("Update error:", error);
         setNotificationText(
-          "An error occurred while updating the blog. Please try again."
+          error.message ||
+            "An error occurred while updating the blog. Please try again."
         );
         setNotificationStatus("error");
         setShowNotification(true);
@@ -119,6 +137,8 @@ const BlogEdit = () => {
 
   useEffect(() => {
     if (currentBlog && !blogDetailLoading) {
+      console.log("Current blog data for edit:", currentBlog);
+
       // Check if user can edit this blog
       if (
         currentBlog.author !== profileUser?.username &&
@@ -133,16 +153,36 @@ const BlogEdit = () => {
         return;
       }
 
+      // Parse tags properly - handle different formats from backend
+      let tagsString = "";
+      if (currentBlog.tags) {
+        if (Array.isArray(currentBlog.tags)) {
+          // If tags come as array
+          tagsString = currentBlog.tags.join(", ");
+        } else if (typeof currentBlog.tags === "string") {
+          // If tags come as string, convert spaces to commas for user-friendly input
+          tagsString = currentBlog.tags.replace(/\s+/g, ", ");
+        }
+      }
+
+      console.log("Parsed tags string:", tagsString);
+      console.log(
+        "Current file URL:",
+        currentBlog.fileUrl || currentBlog.urlFile
+      );
+
       // Set form values
       formik.setValues({
         title: currentBlog.title || "",
         description: currentBlog.description || "",
-        tags: parseTagsFromString(currentBlog.tags || ""),
+        tags: tagsString,
       });
 
-      // Set file preview if exists
-      if (currentBlog.fileUrl) {
-        setFilePreview(currentBlog.fileUrl);
+      // Set file preview if exists (check both possible field names)
+      const fileUrl = currentBlog.fileUrl || currentBlog.urlFile;
+      if (fileUrl) {
+        setFilePreview(fileUrl);
+        console.log("Setting file preview:", fileUrl);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -209,6 +249,34 @@ const BlogEdit = () => {
       return urlParts[urlParts.length - 1];
     } catch {
       return "attachment";
+    }
+  };
+
+  // Handle paste image in description textarea
+  const handleDescriptionPaste = async (event) => {
+    try {
+      setIsUploadingImage(true);
+
+      await handleImagePaste(event, uploadFile, (imageMarkdown, textarea) => {
+        // Insert markdown at cursor position
+        insertTextAtCursor(textarea, imageMarkdown);
+
+        // Update formik value
+        const newValue = textarea.value;
+        formik.setFieldValue("description", newValue);
+
+        // Show success notification
+        setNotificationText("Ảnh đã được tải lên và thêm vào nội dung!");
+        setNotificationStatus("success");
+        setShowNotification(true);
+      });
+    } catch (error) {
+      // Show error notification
+      setNotificationText(error.message || "Tải ảnh thất bại!");
+      setNotificationStatus("error");
+      setShowNotification(true);
+    } finally {
+      setIsUploadingImage(false);
     }
   };
 
@@ -289,25 +357,33 @@ const BlogEdit = () => {
                 <label htmlFor="description" className="form-label">
                   Description *
                 </label>
-                <textarea
+                <MarkdownEditor
                   id="description"
                   name="description"
-                  rows="8"
-                  className={`form-textarea ${
-                    formik.touched.description && formik.errors.description
-                      ? "error"
-                      : ""
-                  }`}
-                  placeholder="Enter blog description"
+                  rows={8}
+                  placeholder="Enter blog description (up to 50,000 characters) - Paste images from clipboard to upload, use **bold**, *italic* for formatting"
                   value={formik.values.description}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
+                  onPaste={handleDescriptionPaste}
+                  error={formik.errors.description}
+                  touched={formik.touched.description}
+                  disabled={isSubmitting}
+                  showPreview={true}
+                  maxLength={50000}
                 />
-                {formik.touched.description && formik.errors.description && (
-                  <div className="error-message">
-                    {formik.errors.description}
+                {isUploadingImage && (
+                  <div className="upload-indicator">
+                    <small>Đang tải ảnh lên...</small>
                   </div>
                 )}
+                <div className="description-help">
+                  <small>
+                    💡 Tip: Paste ảnh từ clipboard để tự động tải lên và chèn
+                    vào nội dung! Supports **bold**, *italic*, # headers, links,
+                    và nhiều markdown features khác.
+                  </small>
+                </div>
               </div>
 
               <div className="form-group">

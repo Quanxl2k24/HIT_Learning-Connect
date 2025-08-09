@@ -12,7 +12,7 @@ const blogCreateSchema = yup.object().shape({
     .string()
     .required("Nội dung là bắt buộc")
     .min(10, "Nội dung phải có ít nhất 10 ký tự")
-    .max(5000, "Nội dung không được quá 5000 ký tự")
+    .max(50000, "Nội dung không được quá 50,000 ký tự")
     .trim(),
 
   tags: yup

@@ -257,14 +257,42 @@ export const updateBlog = (blogId, blogData) => {
   return async (dispatch) => {
     dispatch({ type: BLOG_UPDATE_REQUEST });
     try {
+      console.log("Updating blog with ID:", blogId);
+      console.log("Update data:", blogData);
+
       const token = localStorage.getItem("token");
       const response = await BlogUpdateApi(blogId, blogData, token);
+
+      console.log("Update response:", response);
+
+      const updatedBlog = response.data.data || response.data;
+
+      // Update cached data
+      try {
+        const cachedBlogs = JSON.parse(
+          localStorage.getItem("cachedBlogs") || "{}"
+        );
+        if (cachedBlogs[blogId]) {
+          cachedBlogs[blogId] = {
+            data: updatedBlog,
+            timestamp: Date.now(),
+            ttl: 5 * 60 * 1000, // 5 minutes TTL
+          };
+          localStorage.setItem("cachedBlogs", JSON.stringify(cachedBlogs));
+        }
+      } catch (e) {
+        console.warn("Failed to update cached blog data:", e);
+      }
+
       dispatch({
         type: BLOG_UPDATE_SUCCESS,
-        payload: response.data.data,
+        payload: updatedBlog,
       });
-      return { success: true, data: response.data.data };
+      return { success: true, data: updatedBlog };
     } catch (error) {
+      console.error("Update blog error:", error);
+      console.error("Error response:", error.response?.data);
+
       dispatch({
         type: BLOG_UPDATE_FAIL,
         payload: error.response?.data?.message || error.message,
@@ -403,7 +431,7 @@ export const fetchCommentsByBlogId = (
     dispatch({ type: COMMENT_LIST_REQUEST });
     try {
       const token = localStorage.getItem("token");
-      
+
       // Check if token exists
       if (!token) {
         dispatch({
@@ -413,18 +441,23 @@ export const fetchCommentsByBlogId = (
         return { success: false, error: "Authentication token not found" };
       }
 
-      console.log("Fetching comments for blogId:", blogId, "with params:", params);
+      console.log(
+        "Fetching comments for blogId:",
+        blogId,
+        "with params:",
+        params
+      );
       const response = await CommentGetAllByBlogIdApi(blogId, params, token);
       console.log("Full API Response:", response);
       console.log("Response data:", response.data);
-      
+
       // Handle different response structures
       let comments = [];
       let totalComments = 0;
-      
+
       if (response && response.data) {
         console.log("Processing response.data:", response.data);
-        
+
         if (response.data.data) {
           console.log("Found nested data structure:", response.data.data);
           // Standard response with data wrapper
@@ -469,7 +502,7 @@ export const fetchCommentsByBlogId = (
     } catch (error) {
       console.error("Failed to fetch comments:", error);
       console.error("Error details:", error.response?.data);
-      
+
       // Graceful fallback - still show UI but with empty comments
       dispatch({
         type: COMMENT_LIST_SUCCESS,
@@ -478,11 +511,14 @@ export const fetchCommentsByBlogId = (
           totalElements: 0,
         },
       });
-      
-      return { 
-        success: false, 
-        error: error.response?.data?.message || error.message || "Failed to load comments",
-        fallback: true 
+
+      return {
+        success: false,
+        error:
+          error.response?.data?.message ||
+          error.message ||
+          "Failed to load comments",
+        fallback: true,
       };
     }
   };

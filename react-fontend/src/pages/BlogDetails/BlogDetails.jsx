@@ -36,7 +36,9 @@ import {
   isImageFile,
   getReactionEmoji,
   getReactionDisplayName,
+  getFileName,
 } from "../../utlis/blogUtils";
+import { renderMarkdownToHtml } from "../../utlis/markdownUtils";
 import commentSchema from "../../utlis/commentSchema";
 import "./BlogDetails.scss";
 
@@ -377,11 +379,12 @@ const BlogDetails = () => {
 
             {/* Blog Description */}
             <div className="blog-description">
-              <div className="description-content">
-                {currentBlog.description.split("\n").map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
-                ))}
-              </div>
+              <div
+                className="description-content markdown-content"
+                dangerouslySetInnerHTML={{
+                  __html: renderMarkdownToHtml(currentBlog.description),
+                }}
+              />
             </div>
 
             {/* File Attachment */}
@@ -407,7 +410,7 @@ const BlogDetails = () => {
                     <div className="file-attachment">
                       <div className="file-info">
                         <FiFile />
-                        <span>File đính kèm</span>
+                        <span>{getFileName(currentBlog.urlFile)}</span>
                       </div>
                       <a
                         href={currentBlog.urlFile}
