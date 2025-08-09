@@ -48,7 +48,7 @@ const SideBar = () => {
   } else {
     // list phia admin
     listLink = [
-      { id: 1, path: "/Home", name: "Trang chủ" },
+      { id: 1, path: "/Admin/Home", name: "Trang chủ" },
       { id: 2, path: "/Information", name: "Thông tin cá nhân" },
       { id: 3, path: "/Admin/UserManagement", name: "Người dùng" },
       { id: 4, path: "/Admin/Class", name: "Lớp Học" },

@@ -40,7 +40,7 @@
 
       .list-class {
         display: grid;
-        grid-template-columns: repeat(4, 16rem);
+        grid-template-columns: repeat(4, 20%);
         gap: 7rem 3rem;
 
         button {
@@ -50,7 +50,7 @@
         .box-class-register {
           box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
             rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-          width: 16rem;
+          width: 100%;
           height: 9rem;
           border-top-left-radius: 16px;
           border-top-right-radius: 16px;

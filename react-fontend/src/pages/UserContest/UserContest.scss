@@ -60,7 +60,7 @@
                 .title-contest {
                   button {
                     position: relative;
-                    color: #22c55e;
+                    color: style.$primary-color;
                     border: none;
                     background-color: white;
                     font-size: 32px;
@@ -75,7 +75,7 @@
                       left: 0;
                       height: 2px;
                       width: 0;
-                      background-color: #4d63eb;
+                      background-color: style.$primary-color;
                       transition: width 0.3s ease;
                     }
 

@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./UserRegister.scss";
 import SideBar from "../../components/SideBar/SideBar";
 import img_class from "../../assets/imgs/img_class.png";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import UserGetAllClassByRegister from "../../hooks/useGetAllClass";
+
 const UserRegister = () => {
   const [data, setData] = useState([]);
   const getallclass = UserGetAllClassByRegister();
