@@ -9,6 +9,8 @@
     width: 100%;
     padding-left: 20%;
     &--banner {
+      position: fixed;
+      width: 100%;
       @include style.flex(none, center);
       padding: 16px 32px;
       gap: 16px;
@@ -23,16 +25,18 @@
     }
 
     &--listboxclass {
+      // margin-top: 32px;
+      padding: 8rem 3rem;
       display: grid;
       justify-content: center;
-      grid-template-columns: repeat(4, 16rem);
+      grid-template-columns: repeat(4, 20%);
       gap: 6rem 3rem;
       button {
         border: none;
         background-color: none;
       }
       .box-class {
-        width: 16rem;
+        width: 100%;
         height: 9rem;
         border-top-left-radius: 16px;
         border-top-right-radius: 16px;

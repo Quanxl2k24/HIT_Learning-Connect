@@ -2,19 +2,26 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { GoCheck } from "react-icons/go";
 import { GoX } from "react-icons/go";
+import { useFormik } from "formik";
 
 import "./AdmincontestResults.scss";
 import SideBar from "../../components/SideBar/SideBar";
 import useGetSubmissionByContestId from "../../hooks/useGetSubmissionByContestId";
-import { useFormik } from "formik";
+import adminScoringSchema from "../../utlis/adminScoringSchema";
+import useScoring from "../../hooks/useScoring";
+import BoxNotification from "../../components/BoxNotificaton/BoxNotifiacation";
 
 const AdminContestResults = () => {
+  //useState notification
+  const [showToast, setShowToast] = useState(false);
+  const [text, setText] = useState("");
+  const [statusBox, setStatusBox] = useState(null);
+
   //lay params
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const contestId = params.get("contestId");
   const Contest = params.get("Contest");
-  console.log("id", contestId);
 
   //call api lay nhung nguoi da lam contest
   const [data, setData] = useState([]);
@@ -32,42 +39,53 @@ const AdminContestResults = () => {
   const [openFormIndex, setOpenFormIndex] = useState(null);
   const handleToggleForm = (index) => {
     setOpenFormIndex((prevIndex) => (prevIndex === index ? null : index));
+    formik.resetForm();
   };
 
   const handleCancelScoring = () => {
     setOpenFormIndex(null);
+    formik.resetForm();
   };
 
   // formik
+  const scoring = useScoring();
   const formik = useFormik({
     initialValues: {
-      kk: "",
+      score: "",
+      resultSummary: "",
+    },
+    validationSchema: adminScoringSchema,
+    onSubmit: async (values) => {
+      const res = await scoring(data[openFormIndex].submissionId, values);
+      console.log(res);
+      if (res) {
+        setShowToast(true);
+        setText("Chấm điểm thành công");
+        setStatusBox(true);
+        setOpenFormIndex(null);
+        fetchData();
+      } else {
+        setShowToast(true);
+        setText("Chấm điểm không thành công");
+        setStatusBox(false);
+      }
     },
   });
+
   return (
     <div className="AdminContestResults-container">
       <div className="AdminContestResults">
+        {showToast && (
+          <BoxNotification
+            message={text}
+            status={statusBox}
+            onClose={() => setShowToast(false)}
+          />
+        )}
         <div className="AdminContestResults_left">
           <SideBar />
         </div>
         <div className="AdminContestResults_right">
-          {/* <div className="box-scoring">
-            <div className="title-scoring">
-              <p>Teen nguoi lam contest</p>
-            </div>
-            <div className="form-Point">
-              <form action="">
-                <label>Điểm</label>
-                <input type="text" />
-                <label>Nhận xét</label>
-                <input type="text" />
-                <div className="btn-Point">
-                  <button>Huỷ</button>
-                  <button>Xác nhận</button>
-                </div>
-              </form>
-            </div>
-          </div> */}
           <div className="AdminContestResults_right--banner">
             <div className="logo-banner"></div>
             <div className="title-banner">
@@ -120,8 +138,12 @@ const AdminContestResults = () => {
                                       <input
                                         type="text"
                                         className="point"
+                                        name="score"
+                                        value={formik.values.score}
+                                        onChange={formik.handleChange}
                                         placeholder="Điểm"
                                       />
+
                                       <button
                                         type="submit"
                                         className="btn-form-Scoring"
@@ -136,13 +158,22 @@ const AdminContestResults = () => {
                                         <GoX />
                                       </button>
                                     </div>
+                                    <p className="validate">
+                                      {formik.errors.score}
+                                    </p>
                                     <div className="form-bottom">
                                       <input
                                         type="text"
                                         className="Comment"
+                                        name="resultSummary"
+                                        value={formik.values.resultSummary}
+                                        onChange={formik.handleChange}
                                         placeholder="Nhận xét"
                                       />
                                     </div>
+                                    <p className="validate">
+                                      {formik.errors.resultSummary}
+                                    </p>
                                   </form>
                                 </div>
                               )}

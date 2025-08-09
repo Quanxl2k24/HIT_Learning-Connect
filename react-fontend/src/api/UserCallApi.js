@@ -549,6 +549,16 @@ const AdminGetSubmissionByContestIdApi = async (contestId, token) => {
   );
 };
 
+const AdminScoringSubmissionApi = async (submissionId, dataScoring, token) => {
+  console.log(submissionId, dataScoring);
+
+  return Api.post(`/api/contests/scoring/${submissionId}`, dataScoring, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export {
   LoginApi,
   ForgotPassword,
@@ -613,4 +623,5 @@ export {
   // Storage APIs
   StorageUploadFileApi,
   AdminGetSubmissionByContestIdApi,
+  AdminScoringSubmissionApi,
 };

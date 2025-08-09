@@ -160,8 +160,8 @@ const AdminContest = () => {
                       <tr>
                         <th>ID</th>
                         <th>Tên Contest</th>
-                        <th>Thời gian bắt đầu</th>
-                        <th>Thời gian kết thúc</th>
+                        <th>Thời gian</th>
+                        {/* <th>Thời gian kết thúc</th> */}
                         <th>Trạng Thái</th>
                         <th>Hành động</th>
                       </tr>
@@ -181,8 +181,10 @@ const AdminContest = () => {
                                 {item.title}
                               </button>
                             </td>
-                            <td>{item.startTime}</td>
-                            <td>{item.endTime}</td>
+                            <td>
+                              {item.startTime} - {item.endTime}
+                            </td>
+                            {/* <td></td> */}
                             <td className="status-contest">
                               {item.status == "Has Ended" ? (
                                 <p className="contest-status-completed">
@@ -231,7 +233,7 @@ const AdminContest = () => {
                                     )
                                   }
                                 >
-                                  Xem kết quả
+                                  Kết quả
                                 </button>
                               </div>
                             </td>
