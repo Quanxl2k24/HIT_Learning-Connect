@@ -17,10 +17,13 @@ import BoxConfirmDelete from "../../components/BoxConfrimDelete/BoxConfirmDelete
 import {
   fetchAllBlogs,
   searchBlogsByTag,
+  searchBlogsByKeyword,
   deleteBlog,
   clearErrors,
   loadCachedData,
+  fetchMultipleReactionStats,
 } from "../../redux/blog/blogActions";
+import { fetchUser } from "../../redux/user/userActions";
 import { getRelativeTime, truncateText } from "../../utlis/blogUtils";
 import useDebounce from "../../hooks/useDebounce";
 import "./BlogList.scss";
@@ -39,13 +42,23 @@ const BlogList = () => {
     success,
     searchResults,
     isSearching,
+    reactionStats,
   } = useSelector((state) => state.blog);
 
   const profileUser = useSelector((state) => state.user.profile);
-  const isAdmin = profileUser?.roleName !== "ROLE_USER";
+  // Fix admin check - if profile is not loaded yet, assume not admin
+  const isAdmin =
+    profileUser && profileUser.roleName && profileUser.roleName !== "ROLE_USER";
+
+  // Debug logging
+  console.log("BlogList - profileUser:", profileUser);
+  console.log("BlogList - roleName:", profileUser?.roleName);
+  console.log("BlogList - isAdmin:", isAdmin);
+  console.log("BlogList - deleteLoading:", deleteLoading);
 
   // Local state
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchType, setSearchType] = useState("tag"); // "tag" or "keyword"
   const [currentPageState, setCurrentPageState] = useState(0);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const [blogToDelete, setBlogToDelete] = useState(null);
@@ -62,6 +75,13 @@ const BlogList = () => {
   // Only show loading when we have no data at all AND we're actually loading
   const showLoading = (loading || isSearching) && currentList.length === 0;
   const isLoading = loading || isSearching;
+
+  useEffect(() => {
+    // Load user profile if not already loaded
+    if (!profileUser) {
+      dispatch(fetchUser());
+    }
+  }, [dispatch, profileUser]);
 
   useEffect(() => {
     // Load cached data first for immediate UI
@@ -94,6 +114,15 @@ const BlogList = () => {
   }, [dispatch, currentPageState, isInitialLoad, blogList.length]);
 
   useEffect(() => {
+    // Load reaction stats when blogs are loaded
+    if (currentList && currentList.length > 0) {
+      const blogIds = currentList.map((blog) => blog.blogId);
+      console.log("Loading reaction stats for blogs:", blogIds);
+      dispatch(fetchMultipleReactionStats(blogIds));
+    }
+  }, [currentList, dispatch]);
+
+  useEffect(() => {
     // Handle search
     if (debouncedSearchQuery.trim()) {
       const params = {
@@ -101,9 +130,16 @@ const BlogList = () => {
         size: 50,
         sort: "blogId,desc",
       };
-      dispatch(searchBlogsByTag(debouncedSearchQuery.trim(), params));
+
+      if (searchType === "keyword") {
+        console.log("Performing keyword search:", debouncedSearchQuery.trim());
+        dispatch(searchBlogsByKeyword(debouncedSearchQuery.trim(), params));
+      } else {
+        console.log("Performing tag search:", debouncedSearchQuery.trim());
+        dispatch(searchBlogsByTag(debouncedSearchQuery.trim(), params));
+      }
     }
-  }, [debouncedSearchQuery, dispatch]);
+  }, [debouncedSearchQuery, searchType, dispatch]);
 
   useEffect(() => {
     // Only show success for delete operations
@@ -153,25 +189,107 @@ const BlogList = () => {
     navigate(`/Blog/${blogId}/Edit`);
   };
 
-  const handleDeleteClick = (blog) => {
-    setBlogToDelete(blog);
-    setShowConfirmDelete(true);
+  const handleDirectDelete = async (blog) => {
+    console.log("=== HANDLE DIRECT DELETE START ===");
+    console.log("Deleting blog directly:", blog);
+    console.log("Blog.blogId:", blog?.blogId);
+    console.log("Blog.blogId type:", typeof blog?.blogId);
+
+    // Validate blog and blogId
+    if (
+      !blog ||
+      !blog.blogId ||
+      blog.blogId === "undefined" ||
+      blog.blogId === "null"
+    ) {
+      console.error("Invalid blog or blogId:", blog);
+      setShowNotification(false);
+      setTimeout(() => {
+        setNotificationText("ID bài viết không hợp lệ!");
+        setNotificationStatus("error");
+        setShowNotification(true);
+      }, 100);
+      return;
+    }
+
+    try {
+      const result = await dispatch(deleteBlog(blog.blogId));
+      console.log("=== DELETE RESULT RECEIVED ===");
+      console.log("Full result object:", result);
+      console.log("result.success:", result?.success);
+      console.log("result.error:", result?.error);
+
+      // Clear any existing notifications first
+      setShowNotification(false);
+      setTimeout(() => {
+        if (result && result.success) {
+          console.log("Delete successful - showing success notification");
+          setNotificationText("Xóa bài viết thành công!");
+          setNotificationStatus("success");
+          setShowNotification(true);
+          // Refresh current page
+          const params = {
+            page: currentPageState,
+            size: 12,
+            sort: "blogId,desc", // Ensure sort has valid default value
+          };
+          console.log("Refresh params after delete:", params);
+          if (searchQuery.trim()) {
+            dispatch(searchBlogsByTag(searchQuery.trim(), params));
+          } else {
+            dispatch(fetchAllBlogs(params));
+          }
+        } else {
+          console.error("=== DELETE FAILED ===");
+          console.error("Full result:", result);
+          const errorMessage = result?.error || "Xóa bài viết thất bại!";
+          console.error("Error message to show:", errorMessage);
+          setNotificationText(errorMessage);
+          setNotificationStatus("error");
+          setShowNotification(true);
+        }
+      }, 100); // Small delay to ensure state clears
+    } catch (error) {
+      console.error("=== DELETE CATCH ERROR ===");
+      console.error("Caught error:", error);
+      setShowNotification(false);
+      setTimeout(() => {
+        setNotificationText("Có lỗi xảy ra khi xóa bài viết!");
+        setNotificationStatus("error");
+        setShowNotification(true);
+      }, 100);
+    }
   };
 
   const handleConfirmDelete = async () => {
     if (blogToDelete) {
-      const result = await dispatch(deleteBlog(blogToDelete.blogId));
-      if (result.success) {
-        setNotificationText("Xóa bài viết thành công!");
-        setNotificationStatus("success");
+      console.log("Deleting blog:", blogToDelete);
+      try {
+        const result = await dispatch(deleteBlog(blogToDelete.blogId));
+        console.log("Delete result:", result);
+
+        if (result.success) {
+          setNotificationText("Xóa bài viết thành công!");
+          setNotificationStatus("success");
+          setShowNotification(true);
+          // Refresh current page
+          const params = {
+            page: currentPageState,
+            size: 12,
+            sort: "blogId,desc",
+          };
+          dispatch(fetchAllBlogs(params));
+        } else {
+          console.error("Delete failed:", result.error);
+          setNotificationText(result.error || "Xóa bài viết thất bại!");
+          setNotificationStatus("error");
+          setShowNotification(true);
+        }
+      } catch (error) {
+        console.error("Delete error:", error);
+        setNotificationText("Có lỗi xảy ra khi xóa bài viết!");
+        setNotificationStatus("error");
         setShowNotification(true);
-        // Refresh current page
-        const params = {
-          page: currentPageState,
-          size: 12,
-          sort: "blogId,desc",
-        };
-        dispatch(fetchAllBlogs(params));
       }
     }
     setShowConfirmDelete(false);
@@ -250,6 +368,82 @@ const BlogList = () => {
     );
   };
 
+  // Check if current user can edit/delete this blog
+  const canEditBlog = (blog) => {
+    console.log("=== canEditBlog DEBUG ===");
+    console.log("profileUser:", profileUser);
+    console.log("blog:", blog);
+
+    if (!profileUser) {
+      console.log("canEditBlog: No profile user - returning false");
+      return false;
+    }
+
+    // Log the exact values
+    console.log("EXACT VALUES:");
+    console.log("blog.author:", JSON.stringify(blog.author));
+    console.log("profileUser.username:", JSON.stringify(profileUser.username));
+    console.log("profileUser.fullName:", JSON.stringify(profileUser.fullName));
+    console.log(
+      "blog.author === profileUser.fullName:",
+      blog.author === profileUser.fullName
+    );
+    console.log("isAdmin:", isAdmin);
+
+    console.log("canEditBlog detailed check:", {
+      blogTitle: blog.title,
+      blogAuthor: blog.author,
+      blogAuthorType: typeof blog.author,
+      currentUser: profileUser.username,
+      currentUserFullName: profileUser.fullName,
+      isAdmin,
+      authorMatchUsername: blog.author === profileUser.username,
+      authorMatchFullName: blog.author === profileUser.fullName,
+      finalResult: isAdmin || blog.author === profileUser.fullName,
+    });
+
+    // Admin can edit all blogs, or user can edit their own blogs (compare with fullName)
+    const canEdit = isAdmin || blog.author === profileUser.fullName;
+    console.log("canEditBlog final result:", canEdit);
+    return canEdit;
+  };
+
+  // Function to render reaction stats
+  const renderReactionStats = (blogId) => {
+    const stats = reactionStats[blogId];
+    if (!stats) return null;
+
+    const totalReactions =
+      (stats.like || 0) +
+      (stats.love || 0) +
+      (stats.haha || 0) +
+      (stats.wow || 0) +
+      (stats.sad || 0) +
+      (stats.angry || 0);
+
+    if (totalReactions === 0) return null;
+
+    return (
+      <div className="blog-reactions">
+        {stats.like > 0 && (
+          <span className="reaction-item">👍 {stats.like}</span>
+        )}
+        {stats.love > 0 && (
+          <span className="reaction-item">❤️ {stats.love}</span>
+        )}
+        {stats.haha > 0 && (
+          <span className="reaction-item">😄 {stats.haha}</span>
+        )}
+        {stats.wow > 0 && <span className="reaction-item">😲 {stats.wow}</span>}
+        {stats.sad > 0 && <span className="reaction-item">😢 {stats.sad}</span>}
+        {stats.angry > 0 && (
+          <span className="reaction-item">😡 {stats.angry}</span>
+        )}
+        <span className="total-reactions">({totalReactions} reactions)</span>
+      </div>
+    );
+  };
+
   const renderBlogCard = (blog) => (
     <div key={blog.blogId} className="blog-card">
       <div className="blog-card-header">
@@ -264,7 +458,7 @@ const BlogList = () => {
           >
             <FiEye />
           </button>
-          {isAdmin && (
+          {canEditBlog(blog) && (
             <>
               <button
                 onClick={() => handleEditBlog(blog.blogId)}
@@ -274,9 +468,27 @@ const BlogList = () => {
                 <FiEdit />
               </button>
               <button
-                onClick={() => handleDeleteClick(blog)}
+                onClick={(e) => {
+                  console.log("=== DELETE BUTTON CLICKED ===");
+                  console.log("Event:", e);
+                  console.log("Blog:", blog);
+                  e.preventDefault();
+                  e.stopPropagation();
+
+                  // Show confirmation dialog
+                  const confirmDelete = window.confirm(
+                    "Bạn có chắc chắn muốn xóa bài viết này không?"
+                  );
+                  if (!confirmDelete) {
+                    console.log("User cancelled delete");
+                    return;
+                  }
+
+                  // Proceed with delete
+                  handleDirectDelete(blog);
+                }}
                 className="action-btn delete-btn"
-                title="Xóa"
+                title="Xóa bài viết"
                 disabled={deleteLoading}
               >
                 <FiTrash2 />
@@ -319,6 +531,8 @@ const BlogList = () => {
           <span className="file-indicator">📎 Có file đính kèm</span>
         </div>
       )}
+
+      {renderReactionStats(blog.blogId)}
     </div>
   );
 
@@ -335,11 +549,37 @@ const BlogList = () => {
 
             <div className="header-actions">
               <div className="search-container">
+                <div className="search-type-selector">
+                  <label className="search-type-option">
+                    <input
+                      type="radio"
+                      name="searchType"
+                      value="tag"
+                      checked={searchType === "tag"}
+                      onChange={(e) => setSearchType(e.target.value)}
+                    />
+                    <span>Tìm theo tag</span>
+                  </label>
+                  <label className="search-type-option">
+                    <input
+                      type="radio"
+                      name="searchType"
+                      value="keyword"
+                      checked={searchType === "keyword"}
+                      onChange={(e) => setSearchType(e.target.value)}
+                    />
+                    <span>Tìm từ khóa</span>
+                  </label>
+                </div>
                 <div className="search-input-wrapper">
                   <FiSearch className="search-icon" />
                   <input
                     type="text"
-                    placeholder="Tìm kiếm theo tag..."
+                    placeholder={
+                      searchType === "keyword"
+                        ? "Tìm kiếm trong tiêu đề và nội dung..."
+                        : "Tìm kiếm theo tag..."
+                    }
                     value={searchQuery}
                     onChange={handleSearchChange}
                     className="search-input"
@@ -352,7 +592,8 @@ const BlogList = () => {
                 </div>
                 {searchQuery && (
                   <div className="search-info">
-                    Tìm kiếm: "{searchQuery}" • {currentList.length} kết quả
+                    Tìm kiếm {searchType === "keyword" ? "từ khóa" : "tag"}: "
+                    {searchQuery}" • {currentList.length} kết quả
                   </div>
                 )}
               </div>
@@ -370,7 +611,11 @@ const BlogList = () => {
               <div className="empty">
                 {searchQuery ? (
                   <>
-                    <p>Không tìm thấy bài viết nào với tag "{searchQuery}"</p>
+                    <p>
+                      Không tìm thấy bài viết nào với{" "}
+                      {searchType === "keyword" ? "từ khóa" : "tag"} "
+                      {searchQuery}"
+                    </p>
                     <button onClick={clearSearch} className="clear-search-btn">
                       Xem tất cả bài viết
                     </button>

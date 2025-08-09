@@ -48,6 +48,11 @@ const BlogCreate = () => {
     },
     validationSchema: blogCreateSchema,
     onSubmit: async (values) => {
+      console.log("=== BLOG CREATE SUBMIT START ===");
+      console.log("Form values:", values);
+      console.log("Valid tags:", validTags);
+      console.log("Uploaded file:", uploadedFile);
+
       setIsSubmitting(true);
 
       try {
@@ -55,10 +60,16 @@ const BlogCreate = () => {
           ...values,
           tags: validTags.join(" "), // Convert tags array to space-separated string
         };
+        console.log("Final blog data:", blogData);
 
         const result = await dispatch(createBlog(blogData));
+        console.log("=== CREATE BLOG RESULT ===");
+        console.log("Result:", result);
+        console.log("Result.success:", result?.success);
+        console.log("Result.error:", result?.error);
 
-        if (result.success) {
+        if (result && result.success) {
+          console.log("Blog created successfully");
           setNotificationText("Tạo bài viết thành công!");
           setNotificationStatus("success");
           setShowNotification(true);
@@ -68,7 +79,9 @@ const BlogCreate = () => {
             navigate("/Blog");
           }, 1500);
         } else {
-          setNotificationText(result.error || "Tạo bài viết thất bại!");
+          console.log("Blog creation failed:", result?.error);
+          const errorMessage = result?.error || "Tạo bài viết thất bại!";
+          setNotificationText(errorMessage);
           setNotificationStatus("error");
           setShowNotification(true);
         }

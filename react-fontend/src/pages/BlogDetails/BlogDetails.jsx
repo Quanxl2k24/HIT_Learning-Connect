@@ -30,6 +30,7 @@ import {
   fetchMyReaction,
   clearErrors,
 } from "../../redux/blog/blogActions";
+import { fetchUser } from "../../redux/user/userActions";
 import {
   formatDate,
   getRelativeTime,
@@ -46,6 +47,10 @@ const BlogDetails = () => {
   const navigate = useNavigate();
   const { blogId } = useParams();
   const dispatch = useDispatch();
+
+  // Debug URL params
+  console.log("URL params blogId:", blogId);
+  console.log("URL params blogId type:", typeof blogId);
 
   // Redux state
   const {
@@ -139,12 +144,31 @@ const BlogDetails = () => {
       return;
     }
 
+    // Ensure user profile is loaded
+    if (!profileUser) {
+      dispatch(fetchUser());
+    }
+
     // Load initial data
     dispatch(fetchBlogById(blogId, false));
     dispatch(fetchCommentsByBlogId(blogId));
     dispatch(fetchReactionStats(blogId));
     dispatch(fetchMyReaction(blogId));
-  }, [dispatch, blogId, navigate]); // Simplified dependencies
+  }, [dispatch, blogId, navigate, profileUser]); // Added profileUser to dependencies
+
+  // Debug permission checking
+  useEffect(() => {
+    console.log("=== PERMISSION DEBUG ===");
+    console.log("ProfileUser:", profileUser);
+    console.log("CurrentBlog:", currentBlog);
+    console.log("CurrentBlog.author:", currentBlog?.author);
+    console.log("IsAdmin:", isAdmin);
+    console.log(
+      "Can edit/delete?",
+      isAdmin || currentBlog?.author === profileUser?.username
+    );
+    console.log("ShowDeleteBlog state:", showDeleteBlog);
+  }, [profileUser, currentBlog, isAdmin, showDeleteBlog]);
 
   useEffect(() => {
     if (editingComment) {
@@ -186,15 +210,59 @@ const BlogDetails = () => {
   };
 
   const handleDeleteBlog = async () => {
-    const result = await dispatch(deleteBlog(blogId));
-    if (result.success) {
-      setNotificationText("Xóa bài viết thành công!");
-      setNotificationStatus("success");
+    console.log("=== DELETE BLOG DEBUG START ===");
+    console.log("BlogId:", blogId);
+    console.log("BlogId type:", typeof blogId);
+    console.log("ProfileUser:", profileUser);
+    console.log("IsAdmin:", isAdmin);
+    console.log("CurrentBlog author:", currentBlog?.author);
+    console.log(
+      "Can delete?",
+      isAdmin || currentBlog?.author === profileUser?.username
+    );
+
+    // Validate blogId
+    if (!blogId || blogId === "undefined" || blogId === "null") {
+      console.error("Invalid blogId:", blogId);
+      setNotificationText("ID bài viết không hợp lệ!");
+      setNotificationStatus("error");
       setShowNotification(true);
-      setTimeout(() => {
-        navigate("/Blog");
-      }, 1500);
+      setShowDeleteBlog(false);
+      return;
     }
+
+    try {
+      const result = await dispatch(deleteBlog(blogId));
+      console.log("=== DELETE RESULT RECEIVED ===");
+      console.log("Full result object:", result);
+      console.log("result.success:", result?.success);
+      console.log("result.error:", result?.error);
+
+      if (result && result.success) {
+        console.log("Delete successful - showing success notification");
+        setNotificationText("Xóa bài viết thành công!");
+        setNotificationStatus("success");
+        setShowNotification(true);
+        setTimeout(() => {
+          navigate("/Blog");
+        }, 1500);
+      } else {
+        console.error("=== DELETE FAILED ===");
+        console.error("Full result:", result);
+        const errorMessage = result?.error || "Xóa bài viết thất bại!";
+        console.error("Error message to show:", errorMessage);
+        setNotificationText(errorMessage);
+        setNotificationStatus("error");
+        setShowNotification(true);
+      }
+    } catch (error) {
+      console.error("=== DELETE CATCH ERROR ===");
+      console.error("Caught error:", error);
+      setNotificationText("Có lỗi xảy ra khi xóa bài viết!");
+      setNotificationStatus("error");
+      setShowNotification(true);
+    }
+
     setShowDeleteBlog(false);
   };
 
@@ -330,20 +398,24 @@ const BlogDetails = () => {
               <FiArrowLeft /> Quay lại
             </button>
 
-            {/* {(isAdmin || currentBlog.author === profileUser?.username) && (
+            {(isAdmin || currentBlog.author === profileUser?.username) && (
               <div className="blog-actions">
                 <button onClick={handleEdit} className="action-btn edit-btn">
                   <FiEdit /> Chỉnh sửa
                 </button>
                 <button
-                  onClick={() => setShowDeleteBlog(true)}
+                  onClick={() => {
+                    console.log("=== DELETE BUTTON CLICKED ===");
+                    console.log("Showing delete confirmation");
+                    setShowDeleteBlog(true);
+                  }}
                   className="action-btn delete-btn"
                   disabled={deleteLoading}
                 >
                   <FiTrash2 /> Xóa
                 </button>
               </div>
-            )} */}
+            )}
           </div>
 
           <div className="content-conatiner">
