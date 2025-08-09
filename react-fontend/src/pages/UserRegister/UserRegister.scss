@@ -15,6 +15,8 @@
     padding-left: 20%;
 
     &--banner {
+      position: fixed;
+      width: 100%;
       @include style.flex(none, center);
       padding: 16px 32px;
       gap: 16px;
@@ -39,6 +41,7 @@
       }
 
       .list-class {
+        padding-top: 4rem;
         display: grid;
         grid-template-columns: repeat(4, 20%);
         gap: 7rem 3rem;

@@ -567,6 +567,18 @@ const AdminGetAllTotal = async (token) => {
   });
 };
 
+const UserGetSubmissionApi = async (contestId, token) => {
+  return Api.post(
+    `/api/v1/contest/submission/${contestId}`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
 export {
   LoginApi,
   ForgotPassword,
@@ -634,4 +646,6 @@ export {
   AdminScoringSubmissionApi,
   //lay total
   AdminGetAllTotal,
+  //lay submission ben user
+  UserGetSubmissionApi,
 };
