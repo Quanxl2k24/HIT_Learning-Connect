@@ -114,7 +114,7 @@
           }
           .table-box-contest {
             overflow-x: auto;
-            max-height: 32rem;
+            max-height: 30rem;
             overflow-y: auto;
 
             table {
@@ -131,7 +131,7 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                text-align: left;
+                text-align: center;
                 padding: 6px 14px;
               }
               th {
@@ -142,12 +142,12 @@
                 color: #4b5563;
                 font-weight: 400;
                 background-color: #f9fafb;
-                text-align: left;
+                text-align: center;
                 padding: 12px;
               }
 
               .btn-details {
-                text-align: left;
+                text-align: center;
                 background-color: white;
                 border: none;
                 font-size: 16px;
@@ -177,6 +177,15 @@
                 border-radius: 12px;
                 text-align: center;
                 color: white;
+              }
+              td.status-contest {
+                vertical-align: middle;
+                text-align: center;
+              }
+
+              .status-contest p {
+                display: inline-block;
+                margin: 0;
               }
             }
 

@@ -135,7 +135,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            text-align: left;
+            text-align: center;
             padding: 6px 14px;
           }
           th {
@@ -146,7 +146,7 @@
             color: #4b5563;
             font-weight: 400;
             background-color: #f9fafb;
-            text-align: left;
+            text-align: center;
             padding: 12px;
           }
           .status-class-accpet {
@@ -178,6 +178,10 @@
             p {
               color: #fdfdfd;
             }
+          }
+          .status-register {
+            display: flex;
+            justify-content: center;
           }
         }
       }

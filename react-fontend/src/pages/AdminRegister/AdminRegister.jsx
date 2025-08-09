@@ -146,11 +146,6 @@ const AdminRegister = () => {
 
                 <div className="but-box">
                   <button className="but-add">Tìm kiếm</button>
-                  {/* <Link to="#" className="Link">
-                    <button className="but-add">
-                      <span>+ </span> Thêm
-                    </button>
-                  </Link> */}
                 </div>
               </div>
 
@@ -174,7 +169,7 @@ const AdminRegister = () => {
                           <td>{item.classTitle}</td>
                           <td>{item.registeredAt}</td>
                           <td>{item.studentEmail}</td>
-                          <td>
+                          <td className="status-register">
                             {item.registrationStatus === "ACCEPTED" ? (
                               <div className="status-class-accpet">
                                 <p>Đã duyệt</p>
