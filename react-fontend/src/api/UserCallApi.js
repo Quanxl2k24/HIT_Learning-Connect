@@ -1,4 +1,4 @@
-import { height } from "@fortawesome/free-solid-svg-icons/fa0";
+// import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 import Api from "./authApi";
 
 const LoginApi = async (logindata) => {
@@ -386,7 +386,6 @@ const UserSubmitContest = async (contestId, urlFile, token) => {
   });
 };
 
-
 // ==================== BLOG API ====================
 
 const BlogCreateApi = async (blogData, token) => {
@@ -536,6 +535,7 @@ const StorageUploadFileApi = async (file, token) => {
       Authorization: `Bearer ${token}`,
     },
   });
+};
 
 const AdminGetSubmissionByContestIdApi = async (contestId, token) => {
   return Api.post(
@@ -547,7 +547,6 @@ const AdminGetSubmissionByContestIdApi = async (contestId, token) => {
       },
     }
   );
-
 };
 
 export {
@@ -613,7 +612,5 @@ export {
   ReactionGetMyReactionApi,
   // Storage APIs
   StorageUploadFileApi,
-
   AdminGetSubmissionByContestIdApi,
-
 };
