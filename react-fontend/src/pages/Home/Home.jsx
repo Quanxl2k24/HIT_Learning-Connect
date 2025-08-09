@@ -13,7 +13,6 @@ const Home = () => {
   const getallclassaccpet = useGetAllClassAccpet();
   const fetchdata = async () => {
     const res = await getallclassaccpet();
-
     setData(res?.data?.data?.content);
   };
 

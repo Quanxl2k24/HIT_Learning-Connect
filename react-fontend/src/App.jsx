@@ -42,6 +42,7 @@ import BlogDetails from "./pages/BlogDetails/BlogDetails";
 import BlogEdit from "./pages/BlogEdit/BlogEdit";
 
 import UserContestResult from "./pages/UserContestResult/UserContestResult";
+import AdminHome from "./pages/AdminHome/AdminHome";
 
 function App() {
   const dispatch = useDispatch();
@@ -125,6 +126,7 @@ function App() {
         <Route path="/Blog/:blogId/Edit" element={<BlogEdit />} />
 
         <Route path="User/Contest/Result" element={<UserContestResult />} />
+        <Route path="/Admin/Home" element={<AdminHome />} />
       </Routes>
     </>
   );
