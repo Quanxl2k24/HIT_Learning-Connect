@@ -93,6 +93,14 @@ const UserContest = () => {
                             )}
                           </div>
                           <div className="btn-contest-details">
+                            <button
+                              className="btn-result"
+                              onClick={() =>
+                                handleChangePageResult(item.contestId)
+                              }
+                            >
+                              Xem kết quả
+                            </button>
                             {item.hasJoined &&
                               item.status !== "Upcoming" &&
                               (item.status == "Has Ended" ? (

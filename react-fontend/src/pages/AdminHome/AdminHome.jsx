@@ -71,7 +71,7 @@ const AdminHome = () => {
                   </div>
                   <div className="text-box">
                     <h1>{data.totalAdmin}</h1>
-                    <p>Tổng số lớp học</p>
+                    <p>Tổng số Admin</p>
                   </div>
                 </div>
               </div>
