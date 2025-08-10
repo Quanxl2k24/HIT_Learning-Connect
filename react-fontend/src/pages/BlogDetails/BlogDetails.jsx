@@ -70,6 +70,14 @@ const BlogDetails = () => {
   console.log("Component comments state:", comments);
   console.log("Component totalComments:", totalComments);
   console.log("Component commentsLoading:", commentsLoading);
+  console.log("=== REACTIONS DEBUG ===");
+  console.log("blogId:", blogId);
+  console.log("reactionStats:", reactionStats);
+  console.log("reactionStats[blogId]:", reactionStats[blogId]);
+  console.log("myReactions:", myReactions);
+  console.log("myReactions[blogId]:", myReactions[blogId]);
+  console.log("reactionsLoading:", reactionsLoading);
+  console.log("======================");
 
   const profileUser = useSelector((state) => state.user.profile);
   const isAdmin = profileUser?.roleName !== "ROLE_USER";
@@ -385,6 +393,20 @@ const BlogDetails = () => {
   const myReaction = myReactions[blogId];
   const reactionTypes = ["LIKE", "LOVE", "HAHA", "WOW", "SAD", "ANGRY"];
 
+  // Convert uppercase reaction types to lowercase for API compatibility
+  const getReactionCount = (type) => {
+    const lowerType = type.toLowerCase();
+    const count = blogReactionStats[lowerType] || 0;
+    console.log(`getReactionCount(${type}) -> ${lowerType} = ${count}`);
+    return count;
+  };
+
+  // Debug full reaction stats
+  console.log(
+    "Full blogReactionStats:",
+    JSON.stringify(blogReactionStats, null, 2)
+  );
+
   return (
     <div className="blog-details-container">
       <div className="blog-details">
@@ -514,7 +536,7 @@ const BlogDetails = () => {
                     >
                       {getReactionEmoji(type)}
                       <span className="reaction-count">
-                        {blogReactionStats[type] || 0}
+                        {getReactionCount(type)}
                       </span>
                     </button>
                   ))}

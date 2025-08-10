@@ -28,6 +28,10 @@ const ChangePasswordApi = async (passwordNew) => {
   );
 };
 
+const VerifyCodeAndChangePasswordApi = async (verifyData) => {
+  return await Api.post("/api/v1/auth/verify-code", verifyData);
+};
+
 const UpdateUserByUserApi = async (dataUpdate, token) => {
   return await Api.put("/api/v1/users/profile/update", dataUpdate, {
     headers: {
@@ -651,6 +655,7 @@ export {
   ForgotPassword,
   ProfileUser,
   ChangePasswordApi,
+  VerifyCodeAndChangePasswordApi,
   UpdateUserByUserApi,
   CreateUserByAdminApi,
   GetAllUserApi,
