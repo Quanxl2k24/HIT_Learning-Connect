@@ -51,7 +51,7 @@ const UserClassRegisterDetail = () => {
           </div>
         </div>
         <div className="box-container">
-          <div className="detail-box">
+          <div className="detail-box-class">
             <div className="title-box">
               <h3>Chi tiết lớp học</h3>
             </div>
@@ -81,12 +81,12 @@ const UserClassRegisterDetail = () => {
 
               <div className="form-group">
                 <label>Trạng thái</label>
-                <input type="text" value={"Thieu api"} readOnly />
+                <input type="text" value={data.status} readOnly />
               </div>
 
               <div className="form-group">
                 <label>Nội dung</label>
-                <textarea rows="4" value={data.description} readOnly />
+                <input value={data.description} readOnly />
               </div>
               <div className="btn">
                 <button
